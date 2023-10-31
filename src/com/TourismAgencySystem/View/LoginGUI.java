@@ -42,9 +42,9 @@ public class LoginGUI extends JFrame {
                             case "admin":
                                 AdminGUI adminGUI = new AdminGUI((Admin) u);
                                 break;
-//                            case "employee":
-//                                EmployeeGUI employeeGUI = new Employee((Employee) u);
-//                                break;
+                            case "employee":
+                                EmployeeGUI employeeGUI = new EmployeeGUI ((Employee) u);
+                                break;
                         }
                         dispose();
                     }
