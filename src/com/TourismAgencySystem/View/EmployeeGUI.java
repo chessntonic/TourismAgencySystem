@@ -8,6 +8,12 @@ import javax.swing.*;
 
 public class EmployeeGUI extends JFrame{
     private JPanel wrapper;
+    private JTabbedPane tabbedPane1;
+    private JTabbedPane tabbedPane2;
+    private JLabel labelWelcome;
+    private JTabbedPane tabbedPane3;
+    private JTabbedPane tabbedPane4;
+    private JTable table1;
     private Employee employee;
 
     public EmployeeGUI(Employee employee) {
