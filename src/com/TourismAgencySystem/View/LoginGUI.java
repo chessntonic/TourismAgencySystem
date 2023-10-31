@@ -4,6 +4,13 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import com.TourismAgencySystem.Helper.*;
+import com.TourismAgencySystem.Model.Admin;
+import com.TourismAgencySystem.Model.Employee;
+import com.TourismAgencySystem.Model.User;
+import com.TourismAgencySystem.Model.UserOp;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LoginGUI extends JFrame {
     private JPanel wtop;
@@ -21,5 +28,33 @@ public class LoginGUI extends JFrame {
         setTitle(Config.PROJECT_TITLE);
         setResizable(false);
         setVisible(true);
+        buttonLogin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (Helper.isFieldEmpty(fieldUsername) || Helper.isFieldEmpty(fieldPassword)) {
+                    Helper.showMessage("fill");
+                } else {
+                    User u = UserOp.getFetch(fieldUsername.getText(), fieldPassword.getText());
+                    if (u == null) {
+                        Helper.showMessage("User not found");
+                    } else {
+                        switch (u.getType()) {
+                            case "admin":
+                                AdminGUI adminGUI = new AdminGUI((Admin) u);
+                                break;
+//                            case "employee":
+//                                EmployeeGUI employeeGUI = new Employee((Employee) u);
+//                                break;
+                        }
+                        dispose();
+                    }
+                }
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        Helper.setLayout();
+        LoginGUI loginGUI = new LoginGUI();
     }
 }
