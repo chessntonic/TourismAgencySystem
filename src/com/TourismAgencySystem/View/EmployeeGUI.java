@@ -14,6 +14,7 @@ public class EmployeeGUI extends JFrame{
     private JTabbedPane tabbedPane3;
     private JTabbedPane tabbedPane4;
     private JTable table1;
+    private JTable table2;
     private Employee employee;
 
     public EmployeeGUI(Employee employee) {
