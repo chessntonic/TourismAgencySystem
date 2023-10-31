@@ -14,6 +14,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class AdminGUI extends JFrame {
     private JPanel wrapper;
@@ -134,9 +135,23 @@ public class AdminGUI extends JFrame {
                             Helper.showMessage("done");
                             loadUserModel();
                             fieldUserId.setText(null);
+                        } else {
+                            Helper.showMessage("error");
                         }
                     }
                 }
+            }
+        });
+        buttonSearch.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String name = fieldSearchUserFullname.getText();
+                String username= fieldSearchUserUsername.getText();
+                String type= comboSearchUserType.getSelectedItem().toString();
+                String query=AdminOp.searchQuery(name,username,type);
+
+                ArrayList<User> searchUser = AdminOp.searchUserList(query);
+                loadUserModel(searchUser);
             }
         });
     }
@@ -147,6 +162,19 @@ public class AdminGUI extends JFrame {
         int i;
         for (User obj : AdminOp.getList()) {
             i=0;
+            rowUserList[i++] = obj.getId();
+            rowUserList[i++] = obj.getName();
+            rowUserList[i++] = obj.getUsername();
+            rowUserList[i++] = obj.getPassword();
+            rowUserList[i++] = obj.getType();
+            modelUserList.addRow(rowUserList);
+        }
+    }
+    public void loadUserModel(ArrayList<User> list) {
+        DefaultTableModel clearModel = (DefaultTableModel) tableUserList.getModel();
+        clearModel.setRowCount(0);
+        for (User obj : list) {
+            int i = 0;
             rowUserList[i++] = obj.getId();
             rowUserList[i++] = obj.getName();
             rowUserList[i++] = obj.getUsername();
