@@ -10,20 +10,16 @@ import java.util.ArrayList;
 public class User {
     private int id;
     private String name;
-    private String uName;
-    private String pass;
+    private String username;
+    private String password;
     private String type;
 
-    public User(int id, String name, String uName, String pass, String type) {
+    public User(int id, String name, String username, String password, String type) {
         this.id = id;
         this.name = name;
-        this.uName = uName;
-        this.pass = pass;
+        this.username = username;
+        this.password = password;
         this.type = type;
-    }
-
-    public User() {
-
     }
 
     public int getId() {
@@ -42,20 +38,20 @@ public class User {
         this.name = name;
     }
 
-    public String getuName() {
-        return uName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setuName(String uName) {
-        this.uName = uName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getPass() {
-        return pass;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getType() {
@@ -66,25 +62,7 @@ public class User {
         this.type = type;
     }
 
-    public static ArrayList<User> getList() {
-        ArrayList<User> userList = new ArrayList<>();
-        String query = "SELECT * FROM user";
-        User obj;
-        try {
-            Statement st = DBConnector.getInstance().createStatement();
-            ResultSet rs = st.executeQuery(query);
-            while (rs.next()) {
-                obj = new User();
-                obj.setId(rs.getInt("id"));
-                obj.setName(rs.getString("name"));
-                obj.setuName(rs.getString("uname"));
-                obj.setPass(rs.getString("pass"));
-                obj.setType(rs.getString("type"));
-                userList.add(obj);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return userList;
+    public User() {
+
     }
 }
