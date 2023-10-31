@@ -11,6 +11,8 @@ import com.TourismAgencySystem.Model.UserOp;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class LoginGUI extends JFrame {
     private JPanel wtop;
@@ -43,10 +45,62 @@ public class LoginGUI extends JFrame {
                                 AdminGUI adminGUI = new AdminGUI((Admin) u);
                                 break;
                             case "employee":
-                                EmployeeGUI employeeGUI = new EmployeeGUI ((Employee) u);
+                                EmployeeGUI employeeGUI = new EmployeeGUI((Employee) u);
                                 break;
                         }
                         dispose();
+                    }
+                }
+            }
+        });
+        fieldPassword.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    if (Helper.isFieldEmpty(fieldUsername) || Helper.isFieldEmpty(fieldPassword)) {
+                        Helper.showMessage("fill");
+                    } else {
+                        User u = UserOp.getFetch(fieldUsername.getText(), fieldPassword.getText());
+                        if (u == null) {
+                            Helper.showMessage("User not found");
+                        } else {
+                            switch (u.getType()) {
+                                case "admin":
+                                    AdminGUI adminGUI = new AdminGUI((Admin) u);
+                                    break;
+                                case "employee":
+                                    EmployeeGUI employeeGUI = new EmployeeGUI((Employee) u);
+                                    break;
+                            }
+                            dispose();
+                        }
+                    }
+                }
+            }
+        });
+        fieldUsername.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    if (Helper.isFieldEmpty(fieldUsername) || Helper.isFieldEmpty(fieldPassword)) {
+                        Helper.showMessage("fill");
+                    } else {
+                        User u = UserOp.getFetch(fieldUsername.getText(), fieldPassword.getText());
+                        if (u == null) {
+                            Helper.showMessage("User not found");
+                        } else {
+                            switch (u.getType()) {
+                                case "admin":
+                                    AdminGUI adminGUI = new AdminGUI((Admin) u);
+                                    break;
+                                case "employee":
+                                    EmployeeGUI employeeGUI = new EmployeeGUI((Employee) u);
+                                    break;
+                            }
+                            dispose();
+                        }
                     }
                 }
             }
