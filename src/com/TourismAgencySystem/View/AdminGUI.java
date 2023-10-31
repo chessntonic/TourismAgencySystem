@@ -10,7 +10,7 @@ public class AdminGUI extends JFrame{
     private JPanel wrapper;
     private JLabel labelAdminWelcome;
     private JButton buttonExit;
-    private JTable tbl_userList;
+    private JTable tableUserList;
     private JTextField fieldUserFullName;
     private JTextField fieldUserUsername;
     private JTextField fieldUserPassword;
@@ -18,6 +18,10 @@ public class AdminGUI extends JFrame{
     private JTextField fieldUserId;
     private JButton buttonDelete;
     private JButton buttonAddUser;
+    private JTextField fieldSearchUserFullname;
+    private JTextField fieldSearchUserUsername;
+    private JButton buttonSearch;
+    private JComboBox comboSearchUserType;
     private final Admin admin;
 
     public AdminGUI (Admin admin) {
