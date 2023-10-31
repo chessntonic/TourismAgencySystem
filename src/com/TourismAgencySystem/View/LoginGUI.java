@@ -7,9 +7,9 @@ public class LoginGUI extends JFrame {
     private JPanel wtop;
     private JPanel wbottom;
     private JPanel wrapper;
-    private JTextField fld_username;
-    private JTextField fld_password;
-    private JButton loginButton;
+    private JTextField fieldUsername;
+    private JTextField fieldPassword;
+    private JButton buttonLogin;
 
     public LoginGUI() {
         add(wrapper);
