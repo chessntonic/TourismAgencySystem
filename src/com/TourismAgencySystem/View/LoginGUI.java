@@ -1,6 +1,8 @@
 package com.TourismAgencySystem.View;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import com.TourismAgencySystem.Helper.*;
 
 public class LoginGUI extends JFrame {
@@ -14,7 +16,7 @@ public class LoginGUI extends JFrame {
     public LoginGUI() {
         add(wrapper);
         setSize(400, 400);
-        setLocation(Helper.screenCenterLocation("x", getSize()),Helper.screenCenterLocation("y", getSize()));
+        setLocation(Helper.screenCenterLocation("x", getSize()), Helper.screenCenterLocation("y", getSize()));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle(Config.PROJECT_TITLE);
         setResizable(false);
