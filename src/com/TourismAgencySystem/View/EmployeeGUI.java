@@ -109,7 +109,7 @@ public class EmployeeGUI extends JFrame {
     private JLabel labelResChild;
     private JPanel field;
     private JLabel labelResDuration;
-    private JComboBox comboBoxResRoomType;
+    private JComboBox comboBoxResHostelType;
     private JButton buttonResRoomTypeSelect;
     private JTextField fieldResPrice;
     private JButton buttonResReserve;
