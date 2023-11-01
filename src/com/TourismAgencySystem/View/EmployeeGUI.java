@@ -337,6 +337,10 @@ public class EmployeeGUI extends JFrame {
                         fieldSeasonStartDate.setEditable(false);
                         fieldSeasonEndDate.setEnabled(false);
                         fieldSeasonEndDate.setEditable(false);
+                        fieldOffSeasonStartDate.setEnabled(false);
+                        fieldOffSeasonStartDate.setEditable(false);
+                        fieldOffSeasonEndDate.setEnabled(false);
+                        fieldOffSeasonEndDate.setEditable(false);
                     }
                 }
             }
