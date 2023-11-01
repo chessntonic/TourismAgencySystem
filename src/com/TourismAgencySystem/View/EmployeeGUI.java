@@ -5,8 +5,10 @@ import com.TourismAgencySystem.Helper.Helper;
 import com.TourismAgencySystem.Model.Employee;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class EmployeeGUI extends JFrame{
+public class EmployeeGUI extends JFrame {
     private JPanel wrapper;
     private JTabbedPane tabbedPane1;
     private JTabbedPane tabbedPane2;
@@ -33,6 +35,12 @@ public class EmployeeGUI extends JFrame{
     private JCheckBox checkBoxRoomService;
     private JCheckBox checkBoxConcierge;
     private JScrollPane checkBoxWifi;
+    private JRadioButton radioButtonSeason;
+    private JRadioButton radioButtonOffSeason;
+    private JTextField fieldSeasonEndDate;
+    private JTextField fieldOffSeasonEndDate;
+    private JTextField fieldSeasonStartDate;
+    private JTextField fieldOffSeasonStartDate;
     private Employee employee;
 
     public EmployeeGUI(Employee employee) {
@@ -46,5 +54,40 @@ public class EmployeeGUI extends JFrame{
         setVisible(true);
         //labelEmployeeWelcome.setText("Welcome " + employee.getName());
 
+
+        radioButtonSeason.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fieldSeasonStartDate.setEnabled(true);
+                fieldSeasonStartDate.setEditable(true);
+                fieldSeasonEndDate.setEnabled(true);
+                fieldSeasonEndDate.setEditable(true);
+                if (!radioButtonSeason.isSelected()) {
+                    fieldSeasonStartDate.setEnabled(false);
+                    fieldSeasonStartDate.setEditable(false);
+                    fieldSeasonEndDate.setEnabled(false);
+                    fieldSeasonEndDate.setEditable(false);
+                    fieldSeasonEndDate.setText(null);
+                    fieldSeasonStartDate.setText(null);
+                }
+            }
+        });
+        radioButtonOffSeason.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fieldOffSeasonStartDate.setEnabled(true);
+                fieldOffSeasonStartDate.setEditable(true);
+                fieldOffSeasonEndDate.setEnabled(true);
+                fieldOffSeasonEndDate.setEditable(true);
+                if (!radioButtonOffSeason.isSelected()) {
+                    fieldOffSeasonStartDate.setEnabled(false);
+                    fieldOffSeasonStartDate.setEditable(false);
+                    fieldOffSeasonEndDate.setEnabled(false);
+                    fieldOffSeasonEndDate.setEditable(false);
+                    fieldOffSeasonEndDate.setText(null);
+                    fieldOffSeasonStartDate.setText(null);
+                }
+            }
+        });
     }
 }
