@@ -41,6 +41,14 @@ public class EmployeeGUI extends JFrame {
     private JTextField fieldOffSeasonEndDate;
     private JTextField fieldSeasonStartDate;
     private JTextField fieldOffSeasonStartDate;
+    private JButton buttonHotelUpdate;
+    private JButton buttonHotelAdd;
+    private JPanel roomPanelTop;
+    private JPanel roomPanelBottom;
+    private JComboBox comboBoxRoomType;
+    private JButton buttonRoomTypeSelect;
+    private JButton button1;
+    private JButton button2;
     private Employee employee;
 
     public EmployeeGUI(Employee employee) {
