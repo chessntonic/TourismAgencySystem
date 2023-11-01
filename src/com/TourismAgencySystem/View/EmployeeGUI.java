@@ -83,6 +83,9 @@ public class EmployeeGUI extends JFrame {
     private JTextField fieldSearchCheckout;
     private JTextField fieldSearchAdult;
     private JTextField fieldSearchChild;
+    private JTextField fieldHotelHotelCityDistrictSearch;
+    private JTextField fieldHotelStarSearch;
+    private JButton buttonHotelSearch;
     private Employee employee;
 
     public EmployeeGUI(Employee employee) {
