@@ -44,11 +44,16 @@ public class EmployeeGUI extends JFrame {
     private JButton buttonHotelUpdate;
     private JButton buttonHotelAdd;
     private JPanel roomPanelTop;
-    private JPanel roomPanelBottom;
     private JComboBox comboBoxRoomType;
     private JButton buttonRoomTypeSelect;
     private JButton button1;
     private JButton button2;
+    private JTextField fieldRoomTypeName;
+    private JTextField fieldRoomStock;
+    private JTextField fieldRoomBedCount;
+    private JTextField fieldRoomSize;
+    private JTextField fieldRoomTv;
+    private JTextField fieldRoomMinibar;
     private Employee employee;
 
     public EmployeeGUI(Employee employee) {
