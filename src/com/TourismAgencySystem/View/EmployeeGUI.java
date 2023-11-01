@@ -86,6 +86,18 @@ public class EmployeeGUI extends JFrame {
     private JTextField fieldHotelHotelCityDistrictSearch;
     private JTextField fieldHotelStarSearch;
     private JButton buttonHotelSearch;
+    private JTextField fieldResDetailCity;
+    private JTextField fieldResDetailDistrict;
+    private JTextField fieldResDetailAddress;
+    private JTextField fieldResDetailPhone;
+    private JTextField fieldResDetailStar;
+    private JCheckBox freeParkingCheckBox;
+    private JCheckBox wiFiCheckBox1;
+    private JCheckBox swimmingPoolCheckBox;
+    private JCheckBox fitnessCenterCheckBox;
+    private JCheckBox conciergeCheckBox;
+    private JCheckBox spaCheckBox;
+    private JCheckBox a724RoomServicesCheckBox;
     private Employee employee;
 
     public EmployeeGUI(Employee employee) {
