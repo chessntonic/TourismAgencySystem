@@ -2,6 +2,9 @@ package com.TourismAgencySystem.Helper;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Helper {
     public static void setLayout() {
@@ -108,6 +111,25 @@ public class Helper {
         for (JTextField field : dateFields) {
             field.setEnabled(true);
             field.setEditable(true);
+        }
+    }
+    /*public static Date stringToDate(String dateString) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            return dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }*/
+    public static java.sql.Date stringToDate(String dateString) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date utilDate = dateFormat.parse(dateString);
+            return new java.sql.Date(utilDate.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

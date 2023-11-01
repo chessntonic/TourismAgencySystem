@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 public class EmployeeGUI extends JFrame {
     private JPanel wrapper;
@@ -128,6 +129,7 @@ public class EmployeeGUI extends JFrame {
     private JTextField fieldLogGuestFullname;
     private JTextField fieldLogGuestIdNumber;
     private JButton buttonLogGuestSearch;
+    private JScrollPane scrollPaneHotelDetails;
     private DefaultTableModel modelHotelHotelList;
     private Object[] rowHotelHotelList;
     private Employee employee;
@@ -332,7 +334,13 @@ public class EmployeeGUI extends JFrame {
                     String phone = fieldHotelPhone.getText();
                     String star = fieldHotelStar.getText();
 
-                    String pool = "No"; String wifi = "No"; String parking = "No";String gym = "No"; String concierge = "No"; String spa = "No"; String roomService = "No";
+                    String pool = "No";
+                    String wifi = "No";
+                    String parking = "No";
+                    String gym = "No";
+                    String concierge = "No";
+                    String spa = "No";
+                    String roomService = "No";
 
                     if (checkBoxPool.isSelected()) {
                         pool = "Yes";
@@ -355,8 +363,13 @@ public class EmployeeGUI extends JFrame {
                     if (checkBoxRoomService.isSelected()) {
                         roomService = "Yes";
                     }
+                    Date seasonStart = Helper.stringToDate(fieldSeasonStartDate.getText());
+                    Date seasonEnd = Helper.stringToDate(fieldSeasonEndDate.getText());
+                    Date offSeasonStart = Helper.stringToDate(fieldOffSeasonStartDate.getText());
+                    Date offSeasonEnd = Helper.stringToDate(fieldOffSeasonEndDate.getText());
 
-                    if (EmployeeOp.update(id, name, city, district, star, address, mail, phone, parking, wifi, pool, gym, concierge, spa, roomService)) {
+                    if (EmployeeOp.updateHotelDetails(id, name, city, district, star, address, mail, phone, parking, wifi, pool, gym, concierge, spa, roomService)&&
+                            EmployeeOp.updateHotelPeriodDetails(id, seasonStart,seasonEnd,offSeasonStart,offSeasonEnd)) {
                         Helper.showMessage("done");
                         loadHotelModel();
 
@@ -365,6 +378,7 @@ public class EmployeeGUI extends JFrame {
                         Helper.resetDateFields(fieldSeasonStartDate, fieldSeasonEndDate, fieldOffSeasonStartDate, fieldOffSeasonEndDate);
                         Helper.resetRadioButtons(radioButtonSeason, radioButtonOffSeason);
                     }
+                    scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);;
                 }
             }
         });
@@ -372,6 +386,7 @@ public class EmployeeGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 loadHotelDetailsModel();
+                scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);;
             }
         });
     }

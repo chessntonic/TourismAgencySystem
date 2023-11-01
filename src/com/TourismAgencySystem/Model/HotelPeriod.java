@@ -4,15 +4,13 @@ import java.util.Date;
 
 public class HotelPeriod {
     private int id;
-    private int hotelId;
     private Date seasonStart;
     private Date seasonEnd;
     private Date offSeasonStart;
     private Date offSeasonEnd;
 
-    public HotelPeriod(int id, int hotelId, Date seasonStart, Date seasonEnd, Date offSeasonStart, Date offSeasonEnd) {
+    public HotelPeriod(int id, Date seasonStart, Date seasonEnd, Date offSeasonStart, Date offSeasonEnd) {
         this.id = id;
-        this.hotelId = hotelId;
         this.seasonStart = seasonStart;
         this.seasonEnd = seasonEnd;
         this.offSeasonStart = offSeasonStart;
@@ -28,14 +26,6 @@ public class HotelPeriod {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getHotelId() {
-        return hotelId;
-    }
-
-    public void setHotelId(int hotelId) {
-        this.hotelId = hotelId;
     }
 
     public Date getSeasonStart() {
