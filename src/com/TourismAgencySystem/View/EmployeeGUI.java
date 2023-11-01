@@ -108,6 +108,7 @@ public class EmployeeGUI extends JFrame {
     private JLabel labelResAdult;
     private JLabel labelResChild;
     private JPanel field;
+    private JLabel labelResDuration;
     private Employee employee;
 
     public EmployeeGUI(Employee employee) {
