@@ -304,8 +304,13 @@ public class EmployeeGUI extends JFrame {
                     if (checkBoxRoomService.isSelected()) {
                         roomService = "Yes";
                     }
+                    Date seasonStart = Helper.stringToDate(fieldSeasonStartDate.getText());
+                    Date seasonEnd = Helper.stringToDate(fieldSeasonEndDate.getText());
+                    Date offSeasonStart = Helper.stringToDate(fieldOffSeasonStartDate.getText());
+                    Date offSeasonEnd = Helper.stringToDate(fieldOffSeasonEndDate.getText());
 
-                    if (EmployeeOp.add(name, city, district, star, address, mail, phone, parking, wifi, pool, gym, concierge, spa, roomService)) {
+                    if (EmployeeOp.addHotelDetails(name, city, district, star, address, mail, phone, parking, wifi, pool, gym, concierge, spa, roomService)
+                            && EmployeeOp.addHotelPeriodDetails(seasonStart,seasonEnd,offSeasonStart,offSeasonEnd)) {
                         Helper.showMessage("done");
                         loadHotelModel();
 
@@ -313,8 +318,8 @@ public class EmployeeGUI extends JFrame {
                         Helper.resetCheckBoxes(checkBoxPool, checkBoxWifi, checkBoxParking, checkBoxGym, checkBoxConcierge, checkBoxSpa, checkBoxRoomService);
                         Helper.resetDateFields(fieldSeasonStartDate, fieldSeasonEndDate, fieldOffSeasonStartDate, fieldOffSeasonEndDate);
                         Helper.resetRadioButtons(radioButtonSeason, radioButtonOffSeason);
-
                     }
+                    scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);;
                 }
             }
         });

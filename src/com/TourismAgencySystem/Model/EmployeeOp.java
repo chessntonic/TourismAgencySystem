@@ -43,14 +43,9 @@ public class EmployeeOp {
         return hotelList;
     }
 
-    public static boolean add(String name, String city, String district, String star, String address, String hotel_email, String hotel_phone,
-                              String parking, String wifi, String pool, String gym, String concierge, String spa, String room_service) {
+    public static boolean addHotelDetails(String name, String city, String district, String star, String address, String hotel_email, String hotel_phone,
+                                          String parking, String wifi, String pool, String gym, String concierge, String spa, String room_service) {
         String query = "INSERT INTO hotel(hotel_name,city,district,star,address,hotel_email,hotel_phone,parking,wifi,pool,gym,concierge,spa,room_service) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-//        User findUser = getFetch(username);
-//        if (findUser != null) {
-//            Helper.showMessage("This username has been added before. Please enter a different username");
-//            return false;
-//        }
 
         try {
             PreparedStatement pr = DBConnector.getInstance().prepareStatement(query);
@@ -68,6 +63,27 @@ public class EmployeeOp {
             pr.setString(12, concierge);
             pr.setString(13, spa);
             pr.setString(14, room_service);
+            int response = pr.executeUpdate();
+            if (response == -1) {
+                Helper.showMessage("error");
+            }
+            return response != -1;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+    public static boolean addHotelPeriodDetails(Date season_start, Date season_end, Date offseason_start, Date offseason_end) {
+        String query = "INSERT INTO hotel_period (season_start,season_end,offseason_start,offseason_end) VALUES (?,?,?,?)";
+
+        try {
+            PreparedStatement pr = DBConnector.getInstance().prepareStatement(query);
+            pr.setDate(1, (java.sql.Date) season_start);
+            pr.setDate(2, (java.sql.Date) season_end);
+            pr.setDate(3, (java.sql.Date) offseason_start);
+            pr.setDate(4, (java.sql.Date) offseason_end);
+
             int response = pr.executeUpdate();
             if (response == -1) {
                 Helper.showMessage("error");
