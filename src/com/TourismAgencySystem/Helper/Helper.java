@@ -104,4 +104,10 @@ public class Helper {
             radioButton.setSelected(false);
         }
     }
+    public static void enableDateFields(JTextField... dateFields) {
+        for (JTextField field : dateFields) {
+            field.setEnabled(true);
+            field.setEditable(true);
+        }
+    }
 }

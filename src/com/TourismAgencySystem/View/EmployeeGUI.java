@@ -279,13 +279,7 @@ public class EmployeeGUI extends JFrame {
                     String phone = fieldHotelPhone.getText();
                     String star = fieldHotelStar.getText();
 
-                    String pool = "No";
-                    String wifi = "No";
-                    String parking = "No";
-                    String gym = "No";
-                    String concierge = "No";
-                    String spa = "No";
-                    String roomService = "No";
+                    String pool = "No"; String wifi = "No"; String parking = "No"; String gym = "No"; String concierge = "No"; String spa = "No"; String roomService = "No";
 
                     if (checkBoxPool.isSelected()) {
                         pool = "Yes";
@@ -338,13 +332,7 @@ public class EmployeeGUI extends JFrame {
                     String phone = fieldHotelPhone.getText();
                     String star = fieldHotelStar.getText();
 
-                    String pool = "No";
-                    String wifi = "No";
-                    String parking = "No";
-                    String gym = "No";
-                    String concierge = "No";
-                    String spa = "No";
-                    String roomService = "No";
+                    String pool = "No"; String wifi = "No"; String parking = "No";String gym = "No"; String concierge = "No"; String spa = "No"; String roomService = "No";
 
                     if (checkBoxPool.isSelected()) {
                         pool = "Yes";
@@ -380,8 +368,13 @@ public class EmployeeGUI extends JFrame {
                 }
             }
         });
+        buttonHotelSelect.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadHotelDetailsModel();
+            }
+        });
     }
-
 
     public void loadHotelModel() {
         DefaultTableModel clearModel = (DefaultTableModel) tableHotelHotelList.getModel();
@@ -398,5 +391,52 @@ public class EmployeeGUI extends JFrame {
             rowHotelHotelList[i++] = obj.getPhoneNumber();
             modelHotelHotelList.addRow(rowHotelHotelList);
         }
+    }
+    private void loadHotelDetailsModel() {
+        int hotelId = Integer.parseInt(tableHotelHotelList.getValueAt(tableHotelHotelList.getSelectedRow(),0).toString());
+
+        for (Hotel obj : EmployeeOp.getHotelDetailsByHotelId(hotelId)) {
+            fieldHotelName.setText(obj.getName());
+            fieldHotelCity.setText(obj.getCity());
+            fieldHotelDistrict.setText(obj.getDistrict());
+            fieldHotelStar.setText(obj.getStar());
+            fieldHotelAddress.setText(obj.getAddress());
+            fieldHotelMail.setText(obj.getEmail());
+            fieldHotelPhone.setText(obj.getPhoneNumber());
+            if (obj.getParking().equals("Yes")) {
+                checkBoxParking.setSelected(true);
+            }
+            if (obj.getWifi().equals("Yes")) {
+                checkBoxWifi.setSelected(true);
+            }
+            if (obj.getPool().equals("Yes")) {
+                checkBoxPool.setSelected(true);
+            }
+            if (obj.getGym().equals("Yes")) {
+                checkBoxGym.setSelected(true);
+            }
+            if (obj.getConcierge().equals("Yes")) {
+                checkBoxConcierge.setSelected(true);
+            }
+            if (obj.getSpa().equals("Yes")) {
+                checkBoxSpa.setSelected(true);
+            }
+            if (obj.getRoomService().equals("Yes")) {
+                checkBoxRoomService.setSelected(true);
+            }
+        }
+        for (HotelPeriod obj : EmployeeOp.getHotelPeriodByHotelId(hotelId)) {
+            if (obj.getSeasonStart() != null) {
+                radioButtonSeason.setSelected(true);
+                fieldSeasonStartDate.setText(obj.getSeasonStart().toString());
+                fieldSeasonEndDate.setText(obj.getSeasonEnd().toString());
+            }
+            if (obj.getOffSeasonStart() != null) {
+                radioButtonOffSeason.setSelected(true);
+                fieldOffSeasonStartDate.setText(obj.getOffSeasonStart().toString());
+                fieldOffSeasonEndDate.setText(obj.getOffSeasonEnd().toString());
+            }
+        }
+        Helper.enableDateFields(fieldSeasonStartDate, fieldSeasonEndDate, fieldOffSeasonStartDate, fieldOffSeasonEndDate);
     }
 }
