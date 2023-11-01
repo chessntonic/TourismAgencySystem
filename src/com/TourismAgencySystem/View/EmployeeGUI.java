@@ -98,6 +98,10 @@ public class EmployeeGUI extends JFrame {
     private JCheckBox conciergeCheckBox;
     private JCheckBox spaCheckBox;
     private JCheckBox a724RoomServicesCheckBox;
+    private JTextField textField1;
+    private JTextField textField2;
+    private JTextField textField3;
+    private JTextField textField4;
     private Employee employee;
 
     public EmployeeGUI(Employee employee) {
