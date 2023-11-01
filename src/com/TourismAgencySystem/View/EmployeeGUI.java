@@ -313,34 +313,11 @@ public class EmployeeGUI extends JFrame {
                         Helper.showMessage("done");
                         loadHotelModel();
 
-                        fieldHotelName.setText(null);
-                        fieldHotelCity.setText(null);
-                        fieldHotelAddress.setText(null);
-                        fieldHotelDistrict.setText(null);
-                        fieldHotelMail.setText(null);
-                        fieldHotelPhone.setText(null);
-                        fieldHotelStar.setText(null);
-                        radioButtonSeason.setSelected(false);
-                        radioButtonOffSeason.setSelected(false);
-                        checkBoxPool.setSelected(false);
-                        checkBoxWifi.setSelected(false);
-                        checkBoxParking.setSelected(false);
-                        checkBoxGym.setSelected(false);
-                        checkBoxConcierge.setSelected(false);
-                        checkBoxSpa.setSelected(false);
-                        checkBoxRoomService.setSelected(false);
-                        fieldSeasonStartDate.setText(null);
-                        fieldSeasonEndDate.setText(null);
-                        fieldOffSeasonStartDate.setText(null);
-                        fieldOffSeasonEndDate.setText(null);
-                        fieldSeasonStartDate.setEnabled(false);
-                        fieldSeasonStartDate.setEditable(false);
-                        fieldSeasonEndDate.setEnabled(false);
-                        fieldSeasonEndDate.setEditable(false);
-                        fieldOffSeasonStartDate.setEnabled(false);
-                        fieldOffSeasonStartDate.setEditable(false);
-                        fieldOffSeasonEndDate.setEnabled(false);
-                        fieldOffSeasonEndDate.setEditable(false);
+                        Helper.resetFormFields(fieldHotelName, fieldHotelCity, fieldHotelAddress, fieldHotelDistrict, fieldHotelMail, fieldHotelPhone, fieldHotelStar);
+                        Helper.resetCheckBoxes(checkBoxPool, checkBoxWifi, checkBoxParking, checkBoxGym, checkBoxConcierge, checkBoxSpa, checkBoxRoomService);
+                        Helper.resetDateFields(fieldSeasonStartDate, fieldSeasonEndDate, fieldOffSeasonStartDate, fieldOffSeasonEndDate);
+                        Helper.resetRadioButtons(radioButtonSeason, radioButtonOffSeason);
+
                     }
                 }
             }
@@ -395,34 +372,10 @@ public class EmployeeGUI extends JFrame {
                         Helper.showMessage("done");
                         loadHotelModel();
 
-                        fieldHotelName.setText(null);
-                        fieldHotelCity.setText(null);
-                        fieldHotelAddress.setText(null);
-                        fieldHotelDistrict.setText(null);
-                        fieldHotelMail.setText(null);
-                        fieldHotelPhone.setText(null);
-                        fieldHotelStar.setText(null);
-                        radioButtonSeason.setSelected(false);
-                        radioButtonOffSeason.setSelected(false);
-                        checkBoxPool.setSelected(false);
-                        checkBoxWifi.setSelected(false);
-                        checkBoxParking.setSelected(false);
-                        checkBoxGym.setSelected(false);
-                        checkBoxConcierge.setSelected(false);
-                        checkBoxSpa.setSelected(false);
-                        checkBoxRoomService.setSelected(false);
-                        fieldSeasonStartDate.setText(null);
-                        fieldSeasonEndDate.setText(null);
-                        fieldOffSeasonStartDate.setText(null);
-                        fieldOffSeasonEndDate.setText(null);
-                        fieldSeasonStartDate.setEnabled(false);
-                        fieldSeasonStartDate.setEditable(false);
-                        fieldSeasonEndDate.setEnabled(false);
-                        fieldSeasonEndDate.setEditable(false);
-                        fieldOffSeasonStartDate.setEnabled(false);
-                        fieldOffSeasonStartDate.setEditable(false);
-                        fieldOffSeasonEndDate.setEnabled(false);
-                        fieldOffSeasonEndDate.setEditable(false);
+                        Helper.resetFormFields(fieldHotelName, fieldHotelCity, fieldHotelAddress, fieldHotelDistrict, fieldHotelMail, fieldHotelPhone, fieldHotelStar);
+                        Helper.resetCheckBoxes(checkBoxPool, checkBoxWifi, checkBoxParking, checkBoxGym, checkBoxConcierge, checkBoxSpa, checkBoxRoomService);
+                        Helper.resetDateFields(fieldSeasonStartDate, fieldSeasonEndDate, fieldOffSeasonStartDate, fieldOffSeasonEndDate);
+                        Helper.resetRadioButtons(radioButtonSeason, radioButtonOffSeason);
                     }
                 }
             }
