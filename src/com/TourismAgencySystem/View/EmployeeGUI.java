@@ -124,6 +124,10 @@ public class EmployeeGUI extends JFrame {
     private JTextField fieldLogResCheckoutSearch;
     private JTextField fieldLogResMinPriceSearch;
     private JTextField fieldLogResMaxPriceSearch;
+    private JTextField fieldLogGuestResId;
+    private JTextField fieldLogGuestFullname;
+    private JTextField fieldLogGuestIdNumber;
+    private JButton buttonLogGuestSearch;
     private Employee employee;
 
     public EmployeeGUI(Employee employee) {
