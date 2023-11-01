@@ -286,7 +286,8 @@
                                   <grid row="22" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                                 </constraints>
                                 <properties>
-                                  <text value="Off-season"/>
+                                  <selected value="false"/>
+                                  <text value="Off-Season"/>
                                 </properties>
                               </component>
                               <component id="89d9" class="javax.swing.JTextField" binding="fieldSeasonEndDate">
@@ -1321,7 +1322,7 @@
                             <properties/>
                             <border type="none"/>
                             <children>
-                              <component id="f87f3" class="javax.swing.JLabel" binding="labelRoomType">
+                              <component id="f87f3" class="javax.swing.JLabel" binding="labelResRoomType">
                                 <constraints>
                                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                                 </constraints>
@@ -1586,7 +1587,7 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <grid id="69fc9" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                      <grid id="69fc9" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                         <margin top="0" left="0" bottom="0" right="0"/>
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -1594,13 +1595,13 @@
                         <properties/>
                         <border type="none"/>
                         <children>
-                          <component id="e0c7b" class="javax.swing.JLabel">
+                          <component id="e0c7b" class="javax.swing.JLabel" binding="labelGuestRoomType">
                             <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <font name="Monospaced" size="14" style="1"/>
-                              <text value="HOTEL NAME"/>
+                              <text value="ROOM TYPE"/>
                             </properties>
                           </component>
                           <grid id="c0ffe" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -1613,27 +1614,55 @@
                             <children>
                               <component id="dba3b" class="javax.swing.JLabel">
                                 <constraints>
-                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                                 </constraints>
                                 <properties>
-                                  <text value="Label"/>
+                                  <text value="Room Details:"/>
                                 </properties>
                               </component>
-                              <vspacer id="463d0">
+                              <grid id="df6d9" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                                <margin top="0" left="0" bottom="0" right="0"/>
                                 <constraints>
-                                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                                 </constraints>
-                              </vspacer>
+                                <properties/>
+                                <border type="none"/>
+                                <children>
+                                  <component id="b4dd0" class="javax.swing.JLabel" binding="labelGuestBed">
+                                    <constraints>
+                                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                                    </constraints>
+                                    <properties>
+                                      <text value="Beds:"/>
+                                    </properties>
+                                  </component>
+                                  <component id="69170" class="javax.swing.JLabel" binding="labelGuestRoomSize">
+                                    <constraints>
+                                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                                    </constraints>
+                                    <properties>
+                                      <text value="m2:"/>
+                                    </properties>
+                                  </component>
+                                  <component id="dbbed" class="javax.swing.JLabel" binding="labelGuestTv">
+                                    <constraints>
+                                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                                    </constraints>
+                                    <properties>
+                                      <text value="TV:"/>
+                                    </properties>
+                                  </component>
+                                  <component id="ee159" class="javax.swing.JLabel" binding="labelGuestMinibar">
+                                    <constraints>
+                                      <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                                    </constraints>
+                                    <properties>
+                                      <text value="Minibar"/>
+                                    </properties>
+                                  </component>
+                                </children>
+                              </grid>
                             </children>
-                          </grid>
-                          <grid id="e56c0" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                            <margin top="0" left="0" bottom="0" right="0"/>
-                            <constraints>
-                              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                            <properties/>
-                            <border type="none"/>
-                            <children/>
                           </grid>
                         </children>
                       </grid>

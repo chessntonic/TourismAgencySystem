@@ -102,7 +102,7 @@ public class EmployeeGUI extends JFrame {
     private JTextField fieldResRoomSize;
     private JTextField fieldResTv;
     private JTextField fieldResMinibar;
-    private JLabel labelRoomType;
+    private JLabel labelResRoomType;
     private JTextField fieldResCheckin;
     private JTextField fieldResCheckout;
     private JLabel labelResAdult;
@@ -113,6 +113,11 @@ public class EmployeeGUI extends JFrame {
     private JButton buttonResRoomTypeSelect;
     private JTextField fieldResPrice;
     private JButton buttonResReserve;
+    private JLabel labelGuestRoomType;
+    private JLabel labelGuestBed;
+    private JLabel labelGuestRoomSize;
+    private JLabel labelGuestTv;
+    private JLabel labelGuestMinibar;
     private Employee employee;
 
     public EmployeeGUI(Employee employee) {
