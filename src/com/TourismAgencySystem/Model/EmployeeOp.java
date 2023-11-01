@@ -202,5 +202,29 @@ public class EmployeeOp {
         }
         return hotelPeriodList;
     }
+    public static boolean deleteHotelDetails(int id) {
+        String query = "DELETE FROM hotel WHERE id = ?";
+        try {
+            PreparedStatement ps = DBConnector.getInstance().prepareStatement(query);
+            ps.setInt(1, id);
+
+            return ps.executeUpdate() != -1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+    public static boolean deleteHotelPeriodDetails(int id) {
+        String query = "DELETE FROM hotel_period WHERE id = ?";
+        try {
+            PreparedStatement ps = DBConnector.getInstance().prepareStatement(query);
+            ps.setInt(1, id);
+
+            return ps.executeUpdate() != -1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
 }
 
