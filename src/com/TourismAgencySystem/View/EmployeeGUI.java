@@ -15,8 +15,8 @@ public class EmployeeGUI extends JFrame {
     private JLabel labelWelcome;
     private JTabbedPane tabbedPane3;
     private JTabbedPane tabbedPane4;
-    private JTable table1;
-    private JTable table2;
+    private JTable tableLogGuestList;
+    private JTable tableLogResList;
     private JButton buttonHotelDelete;
     private JButton buttonHotelSelect;
     private JTable tableHotelList;
@@ -118,6 +118,12 @@ public class EmployeeGUI extends JFrame {
     private JLabel labelGuestRoomSize;
     private JLabel labelGuestTv;
     private JLabel labelGuestMinibar;
+    private JTextField fieldLogResHotelNameSearch;
+    private JButton buttonLogResSearch;
+    private JTextField fieldLogResCheckinSearch;
+    private JTextField fieldLogResCheckoutSearch;
+    private JTextField fieldLogResMinPriceSearch;
+    private JTextField fieldLogResMaxPriceSearch;
     private Employee employee;
 
     public EmployeeGUI(Employee employee) {
