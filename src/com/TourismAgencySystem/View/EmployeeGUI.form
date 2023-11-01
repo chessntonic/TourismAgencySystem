@@ -78,7 +78,7 @@
                         <properties/>
                         <border type="none"/>
                         <children>
-                          <component id="68a3f" class="javax.swing.JTable" binding="tableHotelList">
+                          <component id="68a3f" class="javax.swing.JTable" binding="tableHotelHotelList">
                             <constraints/>
                             <properties/>
                           </component>
@@ -885,7 +885,7 @@
                             <properties/>
                             <border type="none"/>
                             <children>
-                              <component id="3ff39" class="javax.swing.JTable" binding="tableRoomPriceList">
+                              <component id="3ff39" class="javax.swing.JTable" binding="tablePriceRoomList">
                                 <constraints/>
                                 <properties/>
                               </component>
@@ -1053,7 +1053,7 @@
                         <properties/>
                         <border type="none"/>
                         <children>
-                          <component id="107b4" class="javax.swing.JTable" binding="tableSearchList">
+                          <component id="107b4" class="javax.swing.JTable" binding="tableSearchHotelList">
                             <constraints/>
                             <properties/>
                           </component>
@@ -1709,7 +1709,7 @@
                                 <properties/>
                                 <border type="none"/>
                                 <children>
-                                  <component id="945e1" class="javax.swing.JTable" binding="tableLogResList">
+                                  <component id="945e1" class="javax.swing.JTable" binding="tableLogResReservationList">
                                     <constraints/>
                                     <properties/>
                                   </component>
@@ -1830,7 +1830,7 @@
                                 <properties/>
                                 <border type="none"/>
                                 <children>
-                                  <component id="a20da" class="javax.swing.JTable" binding="tableLogGuestList">
+                                  <component id="a20da" class="javax.swing.JTable" binding="tableLogGuestGuestList">
                                     <constraints/>
                                     <properties/>
                                   </component>

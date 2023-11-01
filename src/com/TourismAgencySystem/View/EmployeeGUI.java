@@ -5,6 +5,7 @@ import com.TourismAgencySystem.Helper.Helper;
 import com.TourismAgencySystem.Model.Employee;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,11 +16,11 @@ public class EmployeeGUI extends JFrame {
     private JLabel labelWelcome;
     private JTabbedPane tabbedPane3;
     private JTabbedPane tabbedPane4;
-    private JTable tableLogGuestList;
-    private JTable tableLogResList;
+    private JTable tableLogGuestGuestList;
+    private JTable tableLogResReservationList;
     private JButton buttonHotelDelete;
     private JButton buttonHotelSelect;
-    private JTable tableHotelList;
+    private JTable tableHotelHotelList;
     private JTextField fieldHotelName;
     private JTextField fieldHotelCity;
     private JTextField fieldHotelDistrict;
@@ -73,8 +74,8 @@ public class EmployeeGUI extends JFrame {
     private JRadioButton radioButtonDouble;
     private JRadioButton radioButtonKingSuite;
     private JButton buttonDeletePrice;
-    private JTable tableRoomPriceList;
-    private JTable tableSearchList;
+    private JTable tablePriceRoomList;
+    private JTable tableSearchHotelList;
     private JButton buttonSearchSelect;
     private JButton buttonSearchSearch;
     private JTextField fieldSearchHotelCityDistrict;
@@ -128,6 +129,8 @@ public class EmployeeGUI extends JFrame {
     private JTextField fieldLogGuestFullname;
     private JTextField fieldLogGuestIdNumber;
     private JButton buttonLogGuestSearch;
+    private DefaultTableModel modelHotelHotelList;
+    private Object[] rowHotelHotelList;
     private Employee employee;
 
     public EmployeeGUI(Employee employee) {
@@ -141,7 +144,24 @@ public class EmployeeGUI extends JFrame {
         setVisible(true);
         //labelEmployeeWelcome.setText("Welcome " + employee.getName());
 
+        modelHotelHotelList = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                if (column == 0) {
+                    return false;
+                }
+                return super.isCellEditable(row, column);
+            }
+        };
 
+        Object[] colHotelHotelList = {"ID", "Name", "City", "District", "Star", "E-Mail", "Phone"};
+        modelHotelHotelList.setColumnIdentifiers(colHotelHotelList);
+        rowHotelHotelList = new Object[colHotelHotelList.length];
+
+        //loadUserModel();
+
+        tableHotelHotelList.setModel(modelHotelHotelList);
+        tableHotelHotelList.getTableHeader().setReorderingAllowed(false);
         radioButtonSeason.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

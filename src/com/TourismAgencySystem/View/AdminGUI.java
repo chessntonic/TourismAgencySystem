@@ -48,6 +48,7 @@ public class AdminGUI extends JFrame {
         setTitle(Config.PROJECT_TITLE);
         setVisible(true);
         labelAdminWelcome.setText("Welcome " + admin.getName());
+
         modelUserList = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
