@@ -2,7 +2,7 @@ package com.TourismAgencySystem.View;
 
 import com.TourismAgencySystem.Helper.Config;
 import com.TourismAgencySystem.Helper.Helper;
-import com.TourismAgencySystem.Model.Employee;
+import com.TourismAgencySystem.Model.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -158,7 +158,7 @@ public class EmployeeGUI extends JFrame {
         modelHotelHotelList.setColumnIdentifiers(colHotelHotelList);
         rowHotelHotelList = new Object[colHotelHotelList.length];
 
-        //loadUserModel();
+        loadHotelModel();
 
         tableHotelHotelList.setModel(modelHotelHotelList);
         tableHotelHotelList.getTableHeader().setReorderingAllowed(false);
@@ -265,5 +265,20 @@ public class EmployeeGUI extends JFrame {
                 }
             }
         });
+    }
+    public void loadHotelModel() {
+        DefaultTableModel clearModel = (DefaultTableModel) tableHotelHotelList.getModel();
+        clearModel.setRowCount(0);
+        int i;
+        for (Hotel obj : EmployeeOp.getList()) {
+            i=0;
+            rowHotelHotelList[i++] = obj.getId();
+            rowHotelHotelList[i++] = obj.getName();
+            rowHotelHotelList[i++] = obj.getCity();
+            rowHotelHotelList[i++] = obj.getStar();
+            rowHotelHotelList[i++] = obj.getEmail();
+            rowHotelHotelList[i++] = obj.getPhoneNumber();
+            modelHotelHotelList.addRow(rowHotelHotelList);
+        }
     }
 }
