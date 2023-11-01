@@ -268,7 +268,7 @@ public class EmployeeGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if ((Helper.isFieldEmpty(fieldHotelName) || Helper.isFieldEmpty(fieldHotelCity) || Helper.isFieldEmpty(fieldHotelAddress) || Helper.isFieldEmpty(fieldHotelDistrict)
-                        || Helper.isFieldEmpty(fieldHotelMail) || Helper.isFieldEmpty(fieldHotelPhone) || Helper.isFieldEmpty(fieldHotelStar)) || ((!radioButtonSeason.isSelected()) || (!radioButtonOffSeason.isSelected()))) {
+                        || Helper.isFieldEmpty(fieldHotelMail) || Helper.isFieldEmpty(fieldHotelPhone) || Helper.isFieldEmpty(fieldHotelStar)) || ((!radioButtonSeason.isSelected()) && (!radioButtonOffSeason.isSelected()))) {
                     Helper.showMessage("fill");
                 } else {
                     String name = fieldHotelName.getText();
@@ -345,7 +345,90 @@ public class EmployeeGUI extends JFrame {
                 }
             }
         });
+        buttonHotelUpdate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if ((Helper.isFieldEmpty(fieldHotelName) || Helper.isFieldEmpty(fieldHotelCity) || Helper.isFieldEmpty(fieldHotelAddress) || Helper.isFieldEmpty(fieldHotelDistrict)
+                        || Helper.isFieldEmpty(fieldHotelMail) || Helper.isFieldEmpty(fieldHotelPhone) || Helper.isFieldEmpty(fieldHotelStar)) || ((!radioButtonSeason.isSelected()) && (!radioButtonOffSeason.isSelected()))) {
+                    Helper.showMessage("fill");
+                } else {
+                    int id = Integer.parseInt(tableHotelHotelList.getValueAt(tableHotelHotelList.getSelectedRow(), 0).toString());
+                    String name = fieldHotelName.getText();
+                    String city = fieldHotelCity.getText();
+                    String address = fieldHotelAddress.getText();
+                    String district = fieldHotelDistrict.getText();
+                    String mail = fieldHotelMail.getText();
+                    String phone = fieldHotelPhone.getText();
+                    String star = fieldHotelStar.getText();
+
+                    String pool = "No";
+                    String wifi = "No";
+                    String parking = "No";
+                    String gym = "No";
+                    String concierge = "No";
+                    String spa = "No";
+                    String roomService = "No";
+
+                    if (checkBoxPool.isSelected()) {
+                        pool = "Yes";
+                    }
+                    if (checkBoxWifi.isSelected()) {
+                        wifi = "Yes";
+                    }
+                    if (checkBoxParking.isSelected()) {
+                        parking = "Yes";
+                    }
+                    if (checkBoxGym.isSelected()) {
+                        gym = "Yes";
+                    }
+                    if (checkBoxConcierge.isSelected()) {
+                        concierge = "Yes";
+                    }
+                    if (checkBoxSpa.isSelected()) {
+                        spa = "Yes";
+                    }
+                    if (checkBoxRoomService.isSelected()) {
+                        roomService = "Yes";
+                    }
+
+                    if (EmployeeOp.update(id, name, city, district, star, address, mail, phone, parking, wifi, pool, gym, concierge, spa, roomService)) {
+                        Helper.showMessage("done");
+                        loadHotelModel();
+
+                        fieldHotelName.setText(null);
+                        fieldHotelCity.setText(null);
+                        fieldHotelAddress.setText(null);
+                        fieldHotelDistrict.setText(null);
+                        fieldHotelMail.setText(null);
+                        fieldHotelPhone.setText(null);
+                        fieldHotelStar.setText(null);
+                        radioButtonSeason.setSelected(false);
+                        radioButtonOffSeason.setSelected(false);
+                        checkBoxPool.setSelected(false);
+                        checkBoxWifi.setSelected(false);
+                        checkBoxParking.setSelected(false);
+                        checkBoxGym.setSelected(false);
+                        checkBoxConcierge.setSelected(false);
+                        checkBoxSpa.setSelected(false);
+                        checkBoxRoomService.setSelected(false);
+                        fieldSeasonStartDate.setText(null);
+                        fieldSeasonEndDate.setText(null);
+                        fieldOffSeasonStartDate.setText(null);
+                        fieldOffSeasonEndDate.setText(null);
+                        fieldSeasonStartDate.setEnabled(false);
+                        fieldSeasonStartDate.setEditable(false);
+                        fieldSeasonEndDate.setEnabled(false);
+                        fieldSeasonEndDate.setEditable(false);
+                        fieldOffSeasonStartDate.setEnabled(false);
+                        fieldOffSeasonStartDate.setEditable(false);
+                        fieldOffSeasonEndDate.setEnabled(false);
+                        fieldOffSeasonEndDate.setEditable(false);
+                    }
+                }
+            }
+        });
     }
+
 
     public void loadHotelModel() {
         DefaultTableModel clearModel = (DefaultTableModel) tableHotelHotelList.getModel();

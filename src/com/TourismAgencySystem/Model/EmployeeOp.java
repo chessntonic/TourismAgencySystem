@@ -77,4 +77,32 @@ public class EmployeeOp {
         }
         return true;
     }
+    public static boolean update(int id, String name, String city, String district,String star, String address, String hotel_email, String hotel_phone,
+                                 String parking, String wifi, String pool, String gym, String concierge, String spa, String room_service) {
+        String query = "UPDATE hotel SET hotel_name=?,city=?,district=?,star=?,address=?,hotel_email=?,hotel_phone=?,parking=?,wifi=?,pool=?,gym=?,concierge=?,spa=?,room_service=? WHERE id=?";
+
+        try {
+            PreparedStatement ps = DBConnector.getInstance().prepareStatement(query);
+            ps.setString(1, name);
+            ps.setString(2, city);
+            ps.setString(3, district);
+            ps.setString(4, star);
+            ps.setString(5, address);
+            ps.setString(6, hotel_email);
+            ps.setString(7, hotel_phone);
+            ps.setString(8, parking);
+            ps.setString(9, wifi);
+            ps.setString(10, pool);
+            ps.setString(11, gym);
+            ps.setString(12, concierge);
+            ps.setString(13, spa);
+            ps.setString(14, room_service);
+            ps.setInt(15, id);
+
+            return ps.executeUpdate() != -1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
 }
