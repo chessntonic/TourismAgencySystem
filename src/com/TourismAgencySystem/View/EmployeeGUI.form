@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="wrapper" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="20" left="20" bottom="20" right="20"/>
     <constraints>
-      <xy x="20" y="20" width="1328" height="936"/>
+      <xy x="20" y="20" width="1345" height="1225"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -84,7 +84,7 @@
                           </component>
                         </children>
                       </scrollpane>
-                      <scrollpane id="15f52" binding="checkBoxWifi">
+                      <scrollpane id="15f52">
                         <constraints>
                           <grid row="1" column="1" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -217,7 +217,7 @@
                                   <text value="Parking"/>
                                 </properties>
                               </component>
-                              <component id="368ee" class="javax.swing.JCheckBox" binding="wiFiCheckBox" default-binding="true">
+                              <component id="368ee" class="javax.swing.JCheckBox" binding="checkBoxWifi">
                                 <constraints>
                                   <grid row="15" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                                 </constraints>

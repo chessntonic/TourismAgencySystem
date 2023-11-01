@@ -5,7 +5,7 @@ public class Hotel {
     private String name;
     private String city;
     private String district;
-    private int star;
+    private String star;
     private String address;
     private String email;
     private String phoneNumber;
@@ -17,7 +17,7 @@ public class Hotel {
     private String spa;
     private String roomService;
 
-    public Hotel(int id, String name, String city, String district, int star,
+    public Hotel(int id, String name, String city, String district, String star,
                  String address, String email, String phoneNumber, String parking, String wifi,
                  String pool, String gym, String concierge, String spa, String roomService) {
         this.id = id;
@@ -72,11 +72,11 @@ public class Hotel {
         this.district = district;
     }
 
-    public int getStar() {
+    public String getStar() {
         return star;
     }
 
-    public void setStar(int star) {
+    public void setStar(String star) {
         this.star = star;
     }
 
