@@ -757,7 +757,7 @@
                                         <item value="Full Pension"/>
                                         <item value="Half Board"/>
                                         <item value="Bed Only"/>
-                                        <item value="Full credit excluding alcohol"/>
+                                        <item value="Full Credit Excluding Alcohol"/>
                                       </model>
                                     </properties>
                                   </component>
@@ -774,7 +774,7 @@
                                         <item value="Full Pension"/>
                                         <item value="Half Board"/>
                                         <item value="Bed Only"/>
-                                        <item value="Full credit excluding alcohol"/>
+                                        <item value="Full Credit Excluding Alcohol"/>
                                       </model>
                                     </properties>
                                   </component>
@@ -791,7 +791,7 @@
                                         <item value="Full Pension"/>
                                         <item value="Half Board"/>
                                         <item value="Bed Only"/>
-                                        <item value="Full credit excluding alcohol"/>
+                                        <item value="Full Credit Excluding Alcohol"/>
                                       </model>
                                     </properties>
                                   </component>
@@ -898,7 +898,10 @@
                                         <preferred-size width="150" height="-1"/>
                                       </grid>
                                     </constraints>
-                                    <properties/>
+                                    <properties>
+                                      <editable value="false"/>
+                                      <enabled value="false"/>
+                                    </properties>
                                   </component>
                                   <component id="28278" class="javax.swing.JTextField" binding="fieldChildPriceDouble">
                                     <constraints>
@@ -906,7 +909,10 @@
                                         <preferred-size width="150" height="-1"/>
                                       </grid>
                                     </constraints>
-                                    <properties/>
+                                    <properties>
+                                      <editable value="false"/>
+                                      <enabled value="false"/>
+                                    </properties>
                                   </component>
                                   <component id="771a7" class="javax.swing.JTextField" binding="fieldChildPriceKingSuite">
                                     <constraints>
@@ -914,7 +920,10 @@
                                         <preferred-size width="150" height="-1"/>
                                       </grid>
                                     </constraints>
-                                    <properties/>
+                                    <properties>
+                                      <editable value="false"/>
+                                      <enabled value="false"/>
+                                    </properties>
                                   </component>
                                 </children>
                               </grid>

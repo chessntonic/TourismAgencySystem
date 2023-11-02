@@ -59,9 +59,6 @@ public class EmployeeGUI extends JFrame {
     private JComboBox comboBoxPeriodSingle;
     private JComboBox comboBoxPeriodDouble;
     private JComboBox comboBoxPeriodKingSuite;
-    private JComboBox comboBoxGuestTypeSingle;
-    private JComboBox comboBoxGuestTypeDouble;
-    private JComboBox comboBoxGuestTypeKingSuite;
     private JComboBox comboBoxHostelTypeSingle;
     private JComboBox comboBoxHostelTypeDouble;
     private JComboBox comboBoxHostelTypeKingSuite;
@@ -208,19 +205,12 @@ public class EmployeeGUI extends JFrame {
         radioButtonSingle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                comboBoxPeriodSingle.setEnabled(true);
-                comboBoxGuestTypeSingle.setEnabled(true);
-                comboBoxHostelTypeSingle.setEnabled(true);
-                fieldAdultPriceSingle.setEnabled(true);
-                fieldAdultPriceSingle.setEditable(true);
+                Helper.enableComboBoxes(comboBoxPeriodSingle, comboBoxHostelTypeSingle);
+                Helper.enableTextFields(fieldAdultPriceSingle, fieldChildPriceSingle);
                 buttonAddSingle.setEnabled(true);
                 if (!radioButtonSingle.isSelected()) {
-                    comboBoxPeriodSingle.setEnabled(false);
-                    comboBoxGuestTypeSingle.setEnabled(false);
-                    comboBoxHostelTypeSingle.setEnabled(false);
-                    fieldAdultPriceSingle.setEnabled(false);
-                    fieldAdultPriceSingle.setEditable(false);
-                    fieldAdultPriceSingle.setText(null);
+                    Helper.resetComboBoxes(comboBoxPeriodSingle, comboBoxHostelTypeSingle);
+                    Helper.resetTextFields(fieldAdultPriceSingle, fieldChildPriceSingle);
                     buttonAddSingle.setEnabled(false);
                 }
             }
@@ -228,19 +218,13 @@ public class EmployeeGUI extends JFrame {
         radioButtonDouble.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                comboBoxPeriodDouble.setEnabled(true);
-                comboBoxGuestTypeDouble.setEnabled(true);
-                comboBoxHostelTypeDouble.setEnabled(true);
-                fieldAdultPriceDouble.setEnabled(true);
-                fieldAdultPriceDouble.setEditable(true);
+                Helper.enableComboBoxes(comboBoxPeriodDouble, comboBoxHostelTypeDouble);
+                Helper.enableTextFields(fieldAdultPriceDouble, fieldChildPriceDouble);
                 buttonAddDouble.setEnabled(true);
+
                 if (!radioButtonDouble.isSelected()) {
-                    comboBoxPeriodDouble.setEnabled(false);
-                    comboBoxGuestTypeDouble.setEnabled(false);
-                    comboBoxHostelTypeDouble.setEnabled(false);
-                    fieldAdultPriceDouble.setEnabled(false);
-                    fieldAdultPriceDouble.setEditable(false);
-                    fieldAdultPriceDouble.setText(null);
+                    Helper.resetComboBoxes(comboBoxPeriodDouble, comboBoxHostelTypeDouble);
+                    Helper.resetTextFields(fieldAdultPriceDouble, fieldChildPriceDouble);
                     buttonAddDouble.setEnabled(false);
                 }
             }
@@ -248,19 +232,13 @@ public class EmployeeGUI extends JFrame {
         radioButtonKingSuite.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                comboBoxPeriodKingSuite.setEnabled(true);
-                comboBoxGuestTypeKingSuite.setEnabled(true);
-                comboBoxHostelTypeKingSuite.setEnabled(true);
-                fieldAdultPriceKingSuite.setEnabled(true);
-                fieldAdultPriceKingSuite.setEditable(true);
+                Helper.enableComboBoxes(comboBoxPeriodKingSuite, comboBoxHostelTypeKingSuite);
+                Helper.enableTextFields(fieldAdultPriceKingSuite, fieldChildPriceKingSuite);
                 buttonAddKingSuite.setEnabled(true);
+
                 if (!radioButtonKingSuite.isSelected()) {
-                    comboBoxPeriodKingSuite.setEnabled(false);
-                    comboBoxGuestTypeKingSuite.setEnabled(false);
-                    comboBoxHostelTypeKingSuite.setEnabled(false);
-                    fieldAdultPriceKingSuite.setEnabled(false);
-                    fieldAdultPriceKingSuite.setEditable(false);
-                    fieldAdultPriceKingSuite.setText(null);
+                    Helper.resetComboBoxes(comboBoxPeriodKingSuite, comboBoxHostelTypeKingSuite);
+                    Helper.resetTextFields(fieldAdultPriceKingSuite, fieldChildPriceKingSuite);
                     buttonAddKingSuite.setEnabled(false);
                 }
             }
@@ -321,7 +299,7 @@ public class EmployeeGUI extends JFrame {
 
                         Helper.resetFormFields(fieldHotelName, fieldHotelCity, fieldHotelAddress, fieldHotelDistrict, fieldHotelMail, fieldHotelPhone, fieldHotelStar);
                         Helper.resetCheckBoxes(checkBoxPool, checkBoxWifi, checkBoxParking, checkBoxGym, checkBoxConcierge, checkBoxSpa, checkBoxRoomService);
-                        Helper.resetDateFields(fieldSeasonStartDate, fieldSeasonEndDate, fieldOffSeasonStartDate, fieldOffSeasonEndDate);
+                        Helper.resetTextFields(fieldSeasonStartDate, fieldSeasonEndDate, fieldOffSeasonStartDate, fieldOffSeasonEndDate);
                         Helper.resetRadioButtons(radioButtonSeason, radioButtonOffSeason);
                     }
                     scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);
@@ -385,7 +363,7 @@ public class EmployeeGUI extends JFrame {
 
                         Helper.resetFormFields(fieldHotelName, fieldHotelCity, fieldHotelAddress, fieldHotelDistrict, fieldHotelMail, fieldHotelPhone, fieldHotelStar);
                         Helper.resetCheckBoxes(checkBoxPool, checkBoxWifi, checkBoxParking, checkBoxGym, checkBoxConcierge, checkBoxSpa, checkBoxRoomService);
-                        Helper.resetDateFields(fieldSeasonStartDate, fieldSeasonEndDate, fieldOffSeasonStartDate, fieldOffSeasonEndDate);
+                        Helper.resetTextFields(fieldSeasonStartDate, fieldSeasonEndDate, fieldOffSeasonStartDate, fieldOffSeasonEndDate);
                         Helper.resetRadioButtons(radioButtonSeason, radioButtonOffSeason);
                     }
                     scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);
@@ -411,7 +389,7 @@ public class EmployeeGUI extends JFrame {
                         loadHotelModel();
                         Helper.resetFormFields(fieldHotelName, fieldHotelCity, fieldHotelAddress, fieldHotelDistrict, fieldHotelMail, fieldHotelPhone, fieldHotelStar);
                         Helper.resetCheckBoxes(checkBoxPool, checkBoxWifi, checkBoxParking, checkBoxGym, checkBoxConcierge, checkBoxSpa, checkBoxRoomService);
-                        Helper.resetDateFields(fieldSeasonStartDate, fieldSeasonEndDate, fieldOffSeasonStartDate, fieldOffSeasonEndDate);
+                        Helper.resetTextFields(fieldSeasonStartDate, fieldSeasonEndDate, fieldOffSeasonStartDate, fieldOffSeasonEndDate);
                         Helper.resetRadioButtons(radioButtonSeason, radioButtonOffSeason);
                     } else {
                         Helper.showMessage("error");
@@ -448,7 +426,7 @@ public class EmployeeGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Helper.resetFormFields(fieldHotelName, fieldHotelCity, fieldHotelAddress, fieldHotelDistrict, fieldHotelMail, fieldHotelPhone, fieldHotelStar);
                 Helper.resetCheckBoxes(checkBoxPool, checkBoxWifi, checkBoxParking, checkBoxGym, checkBoxConcierge, checkBoxSpa, checkBoxRoomService);
-                Helper.resetDateFields(fieldSeasonStartDate, fieldSeasonEndDate, fieldOffSeasonStartDate, fieldOffSeasonEndDate);
+                Helper.resetTextFields(fieldSeasonStartDate, fieldSeasonEndDate, fieldOffSeasonStartDate, fieldOffSeasonEndDate);
                 Helper.resetRadioButtons(radioButtonSeason, radioButtonOffSeason);
             }
         });
@@ -460,7 +438,7 @@ public class EmployeeGUI extends JFrame {
                     Helper.showMessage("fill");
                 } else {
                     int hotel_id = Integer.parseInt(tableHotelHotelList.getValueAt(tableHotelHotelList.getSelectedRow(), 0).toString());
-                    int room_type_id = EmployeeOp.getFetch(comboBoxRoomType.getSelectedItem().toString()).getId();
+                    int room_type_id = EmployeeOp.getFetchRoomType(comboBoxRoomType.getSelectedItem().toString()).getId();
                     int stock = Integer.parseInt(fieldRoomStock.getText());
                     int bed = Integer.parseInt(fieldRoomBedCount.getText());
                     int size = Integer.parseInt(fieldRoomSize.getText());
@@ -484,7 +462,7 @@ public class EmployeeGUI extends JFrame {
                     Helper.showMessage("fill");
                 } else {
                     int hotel_id = Integer.parseInt(tableHotelHotelList.getValueAt(tableHotelHotelList.getSelectedRow(), 0).toString());
-                    int room_type_id = EmployeeOp.getFetch(comboBoxRoomType.getSelectedItem().toString()).getId();
+                    int room_type_id = EmployeeOp.getFetchRoomType(comboBoxRoomType.getSelectedItem().toString()).getId();
                     int stock = Integer.parseInt(fieldRoomStock.getText());
                     int bed = Integer.parseInt(fieldRoomBedCount.getText());
                     int size = Integer.parseInt(fieldRoomSize.getText());
@@ -497,6 +475,31 @@ public class EmployeeGUI extends JFrame {
                     }
                     scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);
                     ;
+                }
+            }
+        });
+        buttonAddSingle.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (Helper.isFieldEmpty(fieldAdultPriceSingle) || Helper.isFieldEmpty(fieldChildPriceSingle)) {
+                    Helper.showMessage("fill");
+                } else {
+                    int hotel_id = Integer.parseInt(tableHotelHotelList.getValueAt(tableHotelHotelList.getSelectedRow(), 0).toString());
+                    int period_id = EmployeeOp.getFetchPeriodIdByName(comboBoxPeriodSingle.getSelectedItem().toString()).getId();
+                    int room_type_id = 1;
+                    int acco_id = EmployeeOp.getFetchAccoIdByName(comboBoxHostelTypeSingle.getSelectedItem().toString()).getId();
+                    int adult_price = Integer.parseInt(fieldAdultPriceSingle.getText());
+                    int child_price = Integer.parseInt(fieldChildPriceSingle.getText());
+
+                    if (EmployeeOp.addPriceDetails(hotel_id, period_id, room_type_id, acco_id, adult_price, child_price)) {
+                        Helper.showMessage("done");
+                        radioButtonSingle.setSelected(false);
+                        Helper.resetComboBoxes(comboBoxPeriodSingle, comboBoxHostelTypeSingle);
+                        Helper.resetTextFields(fieldAdultPriceSingle, fieldChildPriceSingle);
+                    } else {
+                        Helper.showMessage("error");
+                    }
+                    //Helper.resetTextFields(fieldAdultPriceSingle, fieldChildPriceSingle);
                 }
             }
         });
@@ -590,7 +593,7 @@ public class EmployeeGUI extends JFrame {
                 fieldOffSeasonEndDate.setText(obj.getOffSeasonEnd().toString());
             }
         }
-        Helper.enableDateFields(fieldSeasonStartDate, fieldSeasonEndDate, fieldOffSeasonStartDate, fieldOffSeasonEndDate);
+        Helper.enableTextFields(fieldSeasonStartDate, fieldSeasonEndDate, fieldOffSeasonStartDate, fieldOffSeasonEndDate);
     }
 
     private void loadRoomDetailsModel() {

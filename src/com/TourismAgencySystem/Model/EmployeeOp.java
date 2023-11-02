@@ -100,7 +100,7 @@ public class EmployeeOp {
         return true;
     }
 
-    public static RoomType getFetch(String roomType) {
+    public static RoomType getFetchRoomType(String roomType) {
         RoomType obj = null;
         String query = "SELECT * FROM room_type WHERE room_name = ?";
         try {
@@ -117,6 +117,40 @@ public class EmployeeOp {
         }
         return obj;
     }
+    public static PeriodType getFetchPeriodIdByName (String periodName) {
+        PeriodType obj = null;
+        String query = "SELECT * FROM period_type WHERE period_name = ?";
+        try {
+            PreparedStatement pr = DBConnector.getInstance().prepareStatement(query);
+            pr.setString(1, periodName);
+            ResultSet rs = pr.executeQuery();
+            if (rs.next()) {
+                obj = new PeriodType();
+                obj.setId(rs.getInt("id"));
+                obj.setPeriodName(rs.getString("period_name"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+    public static AccommodationType getFetchAccoIdByName (String accoName) {
+        AccommodationType obj = null;
+        String query = "SELECT * FROM accommodation_type WHERE accommodation_name = ?";
+        try {
+            PreparedStatement pr = DBConnector.getInstance().prepareStatement(query);
+            pr.setString(1, accoName);
+            ResultSet rs = pr.executeQuery();
+            if (rs.next()) {
+                obj = new AccommodationType();
+                obj.setId(rs.getInt("id"));
+                obj.setAccoName(rs.getString("accommodation_name"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
 
     public static boolean addHotelPeriodDetails(Date season_start, Date season_end, Date offseason_start, Date offseason_end) {
         String query = "INSERT INTO hotel_period (season_start,season_end,offseason_start,offseason_end) VALUES (?,?,?,?)";
@@ -127,6 +161,29 @@ public class EmployeeOp {
             pr.setDate(2, (java.sql.Date) season_end);
             pr.setDate(3, (java.sql.Date) offseason_start);
             pr.setDate(4, (java.sql.Date) offseason_end);
+
+            int response = pr.executeUpdate();
+            if (response == -1) {
+                Helper.showMessage("error");
+            }
+            return response != -1;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+    public static boolean addPriceDetails(int hotel_id, int period_id, int room_type, int accommodation_id, int adult_price, int child_price){
+        String query = "INSERT INTO room_price (hotel_id, period_id, room_type, accommodation_id, adult_price, child_price) VALUES (?,?,?,?,?,?)";
+
+        try {
+            PreparedStatement pr = DBConnector.getInstance().prepareStatement(query);
+            pr.setInt(1, hotel_id);
+            pr.setInt(2, period_id);
+            pr.setInt(3, room_type);
+            pr.setInt(4, accommodation_id);
+            pr.setInt(5, adult_price);
+            pr.setInt(6, child_price);
 
             int response = pr.executeUpdate();
             if (response == -1) {
