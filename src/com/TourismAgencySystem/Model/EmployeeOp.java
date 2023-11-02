@@ -74,7 +74,7 @@ public class EmployeeOp {
         }
         return true;
     }
-    public static boolean addRoomDetails(int stock, int bed, int room_size, int tv, int minibar, int hotel_id, int room_type_id) {
+    public static boolean addRoomDetails(int hotel_id, int room_type_id, int stock, int bed, int room_size, int tv, int minibar) {
         String query = "INSERT INTO room (hotel_id, room_type_id,stock,bed,room_size,tv,minibar) VALUES (?,?,?,?,?,?,?)";
 
         try {
@@ -97,6 +97,23 @@ public class EmployeeOp {
             e.printStackTrace();
         }
         return true;
+    }
+    public static RoomType getFetch(String roomType) {
+        RoomType obj = null;
+        String query = "SELECT * FROM room_type WHERE room_name = ?";
+        try {
+            PreparedStatement pr = DBConnector.getInstance().prepareStatement(query);
+            pr.setString(1, roomType);
+            ResultSet rs = pr.executeQuery();
+            if (rs.next()) {
+                obj = new RoomType();
+                obj.setId(rs.getInt("id"));
+                obj.setRoomName(rs.getString("room_name"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return obj;
     }
 
     public static boolean addHotelPeriodDetails(Date season_start, Date season_end, Date offseason_start, Date offseason_end) {

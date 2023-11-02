@@ -434,6 +434,7 @@ public class EmployeeGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Helper.resetFormFields(fieldRoomTypeName, fieldRoomBedCount, fieldRoomSize, fieldRoomTv, fieldRoomMinibar, fieldRoomStock);
+                fieldRoomTypeName.setText(comboBoxRoomType.getSelectedItem().toString());
              }
         });
         comboBoxRoomType.addActionListener(new ActionListener() {
@@ -459,7 +460,7 @@ public class EmployeeGUI extends JFrame {
                     Helper.showMessage("fill");
                 } else {
                     int hotel_id = Integer.parseInt(tableHotelHotelList.getValueAt(tableHotelHotelList.getSelectedRow(), 0).toString());
-                    int room_type_id = Integer.parseInt(comboBoxRoomType.getSelectedItem().toString());
+                    int room_type_id = EmployeeOp.getFetch(comboBoxRoomType.getSelectedItem().toString()).getId();
                     int stock = Integer.parseInt(fieldRoomStock.getText());
                     int bed = Integer.parseInt(fieldRoomBedCount.getText());
                     int size = Integer.parseInt(fieldRoomSize.getText());
@@ -468,12 +469,8 @@ public class EmployeeGUI extends JFrame {
 
                     if (EmployeeOp.addRoomDetails(hotel_id, room_type_id, stock, bed, size, tv, minibar)) {
                         Helper.showMessage("done");
-                        loadHotelModel();
 
-                        Helper.resetFormFields(fieldHotelName, fieldHotelCity, fieldHotelAddress, fieldHotelDistrict, fieldHotelMail, fieldHotelPhone, fieldHotelStar);
-                        Helper.resetCheckBoxes(checkBoxPool, checkBoxWifi, checkBoxParking, checkBoxGym, checkBoxConcierge, checkBoxSpa, checkBoxRoomService);
-                        Helper.resetDateFields(fieldSeasonStartDate, fieldSeasonEndDate, fieldOffSeasonStartDate, fieldOffSeasonEndDate);
-                        Helper.resetRadioButtons(radioButtonSeason, radioButtonOffSeason);
+                        Helper.resetFormFields(fieldRoomStock, fieldRoomBedCount, fieldRoomSize, fieldRoomTv, fieldRoomMinibar);
                     }
                     scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);;
                 }
