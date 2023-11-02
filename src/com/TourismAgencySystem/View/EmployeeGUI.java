@@ -65,9 +65,9 @@ public class EmployeeGUI extends JFrame {
     private JComboBox comboBoxHostelTypeSingle;
     private JComboBox comboBoxHostelTypeDouble;
     private JComboBox comboBoxHostelTypeKingSuite;
-    private JTextField fieldPriceSingle;
-    private JTextField fieldPriceDouble;
-    private JTextField fieldPriceKingSuite;
+    private JTextField fieldAdultPriceSingle;
+    private JTextField fieldAdultPriceDouble;
+    private JTextField fieldAdultPriceKingSuite;
     private JButton buttonAddSingle;
     private JButton buttonAddDouble;
     private JButton buttonAddKingSuite;
@@ -133,6 +133,9 @@ public class EmployeeGUI extends JFrame {
     private JScrollPane scrollPaneHotelDetails;
     private JLabel labelRoomHotelName;
     private JButton buttonHotelClear;
+    private JTextField fieldChildPriceSingle;
+    private JTextField fieldChildPriceDouble;
+    private JTextField fieldChildPriceKingSuite;
     private DefaultTableModel modelHotelHotelList;
     private Object[] rowHotelHotelList;
     private Employee employee;
@@ -208,16 +211,16 @@ public class EmployeeGUI extends JFrame {
                 comboBoxPeriodSingle.setEnabled(true);
                 comboBoxGuestTypeSingle.setEnabled(true);
                 comboBoxHostelTypeSingle.setEnabled(true);
-                fieldPriceSingle.setEnabled(true);
-                fieldPriceSingle.setEditable(true);
+                fieldAdultPriceSingle.setEnabled(true);
+                fieldAdultPriceSingle.setEditable(true);
                 buttonAddSingle.setEnabled(true);
                 if (!radioButtonSingle.isSelected()) {
                     comboBoxPeriodSingle.setEnabled(false);
                     comboBoxGuestTypeSingle.setEnabled(false);
                     comboBoxHostelTypeSingle.setEnabled(false);
-                    fieldPriceSingle.setEnabled(false);
-                    fieldPriceSingle.setEditable(false);
-                    fieldPriceSingle.setText(null);
+                    fieldAdultPriceSingle.setEnabled(false);
+                    fieldAdultPriceSingle.setEditable(false);
+                    fieldAdultPriceSingle.setText(null);
                     buttonAddSingle.setEnabled(false);
                 }
             }
@@ -228,16 +231,16 @@ public class EmployeeGUI extends JFrame {
                 comboBoxPeriodDouble.setEnabled(true);
                 comboBoxGuestTypeDouble.setEnabled(true);
                 comboBoxHostelTypeDouble.setEnabled(true);
-                fieldPriceDouble.setEnabled(true);
-                fieldPriceDouble.setEditable(true);
+                fieldAdultPriceDouble.setEnabled(true);
+                fieldAdultPriceDouble.setEditable(true);
                 buttonAddDouble.setEnabled(true);
                 if (!radioButtonDouble.isSelected()) {
                     comboBoxPeriodDouble.setEnabled(false);
                     comboBoxGuestTypeDouble.setEnabled(false);
                     comboBoxHostelTypeDouble.setEnabled(false);
-                    fieldPriceDouble.setEnabled(false);
-                    fieldPriceDouble.setEditable(false);
-                    fieldPriceDouble.setText(null);
+                    fieldAdultPriceDouble.setEnabled(false);
+                    fieldAdultPriceDouble.setEditable(false);
+                    fieldAdultPriceDouble.setText(null);
                     buttonAddDouble.setEnabled(false);
                 }
             }
@@ -248,16 +251,16 @@ public class EmployeeGUI extends JFrame {
                 comboBoxPeriodKingSuite.setEnabled(true);
                 comboBoxGuestTypeKingSuite.setEnabled(true);
                 comboBoxHostelTypeKingSuite.setEnabled(true);
-                fieldPriceKingSuite.setEnabled(true);
-                fieldPriceKingSuite.setEditable(true);
+                fieldAdultPriceKingSuite.setEnabled(true);
+                fieldAdultPriceKingSuite.setEditable(true);
                 buttonAddKingSuite.setEnabled(true);
                 if (!radioButtonKingSuite.isSelected()) {
                     comboBoxPeriodKingSuite.setEnabled(false);
                     comboBoxGuestTypeKingSuite.setEnabled(false);
                     comboBoxHostelTypeKingSuite.setEnabled(false);
-                    fieldPriceKingSuite.setEnabled(false);
-                    fieldPriceKingSuite.setEditable(false);
-                    fieldPriceKingSuite.setText(null);
+                    fieldAdultPriceKingSuite.setEnabled(false);
+                    fieldAdultPriceKingSuite.setEditable(false);
+                    fieldAdultPriceKingSuite.setText(null);
                     buttonAddKingSuite.setEnabled(false);
                 }
             }
