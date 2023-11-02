@@ -142,7 +142,7 @@ public class EmployeeGUI extends JFrame {
     public EmployeeGUI(Employee employee) {
         this.employee = employee;
         add(wrapper);
-        setSize(1300, 1000);
+        setSize(1000, 700);
         setLocation(Helper.screenCenterLocation("x", getSize()), Helper.screenCenterLocation("y", getSize()));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle(Config.PROJECT_TITLE);
