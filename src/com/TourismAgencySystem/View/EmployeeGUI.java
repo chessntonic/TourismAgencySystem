@@ -208,11 +208,8 @@ public class EmployeeGUI extends JFrame {
                 buttonAddSingle.setEnabled(true);
                 if (!radioButtonSingle.isSelected()) {
                     comboBoxPeriodSingle.setEnabled(false);
-                    comboBoxPeriodSingle.setEditable(false);
                     comboBoxGuestTypeSingle.setEnabled(false);
-                    comboBoxGuestTypeSingle.setEditable(false);
                     comboBoxHostelTypeSingle.setEnabled(false);
-                    comboBoxHostelTypeSingle.setEditable(false);
                     fieldPriceSingle.setEnabled(false);
                     fieldPriceSingle.setEditable(false);
                     fieldPriceSingle.setText(null);
@@ -231,11 +228,8 @@ public class EmployeeGUI extends JFrame {
                 buttonAddDouble.setEnabled(true);
                 if (!radioButtonDouble.isSelected()) {
                     comboBoxPeriodDouble.setEnabled(false);
-                    comboBoxPeriodDouble.setEditable(false);
                     comboBoxGuestTypeDouble.setEnabled(false);
-                    comboBoxGuestTypeDouble.setEditable(false);
                     comboBoxHostelTypeDouble.setEnabled(false);
-                    comboBoxHostelTypeDouble.setEditable(false);
                     fieldPriceDouble.setEnabled(false);
                     fieldPriceDouble.setEditable(false);
                     fieldPriceDouble.setText(null);
@@ -254,11 +248,8 @@ public class EmployeeGUI extends JFrame {
                 buttonAddKingSuite.setEnabled(true);
                 if (!radioButtonKingSuite.isSelected()) {
                     comboBoxPeriodKingSuite.setEnabled(false);
-                    comboBoxPeriodKingSuite.setEditable(false);
                     comboBoxGuestTypeKingSuite.setEnabled(false);
-                    comboBoxGuestTypeKingSuite.setEditable(false);
                     comboBoxHostelTypeKingSuite.setEnabled(false);
-                    comboBoxHostelTypeKingSuite.setEditable(false);
                     fieldPriceKingSuite.setEnabled(false);
                     fieldPriceKingSuite.setEditable(false);
                     fieldPriceKingSuite.setText(null);
@@ -326,7 +317,6 @@ public class EmployeeGUI extends JFrame {
                         Helper.resetRadioButtons(radioButtonSeason, radioButtonOffSeason);
                     }
                     scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);
-                    ;
                 }
             }
         });
@@ -391,7 +381,6 @@ public class EmployeeGUI extends JFrame {
                         Helper.resetRadioButtons(radioButtonSeason, radioButtonOffSeason);
                     }
                     scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);
-                    ;
                 }
             }
         });
@@ -400,7 +389,6 @@ public class EmployeeGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 loadHotelDetailsModel();
                 scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);
-                ;
             }
         });
         buttonHotelDelete.addActionListener(new ActionListener() {
