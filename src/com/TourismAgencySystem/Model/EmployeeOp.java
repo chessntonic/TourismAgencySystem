@@ -452,6 +452,18 @@ public class EmployeeOp {
         }
         return true;
     }
+    public static boolean deleteRoomPriceDetails(int id){
+        String query = "DELETE FROM room_price WHERE id = ?";
+        try {
+            PreparedStatement ps = DBConnector.getInstance().prepareStatement(query);
+            ps.setInt(1, id);
+
+            return ps.executeUpdate() != -1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
 
     public static String searchHotelQuery(String a, String star) {
         String query = "SELECT * FROM hotel WHERE (hotel_name LIKE '%" + a + "%' OR city = '" + a + "' OR district = '" + a + "')";

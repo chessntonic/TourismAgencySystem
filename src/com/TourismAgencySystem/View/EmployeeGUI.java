@@ -173,7 +173,7 @@ public class EmployeeGUI extends JFrame {
         modelPriceRoomList = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
-                if (column == 0 || column == 1 || column == 2 || column == 3 || column == 4 || column == 5 || column == 6) {
+                if (column == 0 || column == 1 || column == 2 || column == 3) {
                     return false;
                 }
                 return super.isCellEditable(row, column);
@@ -570,6 +570,20 @@ public class EmployeeGUI extends JFrame {
                         Helper.resetComboBoxes(comboBoxPeriodKingSuite, comboBoxHostelTypeKingSuite);
                         Helper.resetTextFields(fieldAdultPriceKingSuite, fieldChildPriceKingSuite);
                         buttonAddKingSuite.setEnabled(false);
+                    } else {
+                        Helper.showMessage("error");
+                    }
+                }
+            }
+        });
+        buttonDeletePrice.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (Helper.confirm("sure")) {
+                    int id = Integer.parseInt(tablePriceRoomList.getValueAt(tablePriceRoomList.getSelectedRow(), 0).toString());
+                    if (EmployeeOp.deleteRoomPriceDetails(id)) {
+                        Helper.showMessage("done");
+                        loadPriceRoomModel();
                     } else {
                         Helper.showMessage("error");
                     }
