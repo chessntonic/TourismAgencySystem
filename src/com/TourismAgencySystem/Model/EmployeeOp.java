@@ -74,6 +74,7 @@ public class EmployeeOp {
         }
         return true;
     }
+
     public static boolean addHotelPeriodDetails(Date season_start, Date season_end, Date offseason_start, Date offseason_end) {
         String query = "INSERT INTO hotel_period (season_start,season_end,offseason_start,offseason_end) VALUES (?,?,?,?)";
 
@@ -124,6 +125,7 @@ public class EmployeeOp {
         }
         return true;
     }
+
     public static boolean updateHotelPeriodDetails(int hotel_id, Date season_start, Date season_end, Date offseason_start, Date offseason_end) {
         String query = "UPDATE hotel_period SET season_start=?,season_end=?,offseason_start=?,offseason_end=? WHERE id=?";
 
@@ -202,6 +204,7 @@ public class EmployeeOp {
         }
         return hotelPeriodList;
     }
+
     public static boolean deleteHotelDetails(int id) {
         String query = "DELETE FROM hotel WHERE id = ?";
         try {
@@ -214,6 +217,7 @@ public class EmployeeOp {
         }
         return true;
     }
+
     public static boolean deleteHotelPeriodDetails(int id) {
         String query = "DELETE FROM hotel_period WHERE id = ?";
         try {
@@ -226,9 +230,14 @@ public class EmployeeOp {
         }
         return true;
     }
-    public static String searchHotelQuery(String a, String star) {
-        String query = "SELECT * FROM hotel WHERE (hotel_name LIKE '%" + a + "%' OR city LIKE '%" + a + "%' OR district LIKE '%" + a + "%') AND star = " + star;
 
+    public static String searchHotelQuery(String a, String star) {
+        String query = "SELECT * FROM hotel WHERE (hotel_name LIKE '%" + a + "%' OR city LIKE '%" + a + "%' OR district LIKE '%" + a + "%')";
+
+        if (!star.isEmpty()) {
+            query += " AND star='{{star}}'";
+            query = query.replace("{{star}}", star);
+        }
         return query;
     }
 
