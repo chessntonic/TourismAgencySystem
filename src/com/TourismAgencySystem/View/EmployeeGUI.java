@@ -435,7 +435,7 @@ public class EmployeeGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Helper.resetFormFields(fieldRoomTypeName, fieldRoomBedCount, fieldRoomSize, fieldRoomTv, fieldRoomMinibar, fieldRoomStock);
                 fieldRoomTypeName.setText(comboBoxRoomType.getSelectedItem().toString());
-             }
+            }
         });
         comboBoxRoomType.addActionListener(new ActionListener() {
             @Override
@@ -470,9 +470,33 @@ public class EmployeeGUI extends JFrame {
                     if (EmployeeOp.addRoomDetails(hotel_id, room_type_id, stock, bed, size, tv, minibar)) {
                         Helper.showMessage("done");
 
-                        Helper.resetFormFields(fieldRoomStock, fieldRoomBedCount, fieldRoomSize, fieldRoomTv, fieldRoomMinibar);
                     }
-                    scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);;
+                    scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);
+                    ;
+                }
+            }
+        });
+        buttonRoomTypeUpdate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if ((Helper.isFieldEmpty(fieldRoomStock) || Helper.isFieldEmpty(fieldRoomBedCount) || Helper.isFieldEmpty(fieldRoomSize) || Helper.isFieldEmpty(fieldRoomTv)
+                        || Helper.isFieldEmpty(fieldRoomMinibar))) {
+                    Helper.showMessage("fill");
+                } else {
+                    int hotel_id = Integer.parseInt(tableHotelHotelList.getValueAt(tableHotelHotelList.getSelectedRow(), 0).toString());
+                    int room_type_id = EmployeeOp.getFetch(comboBoxRoomType.getSelectedItem().toString()).getId();
+                    int stock = Integer.parseInt(fieldRoomStock.getText());
+                    int bed = Integer.parseInt(fieldRoomBedCount.getText());
+                    int size = Integer.parseInt(fieldRoomSize.getText());
+                    int tv = Integer.parseInt(fieldRoomTv.getText());
+                    int minibar = Integer.parseInt(fieldRoomMinibar.getText());
+
+                    if (EmployeeOp.updateRoomDetails(hotel_id, room_type_id, stock, bed, size, tv, minibar)) {
+                        Helper.showMessage("done");
+
+                    }
+                    scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);
+                    ;
                 }
             }
         });
@@ -585,10 +609,11 @@ public class EmployeeGUI extends JFrame {
                 roomTypeId = 3;
                 break;
             default: {
-                Helper.showMessage("error");;
+                Helper.showMessage("error");
+                ;
             }
         }
-        for (Room obj : EmployeeOp.getRoomDetailsByHotelId(hotelId,roomTypeId)) {
+        for (Room obj : EmployeeOp.getRoomDetailsByHotelId(hotelId, roomTypeId)) {
             fieldRoomTypeName.setText(roomTypeName);
             fieldRoomBedCount.setText(String.valueOf(obj.getBed()));
             fieldRoomSize.setText(String.valueOf(obj.getRoomSize()));

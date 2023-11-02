@@ -74,6 +74,7 @@ public class EmployeeOp {
         }
         return true;
     }
+
     public static boolean addRoomDetails(int hotel_id, int room_type_id, int stock, int bed, int room_size, int tv, int minibar) {
         String query = "INSERT INTO room (hotel_id, room_type_id,stock,bed,room_size,tv,minibar) VALUES (?,?,?,?,?,?,?)";
 
@@ -98,6 +99,7 @@ public class EmployeeOp {
         }
         return true;
     }
+
     public static RoomType getFetch(String roomType) {
         RoomType obj = null;
         String query = "SELECT * FROM room_type WHERE room_name = ?";
@@ -185,6 +187,26 @@ public class EmployeeOp {
         return true;
     }
 
+    public static boolean updateRoomDetails(int hotel_id, int room_type_id, int stock, int bed, int size, int tv, int minibar) {
+        String query = "UPDATE room SET stock=?,bed=?,room_size=?,tv=?,minibar=? WHERE hotel_id=? AND room_type_id=?";
+
+        try {
+            PreparedStatement ps = DBConnector.getInstance().prepareStatement(query);
+            ps.setInt(1, stock);
+            ps.setInt(2, bed);
+            ps.setInt(3, size);
+            ps.setInt(4, tv);
+            ps.setInt(5, minibar);
+            ps.setInt(6, hotel_id);
+            ps.setInt(7, room_type_id);
+
+            return ps.executeUpdate() != -1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
     public static ArrayList<Hotel> getHotelDetailsByHotelId(int hotelId) {
         ArrayList<Hotel> hotelDetailsList = new ArrayList<>();
 
@@ -220,6 +242,7 @@ public class EmployeeOp {
         }
         return hotelDetailsList;
     }
+
     public static ArrayList<Room> getRoomDetailsByHotelId(int hotelId, int roomTypeId) {
         ArrayList<Room> roomDetailsList = new ArrayList<>();
 
