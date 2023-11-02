@@ -136,11 +136,13 @@ public class EmployeeGUI extends JFrame {
     private DefaultTableModel modelHotelHotelList;
     private Object[] rowHotelHotelList;
     private Employee employee;
+    private DefaultTableModel modelPriceRoomList;
+    private Object[] rowPriceRoomList;
 
     public EmployeeGUI(Employee employee) {
         this.employee = employee;
         add(wrapper);
-        setSize(1000, 800);
+        setSize(1300, 1000);
         setLocation(Helper.screenCenterLocation("x", getSize()), Helper.screenCenterLocation("y", getSize()));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle(Config.PROJECT_TITLE);
@@ -167,6 +169,23 @@ public class EmployeeGUI extends JFrame {
 
         tableHotelHotelList.setModel(modelHotelHotelList);
         tableHotelHotelList.getTableHeader().setReorderingAllowed(false);
+
+        modelPriceRoomList = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                if (column == 0 || column == 1 || column == 2 || column == 3 || column == 4 || column == 5 || column == 6) {
+                    return false;
+                }
+                return super.isCellEditable(row, column);
+            }
+        };
+
+        Object[] colPriceRoomList = {"ID", "Period", "Room Type", "Hostel Type", "Adult Price", "Child Price"};
+        modelPriceRoomList.setColumnIdentifiers(colPriceRoomList);
+        rowPriceRoomList = new Object[colPriceRoomList.length];
+
+        tablePriceRoomList.setModel(modelPriceRoomList);
+        tablePriceRoomList.getTableHeader().setReorderingAllowed(false);
 
         radioButtonSeason.addActionListener(new ActionListener() {
             @Override
@@ -374,6 +393,7 @@ public class EmployeeGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 loadHotelDetailsModel();
+                loadPriceRoomModel();
                 scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);
                 labelRoomHotelName.setText(tableHotelHotelList.getValueAt(tableHotelHotelList.getSelectedRow(), 1).toString());
             }
@@ -493,13 +513,66 @@ public class EmployeeGUI extends JFrame {
 
                     if (EmployeeOp.addPriceDetails(hotel_id, period_id, room_type_id, acco_id, adult_price, child_price)) {
                         Helper.showMessage("done");
+                        loadPriceRoomModel();
                         radioButtonSingle.setSelected(false);
                         Helper.resetComboBoxes(comboBoxPeriodSingle, comboBoxHostelTypeSingle);
                         Helper.resetTextFields(fieldAdultPriceSingle, fieldChildPriceSingle);
+                        buttonAddSingle.setEnabled(false);
                     } else {
                         Helper.showMessage("error");
                     }
-                    //Helper.resetTextFields(fieldAdultPriceSingle, fieldChildPriceSingle);
+                }
+            }
+        });
+        buttonAddDouble.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (Helper.isFieldEmpty(fieldAdultPriceDouble) || Helper.isFieldEmpty(fieldChildPriceDouble)) {
+                    Helper.showMessage("fill");
+                } else {
+                    int hotel_id = Integer.parseInt(tableHotelHotelList.getValueAt(tableHotelHotelList.getSelectedRow(), 0).toString());
+                    int period_id = EmployeeOp.getFetchPeriodIdByName(comboBoxPeriodDouble.getSelectedItem().toString()).getId();
+                    int room_type_id = 2;
+                    int acco_id = EmployeeOp.getFetchAccoIdByName(comboBoxHostelTypeDouble.getSelectedItem().toString()).getId();
+                    int adult_price = Integer.parseInt(fieldAdultPriceDouble.getText());
+                    int child_price = Integer.parseInt(fieldChildPriceDouble.getText());
+
+                    if (EmployeeOp.addPriceDetails(hotel_id, period_id, room_type_id, acco_id, adult_price, child_price)) {
+                        Helper.showMessage("done");
+                        loadPriceRoomModel();
+                        radioButtonDouble.setSelected(false);
+                        Helper.resetComboBoxes(comboBoxPeriodDouble, comboBoxHostelTypeDouble);
+                        Helper.resetTextFields(fieldAdultPriceDouble, fieldChildPriceDouble);
+                        buttonAddDouble.setEnabled(false);
+                    } else {
+                        Helper.showMessage("error");
+                    }
+                }
+            }
+        });
+        buttonAddKingSuite.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (Helper.isFieldEmpty(fieldAdultPriceKingSuite) || Helper.isFieldEmpty(fieldChildPriceKingSuite)) {
+                    Helper.showMessage("fill");
+                } else {
+                    int hotel_id = Integer.parseInt(tableHotelHotelList.getValueAt(tableHotelHotelList.getSelectedRow(), 0).toString());
+                    int period_id = EmployeeOp.getFetchPeriodIdByName(comboBoxPeriodKingSuite.getSelectedItem().toString()).getId();
+                    int room_type_id = 3;
+                    int acco_id = EmployeeOp.getFetchAccoIdByName(comboBoxHostelTypeKingSuite.getSelectedItem().toString()).getId();
+                    int adult_price = Integer.parseInt(fieldAdultPriceKingSuite.getText());
+                    int child_price = Integer.parseInt(fieldChildPriceKingSuite.getText());
+
+                    if (EmployeeOp.addPriceDetails(hotel_id, period_id, room_type_id, acco_id, adult_price, child_price)) {
+                        Helper.showMessage("done");
+                        loadPriceRoomModel();
+                        radioButtonKingSuite.setSelected(false);
+                        Helper.resetComboBoxes(comboBoxPeriodKingSuite, comboBoxHostelTypeKingSuite);
+                        Helper.resetTextFields(fieldAdultPriceKingSuite, fieldChildPriceKingSuite);
+                        buttonAddKingSuite.setEnabled(false);
+                    } else {
+                        Helper.showMessage("error");
+                    }
                 }
             }
         });
@@ -623,6 +696,24 @@ public class EmployeeGUI extends JFrame {
             fieldRoomTv.setText(String.valueOf(obj.getTv()));
             fieldRoomMinibar.setText(String.valueOf(obj.getMinibar()));
             fieldRoomStock.setText(String.valueOf(obj.getStock()));
+        }
+    }
+
+    public void loadPriceRoomModel() {
+        DefaultTableModel clearModel = (DefaultTableModel) tablePriceRoomList.getModel();
+        clearModel.setRowCount(0);
+        int i;
+        int id = Integer.parseInt(tableHotelHotelList.getValueAt(tableHotelHotelList.getSelectedRow(), 0).toString());
+        for (RoomPrice obj : EmployeeOp.getRoomPriceListByHotelId(id)) {
+            i = 0;
+            rowPriceRoomList[i++] = obj.getId();
+            rowPriceRoomList[i++] = EmployeeOp.getFetchPeriodNameById(obj.getPeriodId()).getPeriodName();
+            rowPriceRoomList[i++] = EmployeeOp.getFetchRoomNameById(obj.getRoomTypeId()).getRoomName();
+            rowPriceRoomList[i++] = EmployeeOp.getFetchAccoNameById(obj.getAccommodationId()).getAccoName();
+            rowPriceRoomList[i++] = obj.getAdultPrice();
+            rowPriceRoomList[i++] = obj.getChildPrice();
+
+            modelPriceRoomList.addRow(rowPriceRoomList);
         }
     }
 }

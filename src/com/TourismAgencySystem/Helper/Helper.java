@@ -132,7 +132,6 @@ public class Helper {
         }
     }
 
-
     public static java.sql.Date stringToDate(String dateString) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {

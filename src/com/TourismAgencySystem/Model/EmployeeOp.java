@@ -42,6 +42,29 @@ public class EmployeeOp {
         }
         return hotelList;
     }
+    public static ArrayList<RoomPrice> getRoomPriceListByHotelId(int hotelId) {
+        ArrayList<RoomPrice> roomPriceList = new ArrayList<>();
+        String query = "SELECT * FROM room_price WHERE hotel_id = " + hotelId;
+        RoomPrice obj;
+        try {
+            Statement st = DBConnector.getInstance().createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                obj = new RoomPrice();
+                obj.setId(rs.getInt("id"));
+                obj.setHotelId(rs.getInt("hotel_id"));
+                obj.setPeriodId(rs.getInt("period_id"));
+                obj.setRoomTypeId(rs.getInt("room_type"));
+                obj.setAccommodationId(rs.getInt("accommodation_id"));
+                obj.setAdultPrice(rs.getInt("adult_price"));
+                obj.setChildPrice(rs.getInt("child_price"));
+                roomPriceList.add(obj);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return roomPriceList;
+    }
 
     public static boolean addHotelDetails(String name, String city, String district, String star, String address, String hotel_email, String hotel_phone,
                                           String parking, String wifi, String pool, String gym, String concierge, String spa, String room_service) {
@@ -140,6 +163,57 @@ public class EmployeeOp {
         try {
             PreparedStatement pr = DBConnector.getInstance().prepareStatement(query);
             pr.setString(1, accoName);
+            ResultSet rs = pr.executeQuery();
+            if (rs.next()) {
+                obj = new AccommodationType();
+                obj.setId(rs.getInt("id"));
+                obj.setAccoName(rs.getString("accommodation_name"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+    public static PeriodType getFetchPeriodNameById (int periodId) {
+        PeriodType obj = null;
+        String query = "SELECT * FROM period_type WHERE id = ?";
+        try {
+            PreparedStatement pr = DBConnector.getInstance().prepareStatement(query);
+            pr.setInt(1, periodId);
+            ResultSet rs = pr.executeQuery();
+            if (rs.next()) {
+                obj = new PeriodType();
+                obj.setId(rs.getInt("id"));
+                obj.setPeriodName(rs.getString("period_name"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+    public static RoomType getFetchRoomNameById (int roomId) {
+        RoomType obj = null;
+        String query = "SELECT * FROM room_type WHERE id = ?";
+        try {
+            PreparedStatement pr = DBConnector.getInstance().prepareStatement(query);
+            pr.setInt(1, roomId);
+            ResultSet rs = pr.executeQuery();
+            if (rs.next()) {
+                obj = new RoomType();
+                obj.setId(rs.getInt("id"));
+                obj.setRoomName(rs.getString("room_name"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+    public static AccommodationType getFetchAccoNameById (int accoId) {
+        AccommodationType obj = null;
+        String query = "SELECT * FROM accommodation_type WHERE id = ?";
+        try {
+            PreparedStatement pr = DBConnector.getInstance().prepareStatement(query);
+            pr.setInt(1, accoId);
             ResultSet rs = pr.executeQuery();
             if (rs.next()) {
                 obj = new AccommodationType();
