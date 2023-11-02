@@ -149,7 +149,7 @@ public class EmployeeGUI extends JFrame {
         modelHotelHotelList = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
-                if (column == 0) {
+                if (column == 0 || column == 1 || column == 2 || column == 3 || column == 4 || column == 5 || column == 6) {
                     return false;
                 }
                 return super.isCellEditable(row, column);
