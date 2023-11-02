@@ -232,11 +232,11 @@ public class EmployeeOp {
     }
 
     public static String searchHotelQuery(String a, String star) {
-        String query = "SELECT * FROM hotel WHERE (hotel_name LIKE '%" + a + "%' OR city LIKE '%" + a + "%' OR district LIKE '%" + a + "%')";
+        String query = "SELECT * FROM hotel WHERE (hotel_name LIKE '%" + a + "%' OR city = '" + a + "' OR district = '" + a + "')";
 
         if (!star.isEmpty()) {
-            query += " AND star='{{star}}'";
-            query = query.replace("{{star}}", star);
+            query += " AND star= '" + star + "'";
+            //query = query.replace("{{star}}", star);
         }
         return query;
     }
