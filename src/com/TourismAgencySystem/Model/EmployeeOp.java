@@ -74,6 +74,30 @@ public class EmployeeOp {
         }
         return true;
     }
+    public static boolean addRoomDetails(int stock, int bed, int room_size, int tv, int minibar, int hotel_id, int room_type_id) {
+        String query = "INSERT INTO room (hotel_id, room_type_id,stock,bed,room_size,tv,minibar) VALUES (?,?,?,?,?,?,?)";
+
+        try {
+            PreparedStatement pr = DBConnector.getInstance().prepareStatement(query);
+            pr.setInt(1, hotel_id);
+            pr.setInt(2, room_type_id);
+            pr.setInt(3, stock);
+            pr.setInt(4, bed);
+            pr.setInt(5, room_size);
+            pr.setInt(6, tv);
+            pr.setInt(7, minibar);
+
+            int response = pr.executeUpdate();
+            if (response == -1) {
+                Helper.showMessage("error");
+            }
+            return response != -1;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
 
     public static boolean addHotelPeriodDetails(Date season_start, Date season_end, Date offseason_start, Date offseason_end) {
         String query = "INSERT INTO hotel_period (season_start,season_end,offseason_start,offseason_end) VALUES (?,?,?,?)";
@@ -178,6 +202,33 @@ public class EmployeeOp {
             e.printStackTrace();
         }
         return hotelDetailsList;
+    }
+    public static ArrayList<Room> getRoomDetailsByHotelId(int hotelId, int roomTypeId) {
+        ArrayList<Room> roomDetailsList = new ArrayList<>();
+
+        Room obj;
+
+        try {
+            Statement st = DBConnector.getInstance().createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM room WHERE hotel_id = " + hotelId + " AND room_type_id = " + roomTypeId);
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int hotel_id = rs.getInt("hotel_id");
+                int room_type_id = rs.getInt("room_type_id");
+                int bed = rs.getInt("bed");
+                int tv = rs.getInt("tv");
+                int minibar = rs.getInt("minibar");
+                int room_size = rs.getInt("room_size");
+                int stock = rs.getInt("stock");
+
+                obj = new Room(id, hotel_id, room_type_id, bed, tv, minibar, room_size, stock);
+                roomDetailsList.add(obj);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return roomDetailsList;
     }
 
     public static ArrayList<HotelPeriod> getHotelPeriodByHotelId(int hotelId) {

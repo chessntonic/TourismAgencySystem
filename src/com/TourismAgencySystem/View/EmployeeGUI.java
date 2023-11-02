@@ -47,7 +47,7 @@ public class EmployeeGUI extends JFrame {
     private JButton buttonHotelAdd;
     private JPanel roomPanelTop;
     private JComboBox comboBoxRoomType;
-    private JButton buttonRoomTypeSelect;
+    private JButton buttonRoomTypeNew;
     private JButton buttonRoomTypeUpdate;
     private JButton buttonRoomTypeAdd;
     private JTextField fieldRoomTypeName;
@@ -131,6 +131,8 @@ public class EmployeeGUI extends JFrame {
     private JTextField fieldLogGuestIdNumber;
     private JButton buttonLogGuestSearch;
     private JScrollPane scrollPaneHotelDetails;
+    private JLabel labelRoomHotelName;
+    private JButton buttonHotelClear;
     private DefaultTableModel modelHotelHotelList;
     private Object[] rowHotelHotelList;
     private Employee employee;
@@ -145,6 +147,7 @@ public class EmployeeGUI extends JFrame {
         setResizable(false);
         setVisible(true);
         labelWelcome.setText("Welcome " + employee.getName());
+
 
         modelHotelHotelList = new DefaultTableModel() {
             @Override
@@ -164,6 +167,7 @@ public class EmployeeGUI extends JFrame {
 
         tableHotelHotelList.setModel(modelHotelHotelList);
         tableHotelHotelList.getTableHeader().setReorderingAllowed(false);
+
         radioButtonSeason.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -390,6 +394,7 @@ public class EmployeeGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 loadHotelDetailsModel();
                 scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);
+                labelRoomHotelName.setText(tableHotelHotelList.getValueAt(tableHotelHotelList.getSelectedRow(), 1).toString());
             }
         });
         buttonHotelDelete.addActionListener(new ActionListener() {
@@ -420,6 +425,55 @@ public class EmployeeGUI extends JFrame {
                 String query = EmployeeOp.searchHotelQuery(a, star);
                 ArrayList<Hotel> searchHotel = EmployeeOp.searchHotelList(query);
                 loadHotelModel(searchHotel);
+            }
+        });
+        buttonRoomTypeNew.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Helper.resetFormFields(fieldRoomTypeName, fieldRoomBedCount, fieldRoomSize, fieldRoomTv, fieldRoomMinibar, fieldRoomStock);
+             }
+        });
+        comboBoxRoomType.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadRoomDetailsModel();
+            }
+        });
+        buttonHotelClear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Helper.resetFormFields(fieldHotelName, fieldHotelCity, fieldHotelAddress, fieldHotelDistrict, fieldHotelMail, fieldHotelPhone, fieldHotelStar);
+                Helper.resetCheckBoxes(checkBoxPool, checkBoxWifi, checkBoxParking, checkBoxGym, checkBoxConcierge, checkBoxSpa, checkBoxRoomService);
+                Helper.resetDateFields(fieldSeasonStartDate, fieldSeasonEndDate, fieldOffSeasonStartDate, fieldOffSeasonEndDate);
+                Helper.resetRadioButtons(radioButtonSeason, radioButtonOffSeason);
+            }
+        });
+        buttonRoomTypeAdd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if ((Helper.isFieldEmpty(fieldRoomStock) || Helper.isFieldEmpty(fieldRoomBedCount) || Helper.isFieldEmpty(fieldRoomSize) || Helper.isFieldEmpty(fieldRoomTv)
+                        || Helper.isFieldEmpty(fieldRoomMinibar))) {
+                    Helper.showMessage("fill");
+                } else {
+                    int hotel_id = Integer.parseInt(tableHotelHotelList.getValueAt(tableHotelHotelList.getSelectedRow(), 0).toString());
+                    int room_type_id = Integer.parseInt(comboBoxRoomType.getSelectedItem().toString());
+                    int stock = Integer.parseInt(fieldRoomStock.getText());
+                    int bed = Integer.parseInt(fieldRoomBedCount.getText());
+                    int size = Integer.parseInt(fieldRoomSize.getText());
+                    int tv = Integer.parseInt(fieldRoomTv.getText());
+                    int minibar = Integer.parseInt(fieldRoomMinibar.getText());
+
+                    if (EmployeeOp.addRoomDetails(hotel_id, room_type_id, stock, bed, size, tv, minibar)) {
+                        Helper.showMessage("done");
+                        loadHotelModel();
+
+                        Helper.resetFormFields(fieldHotelName, fieldHotelCity, fieldHotelAddress, fieldHotelDistrict, fieldHotelMail, fieldHotelPhone, fieldHotelStar);
+                        Helper.resetCheckBoxes(checkBoxPool, checkBoxWifi, checkBoxParking, checkBoxGym, checkBoxConcierge, checkBoxSpa, checkBoxRoomService);
+                        Helper.resetDateFields(fieldSeasonStartDate, fieldSeasonEndDate, fieldOffSeasonStartDate, fieldOffSeasonEndDate);
+                        Helper.resetRadioButtons(radioButtonSeason, radioButtonOffSeason);
+                    }
+                    scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);;
+                }
             }
         });
     }
@@ -513,5 +567,34 @@ public class EmployeeGUI extends JFrame {
             }
         }
         Helper.enableDateFields(fieldSeasonStartDate, fieldSeasonEndDate, fieldOffSeasonStartDate, fieldOffSeasonEndDate);
+    }
+
+    private void loadRoomDetailsModel() {
+        int hotelId = Integer.parseInt(tableHotelHotelList.getValueAt(tableHotelHotelList.getSelectedRow(), 0).toString());
+        int roomTypeId = 0;
+        String roomTypeName = comboBoxRoomType.getSelectedItem().toString();
+
+        switch (roomTypeName) {
+            case "Single":
+                roomTypeId = 1;
+                break;
+            case "Double":
+                roomTypeId = 2;
+                break;
+            case "King Suite":
+                roomTypeId = 3;
+                break;
+            default: {
+                Helper.showMessage("error");;
+            }
+        }
+        for (Room obj : EmployeeOp.getRoomDetailsByHotelId(hotelId,roomTypeId)) {
+            fieldRoomTypeName.setText(roomTypeName);
+            fieldRoomBedCount.setText(String.valueOf(obj.getBed()));
+            fieldRoomSize.setText(String.valueOf(obj.getRoomSize()));
+            fieldRoomTv.setText(String.valueOf(obj.getTv()));
+            fieldRoomMinibar.setText(String.valueOf(obj.getMinibar()));
+            fieldRoomStock.setText(String.valueOf(obj.getStock()));
+        }
     }
 }
