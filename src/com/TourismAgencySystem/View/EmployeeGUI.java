@@ -8,6 +8,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class EmployeeGUI extends JFrame {
@@ -137,7 +138,7 @@ public class EmployeeGUI extends JFrame {
     public EmployeeGUI(Employee employee) {
         this.employee = employee;
         add(wrapper);
-        setSize(1000, 700);
+        setSize(1000, 800);
         setLocation(Helper.screenCenterLocation("x", getSize()), Helper.screenCenterLocation("y", getSize()));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle(Config.PROJECT_TITLE);
@@ -410,6 +411,17 @@ public class EmployeeGUI extends JFrame {
                 }
             }
         });
+        buttonHotelSearch.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String a = fieldHotelHotelCityDistrictSearch.getText();
+                String star = fieldHotelStarSearch.getText();
+
+                String query = EmployeeOp.searchHotelQuery(a, star);
+                ArrayList<Hotel> searchHotel = EmployeeOp.searchHotelList(query);
+                loadHotelModel(searchHotel);
+            }
+        });
     }
 
     public void loadHotelModel() {
@@ -418,6 +430,22 @@ public class EmployeeGUI extends JFrame {
         int i;
         for (Hotel obj : EmployeeOp.getList()) {
             i = 0;
+            rowHotelHotelList[i++] = obj.getId();
+            rowHotelHotelList[i++] = obj.getName();
+            rowHotelHotelList[i++] = obj.getCity();
+            rowHotelHotelList[i++] = obj.getDistrict();
+            rowHotelHotelList[i++] = obj.getStar();
+            rowHotelHotelList[i++] = obj.getEmail();
+            rowHotelHotelList[i++] = obj.getPhoneNumber();
+            modelHotelHotelList.addRow(rowHotelHotelList);
+        }
+    }
+
+    public void loadHotelModel(ArrayList<Hotel> list) {
+        DefaultTableModel clearModel = (DefaultTableModel) tableHotelHotelList.getModel();
+        clearModel.setRowCount(0);
+        for (Hotel obj : list) {
+            int i = 0;
             rowHotelHotelList[i++] = obj.getId();
             rowHotelHotelList[i++] = obj.getName();
             rowHotelHotelList[i++] = obj.getCity();
@@ -440,9 +468,19 @@ public class EmployeeGUI extends JFrame {
             fieldHotelAddress.setText(obj.getAddress());
             fieldHotelMail.setText(obj.getEmail());
             fieldHotelPhone.setText(obj.getPhoneNumber());
+            checkBoxParking.setSelected(false);
+            checkBoxWifi.setSelected(false);
+            checkBoxPool.setSelected(false);
+            checkBoxGym.setSelected(false);
+            checkBoxConcierge.setSelected(false);
+            checkBoxSpa.setSelected(false);
+            checkBoxRoomService.setSelected(false);
+
+
             if (obj.getParking().equals("Yes")) {
                 checkBoxParking.setSelected(true);
             }
+
             if (obj.getWifi().equals("Yes")) {
                 checkBoxWifi.setSelected(true);
             }

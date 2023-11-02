@@ -226,5 +226,43 @@ public class EmployeeOp {
         }
         return true;
     }
+    public static String searchHotelQuery(String a, String star) {
+        String query = "SELECT * FROM hotel WHERE (hotel_name LIKE '%" + a + "%' OR city LIKE '%" + a + "%' OR district LIKE '%" + a + "%') AND star = " + star;
+
+        return query;
+    }
+
+    public static ArrayList<Hotel> searchHotelList(String query) {
+        ArrayList<Hotel> hotelList = new ArrayList<>();
+
+        Hotel obj;
+        try {
+            Statement st = DBConnector.getInstance().createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                obj = new Hotel();
+                obj.setId(rs.getInt("id"));
+                obj.setName(rs.getString("hotel_name"));
+                obj.setCity(rs.getString("city"));
+                obj.setDistrict(rs.getString("district"));
+                obj.setStar(rs.getString("star"));
+                obj.setAddress(rs.getString("address"));
+                obj.setEmail(rs.getString("hotel_email"));
+                obj.setPhoneNumber(rs.getString("hotel_phone"));
+                obj.setParking(rs.getString("parking"));
+                obj.setWifi(rs.getString("wifi"));
+                obj.setPool(rs.getString("pool"));
+                obj.setGym(rs.getString("gym"));
+                obj.setConcierge(rs.getString("concierge"));
+                obj.setSpa(rs.getString("spa"));
+                obj.setRoomService(rs.getString("room_service"));
+
+                hotelList.add(obj);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return hotelList;
+    }
 }
 
