@@ -644,7 +644,6 @@ public class EmployeeGUI extends JFrame {
             checkBoxSpa.setSelected(false);
             checkBoxRoomService.setSelected(false);
 
-
             if (obj.getParking().equals("Yes")) {
                 checkBoxParking.setSelected(true);
             }
