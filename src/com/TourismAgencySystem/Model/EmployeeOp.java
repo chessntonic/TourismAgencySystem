@@ -42,6 +42,7 @@ public class EmployeeOp {
         }
         return hotelList;
     }
+
     public static ArrayList<RoomPrice> getRoomPriceListByHotelId(int hotelId) {
         ArrayList<RoomPrice> roomPriceList = new ArrayList<>();
         String query = "SELECT * FROM room_price WHERE hotel_id = " + hotelId;
@@ -64,6 +65,55 @@ public class EmployeeOp {
             e.printStackTrace();
         }
         return roomPriceList;
+    }
+    public static ArrayList<HotelPeriod> getHotelPeriodList() {
+        ArrayList<HotelPeriod> hotelPeriodList = new ArrayList<>();
+        String query = "SELECT * FROM hotel_period";
+        HotelPeriod obj;
+        try {
+            Statement st = DBConnector.getInstance().createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                obj = new HotelPeriod();
+                obj.setId(rs.getInt("id"));
+                obj.setSeasonStart(rs.getDate("season_start"));
+                obj.setSeasonEnd(rs.getDate("season_end"));
+                obj.setOffSeasonStart(rs.getDate("offseason_start"));
+                obj.setOffSeasonEnd(rs.getDate("offseason_end"));
+
+                hotelPeriodList.add(obj);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return hotelPeriodList;
+    }
+    public static ArrayList<RoomSales> getRoomSalesList() {
+        ArrayList<RoomSales> hotelRoomSalesList = new ArrayList<>();
+        String query = "SELECT * FROM room_sales";
+        RoomSales obj;
+        try {
+            Statement st = DBConnector.getInstance().createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                obj = new RoomSales();
+                obj.setId(rs.getInt("id"));
+                obj.setHotelId(rs.getInt("hotel_id"));
+                obj.setHotelName(rs.getString("hotel_name"));
+                obj.setCity(rs.getString("city"));
+                obj.setDistrict(rs.getString("district"));
+                obj.setStar(rs.getString("star"));
+                obj.setPeriod(rs.getString("period"));
+                obj.setStartDate(rs.getDate("start_date"));
+                obj.setEndDate(rs.getDate("end_date"));
+                obj.setRoomType(rs.getString("room_type"));
+
+                hotelRoomSalesList.add(obj);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return hotelRoomSalesList;
     }
 
     public static boolean addHotelDetails(String name, String city, String district, String star, String address, String hotel_email, String hotel_phone,
@@ -140,7 +190,8 @@ public class EmployeeOp {
         }
         return obj;
     }
-    public static PeriodType getFetchPeriodIdByName (String periodName) {
+
+    public static PeriodType getFetchPeriodIdByName(String periodName) {
         PeriodType obj = null;
         String query = "SELECT * FROM period_type WHERE period_name = ?";
         try {
@@ -157,7 +208,8 @@ public class EmployeeOp {
         }
         return obj;
     }
-    public static AccommodationType getFetchAccoIdByName (String accoName) {
+
+    public static AccommodationType getFetchAccoIdByName(String accoName) {
         AccommodationType obj = null;
         String query = "SELECT * FROM accommodation_type WHERE accommodation_name = ?";
         try {
@@ -174,7 +226,8 @@ public class EmployeeOp {
         }
         return obj;
     }
-    public static PeriodType getFetchPeriodNameById (int periodId) {
+
+    public static PeriodType getFetchPeriodNameById(int periodId) {
         PeriodType obj = null;
         String query = "SELECT * FROM period_type WHERE id = ?";
         try {
@@ -191,7 +244,8 @@ public class EmployeeOp {
         }
         return obj;
     }
-    public static RoomType getFetchRoomNameById (int roomId) {
+
+    public static RoomType getFetchRoomNameById(int roomId) {
         RoomType obj = null;
         String query = "SELECT * FROM room_type WHERE id = ?";
         try {
@@ -208,7 +262,8 @@ public class EmployeeOp {
         }
         return obj;
     }
-    public static AccommodationType getFetchAccoNameById (int accoId) {
+
+    public static AccommodationType getFetchAccoNameById(int accoId) {
         AccommodationType obj = null;
         String query = "SELECT * FROM accommodation_type WHERE id = ?";
         try {
@@ -247,7 +302,35 @@ public class EmployeeOp {
         }
         return true;
     }
-    public static boolean addPriceDetails(int hotel_id, int period_id, int room_type, int accommodation_id, int adult_price, int child_price){
+    public static boolean addRoomSalesDetails(int hotel_id, String hotel_name, String city, String district, String star, String period, Date start_date, Date end_date, String room_type) {
+        String query = "INSERT INTO room_sales (hotel_id,hotel_name,city,district,star,period,start_date,end_date,room_type) VALUES (?,?,?,?,?,?,?,?,?)";
+
+        try {
+            PreparedStatement pr = DBConnector.getInstance().prepareStatement(query);
+               pr.setInt(1, hotel_id);
+                pr.setString(2, hotel_name);
+                pr.setString(3, city);
+                pr.setString(4, district);
+                pr.setString(5, star);
+                pr.setString(6, period);
+                pr.setDate(7, (java.sql.Date) start_date);
+                pr.setDate(8, (java.sql.Date) end_date);
+                pr.setString(9, room_type);
+
+
+            int response = pr.executeUpdate();
+            if (response == -1) {
+                Helper.showMessage("error");
+            }
+            return response != -1;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    public static boolean addPriceDetails(int hotel_id, int period_id, int room_type, int accommodation_id, int adult_price, int child_price) {
         String query = "INSERT INTO room_price (hotel_id, period_id, room_type, accommodation_id, adult_price, child_price) VALUES (?,?,?,?,?,?)";
 
         try {
@@ -337,6 +420,63 @@ public class EmployeeOp {
         }
         return true;
     }
+
+    public static boolean updateRoomPrice(int id, int hotel_id, int period_id, int room_type_id, int acco_id, int adult_price, int child_price) {
+        String query = "UPDATE room_price SET hotel_id=?,period_id=?,room_type=?,accommodation_id=?,adult_price=?,child_price=? WHERE id=?";
+
+        try {
+            PreparedStatement ps = DBConnector.getInstance().prepareStatement(query);
+            ps.setInt(1, hotel_id);
+            ps.setInt(2, period_id);
+            ps.setInt(3, room_type_id);
+            ps.setInt(4, acco_id);
+            ps.setInt(5, adult_price);
+            ps.setInt(6, child_price);
+            ps.setInt(7, id);
+
+            return ps.executeUpdate() != -1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+    public static boolean updateRoomSales(int id, int hotel_id, String hotel_name, String city, String district, String star, String period, Date start_date, Date end_date, String room_type) {
+        String query = "UPDATE room_sales SET hotel_id=?,hotel_name=?,city=?,district=?,star=?,period=?,start_date=?,end_date=?,room_type=? WHERE id=?";
+
+        try {
+            PreparedStatement ps = DBConnector.getInstance().prepareStatement(query);
+            ps.setInt(1, hotel_id);
+            ps.setString(2, hotel_name);
+            ps.setString(3, city);
+            ps.setString(4, district);
+            ps.setString(5, star);
+            ps.setString(6, period);
+            ps.setDate(7, (java.sql.Date) start_date);
+            ps.setDate(8, (java.sql.Date) end_date);
+            ps.setString(9, room_type);
+            ps.setInt(10, id);
+
+            return ps.executeUpdate() != -1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+//    public static boolean updateRoomSales(int id, int hotel_id, String room_type) {
+//        String query = "UPDATE room_sales SET hotel_id=?, room_type=? WHERE id=?";
+//
+//        try {
+//            PreparedStatement ps = DBConnector.getInstance().prepareStatement(query);
+//            ps.setInt(1, hotel_id);
+//            ps.setString(2, room_type);
+//            ps.setInt(3, id);
+//
+//            return ps.executeUpdate() != -1;
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return true;
+//    }
 
     public static ArrayList<Hotel> getHotelDetailsByHotelId(int hotelId) {
         ArrayList<Hotel> hotelDetailsList = new ArrayList<>();
@@ -452,7 +592,8 @@ public class EmployeeOp {
         }
         return true;
     }
-    public static boolean deleteRoomPriceDetails(int id){
+
+    public static boolean deleteRoomPriceDetails(int id) {
         String query = "DELETE FROM room_price WHERE id = ?";
         try {
             PreparedStatement ps = DBConnector.getInstance().prepareStatement(query);
