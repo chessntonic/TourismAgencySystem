@@ -362,16 +362,7 @@ public class EmployeeGUI extends JFrame {
                         Helper.resetRadioButtons(radioButtonSeason, radioButtonOffSeason);
 
                     }
-                    if (radioButtonSeason.isSelected()) {
-                        if (EmployeeOp.addRoomSalesDetails(0, name, city, district, star, "Season", seasonStart, seasonEnd, "")) {
-                            Helper.showMessage("done");
-                        }
-                    }
-                    if (radioButtonOffSeason.isSelected()) {
-                        if (EmployeeOp.addRoomSalesDetails(0, name, city, district, star, "Off Season", offSeasonStart, offSeasonEnd, "")) {
-                            Helper.showMessage("done");
-                        }
-                    }
+
                     scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);
                 }
             }
@@ -564,13 +555,38 @@ public class EmployeeGUI extends JFrame {
                     if (EmployeeOp.addPriceDetails(hotel_id, period_id, room_type_id, acco_id, adult_price, child_price)) {
                         Helper.showMessage("done");
                         loadPriceRoomModel();
-                        radioButtonSingle.setSelected(false);
-                        Helper.resetComboBoxes(comboBoxPeriodSingle, comboBoxHostelTypeSingle);
-                        Helper.resetTextFields(fieldAdultPriceSingle, fieldChildPriceSingle);
-                        buttonAddSingle.setEnabled(false);
+
                     } else {
                         Helper.showMessage("error");
                     }
+                    String name = fieldHotelName.getText();
+                    String city = fieldHotelCity.getText();
+                    String district = fieldHotelDistrict.getText();
+                    String star = fieldHotelStar.getText();
+                    String periodName = comboBoxPeriodSingle.getSelectedItem().toString();
+                    String roomName = radioButtonSingle.getText().toString();
+                    Date periodStart;
+                    Date periodEnd;
+
+                    if (periodName.equals("Season")){
+
+                        periodStart=EmployeeOp.getHotelPeriodDateByHotelId(hotel_id).getSeasonStart();
+                        periodEnd=EmployeeOp.getHotelPeriodDateByHotelId(hotel_id).getSeasonEnd();
+
+                        if (EmployeeOp.addRoomSalesDetails(hotel_id, name, city, district, star, periodName, periodStart, periodEnd, roomName)){
+                            Helper.showMessage("done");
+                        }
+                    } else if (periodName.equals("Off Season")) {
+                        periodStart=EmployeeOp.getHotelPeriodDateByHotelId(hotel_id).getOffSeasonStart();
+                        periodEnd=EmployeeOp.getHotelPeriodDateByHotelId(hotel_id).getOffSeasonStart();
+                        if (EmployeeOp.addRoomSalesDetails(hotel_id, name, city, district, star, periodName, periodStart, periodEnd, roomName)) {
+                            Helper.showMessage("done");
+                        }
+                    }
+                    radioButtonSingle.setSelected(false);
+                    Helper.resetComboBoxes(comboBoxPeriodSingle, comboBoxHostelTypeSingle);
+                    Helper.resetTextFields(fieldAdultPriceSingle, fieldChildPriceSingle);
+                    buttonAddSingle.setEnabled(false);
                 }
             }
         });
