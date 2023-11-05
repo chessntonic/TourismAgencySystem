@@ -8,10 +8,13 @@ import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Locale;
 
 public class EmployeeGUI extends JFrame {
     private JPanel wrapper;
@@ -137,6 +140,50 @@ public class EmployeeGUI extends JFrame {
     private JCheckBox wiFiCheckBox;
     private JLabel labelResRoomType;
     private JButton clearButton;
+    private JTextField textField1;
+    private JTextField textField2;
+    private JTextField textField3;
+    private JTextField textField4;
+    private JTextField textField5;
+    private JTextField textField6;
+    private JTextField textField7;
+    private JTextField textField8;
+    private JTextField textField9;
+    private JTextField textField10;
+    private JComboBox comboBox1;
+    private JComboBox comboBox2;
+    private JComboBox comboBox3;
+    private JComboBox comboBox4;
+    private JComboBox comboBox5;
+    private JComboBox comboBox6;
+    private JComboBox comboBox7;
+    private JComboBox comboBox8;
+    private JComboBox comboBox9;
+    private JComboBox comboBox10;
+    private JTextField textField11;
+    private JTextField textField12;
+    private JTextField textField13;
+    private JTextField textField14;
+    private JTextField textField15;
+    private JTextField textField16;
+    private JTextField textField17;
+    private JTextField textField18;
+    private JTextField textField19;
+    private JTextField textField20;
+    private JTextField textField21;
+    private JTextField textField22;
+    private JTextField textField23;
+    private JTextField textField24;
+    private JTextField textField25;
+    private JTextField textField26;
+    private JTextField textField27;
+    private JTextField textField28;
+    private JTextField textField29;
+    private JTextField textField30;
+    private JTextField textField31;
+    private JTextField textField32;
+    private JButton button1;
+    private JPanel panelGuestInfo;
     private DefaultTableModel modelHotelHotelList;
     private Object[] rowHotelHotelList;
     private Employee employee;
@@ -741,10 +788,71 @@ public class EmployeeGUI extends JFrame {
                 String size= String.valueOf(EmployeeOp.getGuestRoomDetailsByHotelId(hotelId,roomTypeId).getRoomSize());
                 String tv= String.valueOf(EmployeeOp.getGuestRoomDetailsByHotelId(hotelId,roomTypeId).getTv());
                 String minibar= String.valueOf(EmployeeOp.getGuestRoomDetailsByHotelId(hotelId,roomTypeId).getMinibar());
-                labelGuestBed.setText("Number of Beds : " + bed);
-                labelGuestMinibar.setText("Number of Minibars : " +minibar);
-                labelGuestTv.setText("Number of TVs : " +tv);
-                labelGuestRoomSize.setText("Room Size : " +size +" m²");
+                labelGuestBed.setText("Number of Beds: " + bed);
+                labelGuestMinibar.setText("Number of Minibars: " +minibar);
+                labelGuestTv.setText("Number of TVs: " +tv);
+                labelGuestRoomSize.setText("Room Size: " +size +" m²");
+                int adultNumber=Integer.parseInt(fieldSearchAdult.getText().toString());
+                int childNumber=Integer.parseInt(fieldSearchChild.getText().toString());
+
+                panelGuestInfo.setLayout(new GridLayout(0,6));
+
+
+                for(int i =1 ; i<=adultNumber ; i++){
+                    String fieldName = "kişi sayısı"+i;
+                    JTextField t1=new JTextField();
+                    JComboBox<String> cmbbox = new JComboBox<>();
+
+                    String[] isoCountries = Locale.getISOCountries();
+                    Arrays.sort(isoCountries);
+
+                    for (String countryCode : isoCountries) {
+                        cmbbox.addItem(countryCode);
+                    }
+
+                    JTextField t2=new JTextField();
+                    JTextField t3=new JTextField();
+                    JTextField t4=new JTextField();
+
+                    t1.setName(fieldName);
+
+                    panelGuestInfo.add(new JLabel(i + ". Adult"));
+
+                    panelGuestInfo.add(t1);
+                    panelGuestInfo.add(cmbbox);
+                    panelGuestInfo.add(t2);
+                    panelGuestInfo.add(t3);
+                    panelGuestInfo.add(t4);
+
+                }
+                for(int i =1 ; i<=childNumber ; i++){
+                    String fieldName = "kişi sayısı"+i;
+                    JTextField t1=new JTextField();
+                    JComboBox<String> cmbbox = new JComboBox<>();
+
+                    String[] isoCountries = Locale.getISOCountries();
+                    Arrays.sort(isoCountries);
+
+                    for (String countryCode : isoCountries) {
+                        cmbbox.addItem(countryCode);
+                    }
+
+                    JTextField t2=new JTextField();
+                    JTextField t3=new JTextField();
+                    JTextField t4=new JTextField();
+
+                    t1.setName(fieldName);
+
+                    panelGuestInfo.add(new JLabel(i + ". Child"));
+
+                    panelGuestInfo.add(t1);
+                    panelGuestInfo.add(cmbbox);
+                    panelGuestInfo.add(t2);
+                    panelGuestInfo.add(t3);
+                    panelGuestInfo.add(t4);
+                    t3.setVisible(false);
+                    t4.setVisible(false);
+                }
             }
         });
         buttonSearchSearch.addActionListener(new ActionListener() {
