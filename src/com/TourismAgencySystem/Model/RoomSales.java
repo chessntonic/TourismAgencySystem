@@ -13,8 +13,10 @@ public class RoomSales {
     private Date startDate;
     private Date endDate;
     private String roomType;
+    private int stock;
 
-    public RoomSales(int id, int hotelId, String hotelName , String city, String district, String star, String period, Date startDate, Date endDate, String roomType) {
+
+    public RoomSales(int id, int hotelId, String hotelName , String city, String district, String star, String period, Date startDate, Date endDate, String roomType, int stock) {
         this.id = id;
         this.hotelId = hotelId;
         this.hotelName = hotelName;
@@ -25,6 +27,7 @@ public class RoomSales {
         this.startDate = startDate;
         this.endDate = endDate;
         this.roomType = roomType;
+        this.stock = stock;
     }
     public RoomSales(){
 
@@ -108,5 +111,13 @@ public class RoomSales {
 
     public void setRoomType(String roomType) {
         this.roomType = roomType;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 }
