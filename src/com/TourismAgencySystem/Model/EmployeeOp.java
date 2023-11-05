@@ -107,6 +107,7 @@ public class EmployeeOp {
                 obj.setStartDate(rs.getDate("start_date"));
                 obj.setEndDate(rs.getDate("end_date"));
                 obj.setRoomType(rs.getString("room_type"));
+                obj.setStock(rs.getInt("stock"));
 
                 hotelRoomSalesList.add(obj);
             }
