@@ -140,7 +140,6 @@ public class EmployeeGUI extends JFrame {
     private JCheckBox wiFiCheckBox;
     private JLabel labelResRoomType;
     private JButton clearButton;
-    private JTextField textField1;
     private JTextField textField2;
     private JTextField textField3;
     private JTextField textField4;
@@ -150,7 +149,6 @@ public class EmployeeGUI extends JFrame {
     private JTextField textField8;
     private JTextField textField9;
     private JTextField textField10;
-    private JComboBox comboBox1;
     private JComboBox comboBox2;
     private JComboBox comboBox3;
     private JComboBox comboBox4;
@@ -160,7 +158,6 @@ public class EmployeeGUI extends JFrame {
     private JComboBox comboBox8;
     private JComboBox comboBox9;
     private JComboBox comboBox10;
-    private JTextField textField11;
     private JTextField textField12;
     private JTextField textField13;
     private JTextField textField14;
@@ -175,14 +172,17 @@ public class EmployeeGUI extends JFrame {
     private JTextField textField23;
     private JTextField textField24;
     private JTextField textField25;
-    private JTextField textField26;
-    private JTextField textField27;
     private JTextField textField28;
     private JTextField textField29;
     private JTextField textField30;
     private JTextField textField31;
     private JTextField textField32;
-    private JButton button1;
+    private JButton completeButton;
+    private JTextField textField1;
+    private JComboBox comboBox1;
+    private JTextField textField11;
+    private JTextField textField26;
+    private JTextField textField27;
     private JPanel panelGuestInfo;
     private DefaultTableModel modelHotelHotelList;
     private Object[] rowHotelHotelList;
@@ -799,7 +799,7 @@ public class EmployeeGUI extends JFrame {
 
 
                 for(int i =1 ; i<=adultNumber ; i++){
-                    String fieldName = "kişi sayısı"+i;
+                    String fieldName = ""+i;
                     JTextField t1=new JTextField();
                     JComboBox<String> cmbbox = new JComboBox<>();
 
@@ -826,7 +826,7 @@ public class EmployeeGUI extends JFrame {
 
                 }
                 for(int i =1 ; i<=childNumber ; i++){
-                    String fieldName = "kişi sayısı"+i;
+                    String fieldName = ""+i;
                     JTextField t1=new JTextField();
                     JComboBox<String> cmbbox = new JComboBox<>();
 
