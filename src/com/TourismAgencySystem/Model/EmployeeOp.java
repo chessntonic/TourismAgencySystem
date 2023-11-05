@@ -90,7 +90,7 @@ public class EmployeeOp {
     }
     public static ArrayList<RoomSales> getRoomSalesList() {
         ArrayList<RoomSales> hotelRoomSalesList = new ArrayList<>();
-        String query = "SELECT * FROM room_sales";
+        String query = "SELECT * FROM room_sales";;
         RoomSales obj;
         try {
             Statement st = DBConnector.getInstance().createStatement();
@@ -261,6 +261,70 @@ public class EmployeeOp {
             e.printStackTrace();
         }
         return obj;
+    }
+    public static RoomType getFetchRoomIdByName(String roomName) {
+        RoomType obj = null;
+        String query = "SELECT * FROM room_type WHERE room_name = ?";
+        try {
+            PreparedStatement pr = DBConnector.getInstance().prepareStatement(query);
+            pr.setString(1, roomName);
+            ResultSet rs = pr.executeQuery();
+            if (rs.next()) {
+                obj = new RoomType();
+                obj.setId(rs.getInt("id"));
+                obj.setRoomName(rs.getString("room_name"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+
+    public static ArrayList<RoomPrice> getAccoIdByHotel(int hotelId, int roomTypeId, int periodId) {
+        ArrayList<RoomPrice> accoIdList = new ArrayList<>();
+
+        RoomPrice obj;
+
+        try {
+            Statement st = DBConnector.getInstance().createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM room_price WHERE hotel_id = " + hotelId + " AND room_type = " + roomTypeId + " AND period_id = " + periodId);
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int hotel_id = rs.getInt("hotel_id");
+                int room_type_id = rs.getInt("room_type");
+                int accoId = rs.getInt("accommodation_id");
+                int adultPrice = rs.getInt("adult_price");
+                int childPrice = rs.getInt("child_price");
+
+
+                obj = new RoomPrice(id, hotel_id, periodId, room_type_id, accoId, adultPrice, childPrice);
+                accoIdList.add(obj);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return accoIdList;
+    }
+    public static ArrayList<AccommodationType> getAccoNameByAccoIdList(ArrayList<RoomPrice> roomPrice, int roomTypeId) {
+        ArrayList<AccommodationType> accoIdList = new ArrayList<>();
+
+        AccommodationType obj;
+
+        try {
+            Statement st = DBConnector.getInstance().createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM accommodation_type WHERE id = " + roomPrice.get(roomTypeId).getAccommodationId());
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String accoName= rs.getString("accommodation_name");
+                obj = new AccommodationType(id,accoName);
+                accoIdList.add(obj);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return accoIdList;
     }
 
     public static AccommodationType getFetchAccoNameById(int accoId) {
