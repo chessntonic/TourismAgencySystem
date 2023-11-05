@@ -5,7 +5,9 @@
     <constraints>
       <xy x="20" y="20" width="1345" height="1225"/>
     </constraints>
-    <properties/>
+    <properties>
+      <visible value="true"/>
+    </properties>
     <border type="none"/>
     <children>
       <component id="b6cf2" class="javax.swing.JLabel" binding="labelWelcome">
@@ -1764,151 +1766,178 @@
                         <properties/>
                         <border type="none"/>
                         <children>
-                          <component id="696" class="javax.swing.JLabel">
+                          <component id="696" class="javax.swing.JLabel" binding="labelAdult2">
                             <constraints>
                               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <text value="2. Adult"/>
+                              <visible value="false"/>
                             </properties>
                           </component>
-                          <component id="5f977" class="javax.swing.JLabel">
+                          <component id="5f977" class="javax.swing.JLabel" binding="labelAdult3">
                             <constraints>
                               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <text value="3. Adult"/>
+                              <visible value="false"/>
                             </properties>
                           </component>
-                          <component id="6f3af" class="javax.swing.JLabel">
+                          <component id="6f3af" class="javax.swing.JLabel" binding="labelAdult4">
                             <constraints>
                               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <text value="4. Adult"/>
+                              <visible value="false"/>
                             </properties>
                           </component>
-                          <component id="1b59c" class="javax.swing.JLabel">
+                          <component id="1b59c" class="javax.swing.JLabel" binding="labelAdult5">
                             <constraints>
                               <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <text value="5. Adult"/>
+                              <visible value="false"/>
                             </properties>
                           </component>
-                          <component id="74cef" class="javax.swing.JLabel">
+                          <component id="74cef" class="javax.swing.JLabel" binding="labelAdult6">
                             <constraints>
                               <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <text value="6. Adult"/>
+                              <visible value="false"/>
                             </properties>
                           </component>
-                          <component id="6a7df" class="javax.swing.JLabel">
+                          <component id="6a7df" class="javax.swing.JLabel" binding="labelChild1">
                             <constraints>
                               <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <text value="1. Child"/>
+                              <visible value="false"/>
                             </properties>
                           </component>
-                          <component id="e7be0" class="javax.swing.JLabel">
+                          <component id="e7be0" class="javax.swing.JLabel" binding="labelChild2">
                             <constraints>
                               <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <text value="2. Child"/>
+                              <visible value="false"/>
                             </properties>
                           </component>
-                          <component id="dcc2" class="javax.swing.JLabel">
+                          <component id="dcc2" class="javax.swing.JLabel" binding="labelChild3">
                             <constraints>
                               <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <text value="3. Child"/>
+                              <visible value="false"/>
                             </properties>
                           </component>
-                          <component id="c4316" class="javax.swing.JLabel">
+                          <component id="c4316" class="javax.swing.JLabel" binding="labelChild4">
                             <constraints>
                               <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
                               <text value="4. Child"/>
+                              <visible value="false"/>
                             </properties>
                           </component>
-                          <component id="86be4" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+                          <component id="86be4" class="javax.swing.JTextField" binding="fieldAdultName2">
                             <constraints>
                               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="8f9ed" class="javax.swing.JTextField" binding="textField3" default-binding="true">
+                          <component id="8f9ed" class="javax.swing.JTextField" binding="fieldAdultName3">
                             <constraints>
                               <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="c5aea" class="javax.swing.JTextField" binding="textField4" default-binding="true">
+                          <component id="c5aea" class="javax.swing.JTextField" binding="fieldAdultName4">
                             <constraints>
                               <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="bfec5" class="javax.swing.JTextField" binding="textField5" default-binding="true">
+                          <component id="bfec5" class="javax.swing.JTextField" binding="fieldAdultName5">
                             <constraints>
                               <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="a2f53" class="javax.swing.JTextField" binding="textField6" default-binding="true">
+                          <component id="a2f53" class="javax.swing.JTextField" binding="fieldAdultName6">
                             <constraints>
                               <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="2e344" class="javax.swing.JTextField" binding="textField7" default-binding="true">
+                          <component id="2e344" class="javax.swing.JTextField" binding="fieldChildName1">
                             <constraints>
                               <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="875c3" class="javax.swing.JTextField" binding="textField8" default-binding="true">
+                          <component id="875c3" class="javax.swing.JTextField" binding="fieldChildName2">
                             <constraints>
                               <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="d3348" class="javax.swing.JTextField" binding="textField9" default-binding="true">
+                          <component id="d3348" class="javax.swing.JTextField" binding="fieldChildName3">
                             <constraints>
                               <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="b1463" class="javax.swing.JTextField" binding="textField10" default-binding="true">
+                          <component id="b1463" class="javax.swing.JTextField" binding="fieldChildName4">
                             <constraints>
                               <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="9db9a" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
+                          <component id="9db9a" class="javax.swing.JComboBox" binding="comboBoxAdult2">
                             <constraints>
                               <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                             </constraints>
@@ -2097,9 +2126,10 @@
                                 <item value="Zambia"/>
                                 <item value="Zimbabwe"/>
                               </model>
+                              <visible value="false"/>
                             </properties>
                           </component>
-                          <component id="98153" class="javax.swing.JComboBox" binding="comboBox3" default-binding="true">
+                          <component id="98153" class="javax.swing.JComboBox" binding="comboBoxAdult3">
                             <constraints>
                               <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                             </constraints>
@@ -2288,9 +2318,10 @@
                                 <item value="Zambia"/>
                                 <item value="Zimbabwe"/>
                               </model>
+                              <visible value="false"/>
                             </properties>
                           </component>
-                          <component id="645c2" class="javax.swing.JComboBox" binding="comboBox4" default-binding="true">
+                          <component id="645c2" class="javax.swing.JComboBox" binding="comboBoxAdult4">
                             <constraints>
                               <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                             </constraints>
@@ -2479,9 +2510,10 @@
                                 <item value="Zambia"/>
                                 <item value="Zimbabwe"/>
                               </model>
+                              <visible value="false"/>
                             </properties>
                           </component>
-                          <component id="efbbb" class="javax.swing.JComboBox" binding="comboBox5" default-binding="true">
+                          <component id="efbbb" class="javax.swing.JComboBox" binding="comboBoxAdult5">
                             <constraints>
                               <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                             </constraints>
@@ -2670,9 +2702,10 @@
                                 <item value="Zambia"/>
                                 <item value="Zimbabwe"/>
                               </model>
+                              <visible value="false"/>
                             </properties>
                           </component>
-                          <component id="349ac" class="javax.swing.JComboBox" binding="comboBox6" default-binding="true">
+                          <component id="349ac" class="javax.swing.JComboBox" binding="comboBoxAdult6">
                             <constraints>
                               <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                             </constraints>
@@ -2861,9 +2894,10 @@
                                 <item value="Zambia"/>
                                 <item value="Zimbabwe"/>
                               </model>
+                              <visible value="false"/>
                             </properties>
                           </component>
-                          <component id="cac6f" class="javax.swing.JComboBox" binding="comboBox7" default-binding="true">
+                          <component id="cac6f" class="javax.swing.JComboBox" binding="comboBoxChild1">
                             <constraints>
                               <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                             </constraints>
@@ -3052,9 +3086,10 @@
                                 <item value="Zambia"/>
                                 <item value="Zimbabwe"/>
                               </model>
+                              <visible value="false"/>
                             </properties>
                           </component>
-                          <component id="3a954" class="javax.swing.JComboBox" binding="comboBox8" default-binding="true">
+                          <component id="3a954" class="javax.swing.JComboBox" binding="comboBoxChild2">
                             <constraints>
                               <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                             </constraints>
@@ -3243,9 +3278,10 @@
                                 <item value="Zambia"/>
                                 <item value="Zimbabwe"/>
                               </model>
+                              <visible value="false"/>
                             </properties>
                           </component>
-                          <component id="64ad9" class="javax.swing.JComboBox" binding="comboBox9" default-binding="true">
+                          <component id="64ad9" class="javax.swing.JComboBox" binding="comboBoxChild3">
                             <constraints>
                               <grid row="9" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                             </constraints>
@@ -3434,9 +3470,10 @@
                                 <item value="Zambia"/>
                                 <item value="Zimbabwe"/>
                               </model>
+                              <visible value="false"/>
                             </properties>
                           </component>
-                          <component id="3c3db" class="javax.swing.JComboBox" binding="comboBox10" default-binding="true">
+                          <component id="3c3db" class="javax.swing.JComboBox" binding="comboBoxChild4">
                             <constraints>
                               <grid row="10" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                             </constraints>
@@ -3625,159 +3662,198 @@
                                 <item value="Zambia"/>
                                 <item value="Zimbabwe"/>
                               </model>
+                              <visible value="false"/>
                             </properties>
                           </component>
-                          <component id="79e79" class="javax.swing.JTextField" binding="textField12" default-binding="true">
+                          <component id="79e79" class="javax.swing.JTextField" binding="fieldAdultId2">
                             <constraints>
                               <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="ab2da" class="javax.swing.JTextField" binding="textField13" default-binding="true">
+                          <component id="ab2da" class="javax.swing.JTextField" binding="fieldAdultId3">
                             <constraints>
                               <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="b7fd5" class="javax.swing.JTextField" binding="textField14" default-binding="true">
+                          <component id="b7fd5" class="javax.swing.JTextField" binding="fieldAdultId4">
                             <constraints>
                               <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="a1bc" class="javax.swing.JTextField" binding="textField15" default-binding="true">
+                          <component id="a1bc" class="javax.swing.JTextField" binding="fieldAdultId5">
                             <constraints>
                               <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="55bc8" class="javax.swing.JTextField" binding="textField16" default-binding="true">
+                          <component id="55bc8" class="javax.swing.JTextField" binding="fieldAdultId6">
                             <constraints>
                               <grid row="6" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="8a76" class="javax.swing.JTextField" binding="textField17" default-binding="true">
+                          <component id="8a76" class="javax.swing.JTextField" binding="fieldChidlId1">
                             <constraints>
                               <grid row="7" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="8a55a" class="javax.swing.JTextField" binding="textField18" default-binding="true">
+                          <component id="8a55a" class="javax.swing.JTextField" binding="fieldChidlId2">
                             <constraints>
                               <grid row="8" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="4f3f6" class="javax.swing.JTextField" binding="textField19" default-binding="true">
+                          <component id="4f3f6" class="javax.swing.JTextField" binding="fieldChidlId3">
                             <constraints>
                               <grid row="9" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="a756" class="javax.swing.JTextField" binding="textField20" default-binding="true">
+                          <component id="a756" class="javax.swing.JTextField" binding="fieldChidlId4">
                             <constraints>
                               <grid row="10" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="a45fe" class="javax.swing.JTextField" binding="textField21" default-binding="true">
+                          <component id="a45fe" class="javax.swing.JTextField" binding="fieldAdultPhone2">
                             <constraints>
                               <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="d1cef" class="javax.swing.JTextField" binding="textField22" default-binding="true">
+                          <component id="d1cef" class="javax.swing.JTextField" binding="fieldAdultPhone3">
                             <constraints>
                               <grid row="3" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="8772" class="javax.swing.JTextField" binding="textField23" default-binding="true">
+                          <component id="8772" class="javax.swing.JTextField" binding="fieldAdultPhone4">
                             <constraints>
                               <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="9c337" class="javax.swing.JTextField" binding="textField24" default-binding="true">
+                          <component id="9c337" class="javax.swing.JTextField" binding="fieldAdultPhone5">
                             <constraints>
                               <grid row="5" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="259cb" class="javax.swing.JTextField" binding="textField25" default-binding="true">
+                          <component id="259cb" class="javax.swing.JTextField" binding="fieldAdultPhone6">
                             <constraints>
                               <grid row="6" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="a9b9f" class="javax.swing.JTextField" binding="textField28" default-binding="true">
+                          <component id="a9b9f" class="javax.swing.JTextField" binding="fieldAdultMail2">
                             <constraints>
                               <grid row="2" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="4d2b7" class="javax.swing.JTextField" binding="textField29" default-binding="true">
+                          <component id="4d2b7" class="javax.swing.JTextField" binding="fieldAdultMail3">
                             <constraints>
                               <grid row="3" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="bfd45" class="javax.swing.JTextField" binding="textField30" default-binding="true">
+                          <component id="bfd45" class="javax.swing.JTextField" binding="fieldAdultMail4">
                             <constraints>
                               <grid row="4" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="a93e8" class="javax.swing.JTextField" binding="textField31" default-binding="true">
+                          <component id="a93e8" class="javax.swing.JTextField" binding="fieldAdultMail5">
                             <constraints>
                               <grid row="5" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="f6c7d" class="javax.swing.JTextField" binding="textField32" default-binding="true">
+                          <component id="f6c7d" class="javax.swing.JTextField" binding="fieldAdultMail6">
                             <constraints>
                               <grid row="6" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
                           <component id="2474a" class="javax.swing.JButton" binding="completeButton" default-binding="true">
                             <constraints>
@@ -3827,23 +3903,26 @@
                               <text value="E-mail:"/>
                             </properties>
                           </component>
-                          <component id="c2e9c" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+                          <component id="c2e9c" class="javax.swing.JTextField" binding="fieldAdultName1">
                             <constraints>
                               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="dfc98" class="javax.swing.JLabel">
+                          <component id="dfc98" class="javax.swing.JLabel" binding="labelAdult1">
                             <constraints>
                               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
-                              <text value="Label"/>
+                              <text value="1. Adult"/>
+                              <visible value="false"/>
                             </properties>
                           </component>
-                          <component id="29a71" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+                          <component id="29a71" class="javax.swing.JComboBox" binding="comboBoxAdult1">
                             <constraints>
                               <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                             </constraints>
@@ -4032,31 +4111,38 @@
                                 <item value="Zambia"/>
                                 <item value="Zimbabwe"/>
                               </model>
+                              <visible value="false"/>
                             </properties>
                           </component>
-                          <component id="231d3" class="javax.swing.JTextField" binding="textField11" default-binding="true">
+                          <component id="231d3" class="javax.swing.JTextField" binding="fieldAdultId1">
                             <constraints>
                               <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="d3c8b" class="javax.swing.JTextField" binding="textField26" default-binding="true">
+                          <component id="d3c8b" class="javax.swing.JTextField" binding="fieldAdultPhone1">
                             <constraints>
                               <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
-                          <component id="c46ac" class="javax.swing.JTextField" binding="textField27" default-binding="true">
+                          <component id="c46ac" class="javax.swing.JTextField" binding="fieldAdultMail1">
                             <constraints>
                               <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="-1"/>
                               </grid>
                             </constraints>
-                            <properties/>
+                            <properties>
+                              <visible value="false"/>
+                            </properties>
                           </component>
                         </children>
                       </grid>
