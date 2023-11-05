@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 public class Helper {
@@ -141,5 +143,20 @@ public class Helper {
             e.printStackTrace();
             return null;
         }
+    }
+    public static int daysBetweenToDates (JTextField d1,JTextField d2){
+        LocalDate date1 = LocalDate.parse(d1.getText());
+        LocalDate date2 = LocalDate.parse(d2.getText());
+        int daysBetween = (int) ChronoUnit.DAYS.between(date1, date2);
+        return daysBetween;
+    }
+    public static int resPrice(JTextField adultNumber,JTextField childNumber,int adultPrice , int childPrice,int duration){
+        int a=  Integer.parseInt(adultNumber.getText());
+        int b=  Integer.parseInt(childNumber.getText());
+        int totalAdultPrice= a*adultPrice;
+        int totalChildPrice= b*childPrice;
+        int totalPrice=totalChildPrice+totalAdultPrice;
+
+        return  totalPrice*duration ;
     }
 }

@@ -2,7 +2,6 @@ package com.TourismAgencySystem.View;
 
 import com.TourismAgencySystem.Helper.Config;
 import com.TourismAgencySystem.Helper.Helper;
-import com.TourismAgencySystem.Helper.Item;
 import com.TourismAgencySystem.Model.*;
 
 import javax.swing.*;
@@ -110,7 +109,7 @@ public class EmployeeGUI extends JFrame {
     private JPanel field;
     private JLabel labelResDuration;
     private JComboBox comboBoxResHostelType;
-    private JButton buttonResRoomTypeSelect;
+    private JButton buttonResHostelTypeSelect;
     private JTextField fieldResPrice;
     private JButton buttonResReserve;
     private JLabel labelGuestRoomType;
@@ -137,6 +136,7 @@ public class EmployeeGUI extends JFrame {
     private JLabel labelHotelName;
     private JCheckBox wiFiCheckBox;
     private JLabel labelResRoomType;
+    private JButton clearButton;
     private DefaultTableModel modelHotelHotelList;
     private Object[] rowHotelHotelList;
     private Employee employee;
@@ -148,14 +148,13 @@ public class EmployeeGUI extends JFrame {
     public EmployeeGUI(Employee employee) {
         this.employee = employee;
         add(wrapper);
-        setSize(1000, 700);
+        setSize(1100, 700);
         setLocation(Helper.screenCenterLocation("x", getSize()), Helper.screenCenterLocation("y", getSize()));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setTitle(Config.PROJECT_TITLE);
         setResizable(false);
         setVisible(true);
         labelWelcome.setText("Welcome " + employee.getName());
-
 
         modelHotelHotelList = new DefaultTableModel() {
             @Override
@@ -228,7 +227,6 @@ public class EmployeeGUI extends JFrame {
         loadSalesRoomModel();
         tableSearchHotelList.setModel(modelSearchHotelList);
         tableSearchHotelList.getTableHeader().setReorderingAllowed(false);
-
 
         radioButtonSeason.addActionListener(new ActionListener() {
             @Override
@@ -721,17 +719,32 @@ public class EmployeeGUI extends JFrame {
                         fieldResRoomSize.setText(String.valueOf(obj.getRoomSize()));
                         fieldResTv.setText(String.valueOf(obj.getTv()));
                     }
+                    int daysBetween= Helper.daysBetweenToDates(fieldSearchCheckin,fieldSearchCheckout);
+                    labelResDuration.setText("for "+(daysBetween)+" nights"+" and "+(daysBetween+1)+" days");
+                    tabbedPane3.setSelectedIndex(1);
+                    loadAccoCombo();
                 }else {
                     Helper.showMessage("Please make a selection from the table below");
                 }
-                loadAccoCombo();
-                tabbedPane3.setSelectedIndex(1);
+
             }
         });
         buttonResReserve.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 tabbedPane3.setSelectedIndex(2);
+                labelGuestRoomType.setText(labelResRoomType.getText());
+                int hotelId= Integer.parseInt(tableSearchHotelList.getValueAt(tableSearchHotelList.getSelectedRow(),1).toString());
+                int roomTypeId =EmployeeOp.getFetchRoomIdByName(tableSearchHotelList.getValueAt(tableSearchHotelList.getSelectedRow(),9).toString()).getId();
+
+                String bed= String.valueOf(EmployeeOp.getGuestRoomDetailsByHotelId(hotelId,roomTypeId).getBed());
+                String size= String.valueOf(EmployeeOp.getGuestRoomDetailsByHotelId(hotelId,roomTypeId).getRoomSize());
+                String tv= String.valueOf(EmployeeOp.getGuestRoomDetailsByHotelId(hotelId,roomTypeId).getTv());
+                String minibar= String.valueOf(EmployeeOp.getGuestRoomDetailsByHotelId(hotelId,roomTypeId).getMinibar());
+                labelGuestBed.setText("Number of Beds : " + bed);
+                labelGuestMinibar.setText("Number of Minibars : " +minibar);
+                labelGuestTv.setText("Number of TVs : " +tv);
+                labelGuestRoomSize.setText("Room Size : " +size +" m²");
             }
         });
         buttonSearchSearch.addActionListener(new ActionListener() {
@@ -746,11 +759,23 @@ public class EmployeeGUI extends JFrame {
                     Date checkIn = Helper.stringToDate(fieldSearchCheckin.getText());
                     Date checkOut = Helper.stringToDate(fieldSearchCheckout.getText());
 
-
                     String query = EmployeeOp.searchRoomSalesQuery(input, star, checkIn, checkOut);
                     ArrayList<RoomSales> searchRoomSales = EmployeeOp.searchRoomSalesList(query);
                     loadSalesRoomModel(searchRoomSales);
                 }
+            }
+        });
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadSalesRoomModel();
+                Helper.resetFormFields(fieldSearchHotelCityDistrict,fieldSearchStar,fieldSearchCheckin,fieldSearchCheckout,fieldSearchAdult,fieldSearchChild);
+            }
+        });
+        buttonResHostelTypeSelect.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fieldResPrice.setText(String.valueOf(getPrice()));
             }
         });
     }
@@ -923,7 +948,6 @@ public class EmployeeGUI extends JFrame {
                 rowSearchHotelList[i++] = obj.getStock();
                 modelSearchHotelList.addRow(rowSearchHotelList);
             }
-
         }
     }
 
@@ -949,5 +973,19 @@ public class EmployeeGUI extends JFrame {
                 modelSearchHotelList.addRow(rowSearchHotelList);
             }
         }
+    }
+    public int getPrice(){
+        int hotelId= Integer.parseInt(tableSearchHotelList.getValueAt(tableSearchHotelList.getSelectedRow(),1).toString());
+        int roomTypeId =EmployeeOp.getFetchRoomIdByName(tableSearchHotelList.getValueAt(tableSearchHotelList.getSelectedRow(),9).toString()).getId();
+        int periodId = EmployeeOp.getFetchPeriodIdByName(tableSearchHotelList.getValueAt(tableSearchHotelList.getSelectedRow(),6).toString()).getId();
+        int accoId = EmployeeOp.getFetchAccoIdByName(comboBoxResHostelType.getSelectedItem().toString()).getId();
+        int duration =Helper.daysBetweenToDates(fieldSearchCheckin,fieldSearchCheckout);
+        int total=0;
+        RoomPrice obj =EmployeeOp.getAccoPrice(hotelId,roomTypeId,periodId,accoId);
+        int a =obj.getAdultPrice();
+        int b =obj.getChildPrice();
+        total = Helper.resPrice(fieldSearchAdult,fieldSearchChild,a,b,duration);
+
+        return total;
     }
 }
