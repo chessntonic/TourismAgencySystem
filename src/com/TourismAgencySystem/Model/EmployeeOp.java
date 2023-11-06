@@ -925,13 +925,27 @@ public class EmployeeOp {
         return hotelList;
     }
     public static String searchRoomSalesQuery(String input, String star, Date checkIn, Date checkOut) {
-        String query = "SELECT * FROM room_sales WHERE (hotel_name LIKE '%" + input + "%' OR city = '" + input + "' OR district = '" + input + "') " +
-                "AND start_date <= '" + checkIn + "' AND end_date >= '" + checkOut + "' ";
+        String query = "SELECT * FROM room_sales";
 
-        if (!star.isEmpty()) {
-            query += " AND star= '" + star + "'";
+        if (!input.isEmpty() || !star.isEmpty() || checkIn != null || checkOut != null){
+            query += " WHERE 1=1";
+
+            if (!input.isEmpty()) {
+                query += " AND (hotel_name LIKE '%" + input + "%' OR city = '" + input + "')";
+            }
+
+            if (!star.isEmpty()) {
+                query += " AND star = '" + star + "'";
+            }
+
+            if (checkIn != null) {
+                query += " AND start_date = '" + checkIn + "'";
+            }
+
+            if (checkOut != null) {
+                query += " AND end_date = '" + checkOut + "'";
+            }
         }
-
         return query;
     }
 
