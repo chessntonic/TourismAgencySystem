@@ -117,7 +117,7 @@ public class EmployeeGUI extends JFrame {
     private JLabel labelGuestRoomSize;
     private JLabel labelGuestTv;
     private JLabel labelGuestMinibar;
-    private JTextField fieldLogResHotelNameSearch;
+    private JTextField fieldLogResHotelCitySearch;
     private JButton buttonLogResSearch;
     private JTextField fieldLogResCheckinSearch;
     private JTextField fieldLogResCheckoutSearch;
@@ -578,10 +578,10 @@ public class EmployeeGUI extends JFrame {
         buttonHotelSearch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String a = fieldHotelHotelCityDistrictSearch.getText();
+                String input = fieldHotelHotelCityDistrictSearch.getText();
                 String star = fieldHotelStarSearch.getText();
 
-                String query = EmployeeOp.searchHotelQuery(a, star);
+                String query = EmployeeOp.searchHotelQuery(input, star);
                 ArrayList<Hotel> searchHotel = EmployeeOp.searchHotelList(query);
                 loadHotelModel(searchHotel);
             }
@@ -851,7 +851,6 @@ public class EmployeeGUI extends JFrame {
                 } else {
                     Helper.showMessage("Please make a selection from the table below");
                 }
-
             }
         });
         buttonResReserve.addActionListener(new ActionListener() {
@@ -1188,7 +1187,53 @@ public class EmployeeGUI extends JFrame {
         buttonLogResSearch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String hotelCityName = fieldLogResHotelCitySearch.getText();
 
+
+                Date checkIn = null;
+
+                if (!fieldLogResCheckinSearch.getText().isEmpty()){
+                    checkIn = Helper.stringToDate(fieldLogResCheckinSearch.getText());
+                }
+
+                Date checkOut = null;
+//                Helper.stringToDate("1000-01-01")
+
+
+                if (!fieldLogResCheckoutSearch.getText().isEmpty()){
+                    checkOut = Helper.stringToDate(fieldLogResCheckoutSearch.getText());
+                }
+
+                int minPrice = -1;
+                if (!fieldLogResMinPriceSearch.getText().isEmpty()) {
+                    minPrice = Integer.parseInt(fieldLogResMinPriceSearch.getText());
+                }
+
+                int maxPrice = -1;
+                if (!fieldLogResMaxPriceSearch.getText().isEmpty()) {
+                    maxPrice = Integer.parseInt(fieldLogResMaxPriceSearch.getText());
+                }
+
+                String query = EmployeeOp.searchResQuery(hotelCityName, checkIn, checkOut, minPrice, maxPrice);
+                ArrayList<Reservation> searchReservation = EmployeeOp.searchResList(query);
+                loadResModel(searchReservation);
+            }
+        });
+        buttonLogGuestSearch.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int resId = 0;
+
+                if (!fieldLogGuestResId.getText().isEmpty()){
+                    resId = Integer.parseInt(fieldLogGuestResId.getText());
+                }
+
+                String fullName = fieldLogGuestFullname.getText();
+                String nationalId = fieldLogGuestIdNumber.getText();
+
+                String query = EmployeeOp.searchGuestQuery(resId, fullName, nationalId);
+                ArrayList<Guest> searchGuest = EmployeeOp.searchGuestList(query);
+                loadGuestModel(searchGuest);
             }
         });
     }
@@ -1408,6 +1453,22 @@ public class EmployeeGUI extends JFrame {
             modelLogResReservationList.addRow(rowLogResReservationList);
         }
     }
+    public void loadResModel(ArrayList<Reservation> list) {
+        DefaultTableModel clearModel = (DefaultTableModel) tableLogResReservationList.getModel();
+        clearModel.setRowCount(0);
+        for (Reservation obj : list) {
+            int i = 0;
+            rowLogResReservationList[i++] = obj.getId();
+            rowLogResReservationList[i++] = obj.getHotelName();
+            rowLogResReservationList[i++] = obj.getCity();
+            rowLogResReservationList[i++] = obj.getGuestCount();
+            rowLogResReservationList[i++] = obj.getCheckinDate();
+            rowLogResReservationList[i++] = obj.getCheckoutDate();
+            rowLogResReservationList[i++] = obj.getDuration();
+            rowLogResReservationList[i++] = obj.getTotalPrice();
+            modelLogResReservationList.addRow(rowLogResReservationList);
+        }
+    }
 
     public void loadGuestModel() {
         DefaultTableModel clearModel = (DefaultTableModel) tableLogGuestGuestList.getModel();
@@ -1424,6 +1485,21 @@ public class EmployeeGUI extends JFrame {
             rowLogGuestGuestList[i++] = obj.getPhone();
             rowLogGuestGuestList[i++] = obj.getEmail();
 
+            modelLogGuestGuestList.addRow(rowLogGuestGuestList);
+        }
+    }
+
+    public void loadGuestModel(ArrayList<Guest> list) {
+        DefaultTableModel clearModel = (DefaultTableModel) tableLogGuestGuestList.getModel();
+        clearModel.setRowCount(0);
+        for (Guest obj : list) {
+            int i = 0;
+            rowLogGuestGuestList[i++] = obj.getId();
+            rowLogGuestGuestList[i++] = obj.getReservationId();
+            rowLogGuestGuestList[i++] = obj.getFullName();
+            rowLogGuestGuestList[i++] = obj.getNationalId();
+            rowLogGuestGuestList[i++] = obj.getPhone();
+            rowLogGuestGuestList[i++] = obj.getEmail();
             modelLogGuestGuestList.addRow(rowLogGuestGuestList);
         }
     }

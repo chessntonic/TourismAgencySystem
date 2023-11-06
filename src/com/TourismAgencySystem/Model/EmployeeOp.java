@@ -153,7 +153,7 @@ public class EmployeeOp {
                 obj.setId(rs.getInt("id"));
                 obj.setReservationId(rs.getInt("reservation_id"));
                 obj.setFullName(rs.getString("guest_fullname"));
-                obj.setNationalId(rs.getString("id_num"));
+                obj.setNationalId(rs.getString("national_id"));
                 obj.setPhone(rs.getString("guest_phone"));
                 obj.setEmail(rs.getString("guest_email"));
 
@@ -517,7 +517,7 @@ public class EmployeeOp {
         return true;
     }
     public static boolean addGuestDetails(int reservationId, String fullName, String nationalityId, String phone, String email) {
-        String query = "INSERT INTO guest (reservation_id, guest_fullname, id_num, guest_phone, guest_email) VALUES (?,?,?,?,?)";
+        String query = "INSERT INTO guest (reservation_id, guest_fullname, national_id, guest_phone, guest_email) VALUES (?,?,?,?,?)";
 
         try {
             PreparedStatement pr = DBConnector.getInstance().prepareStatement(query);
@@ -962,6 +962,109 @@ public class EmployeeOp {
             e.printStackTrace();
         }
         return roomSalesList;
+    }
+
+    public static String searchResQuery(String input, Date checkIn, Date checkOut, int minPrice, int maxPrice) {
+        String query = "SELECT * FROM reservation";
+
+
+        if (!input.isEmpty() || checkIn != null || checkOut != null || minPrice > 0 || maxPrice > 0){
+            query += " WHERE 1=1";
+
+            if (!input.isEmpty()) {
+                query += " AND (hotel_name LIKE '%" + input + "%' OR city = '" + input + "')";
+            }
+
+            if (checkIn != null) {
+                query += " AND checkin_date = '" + checkIn + "'";
+            }
+
+            if (checkOut != null) {
+                query += " AND checkout_date = '" + checkOut + "'";
+            }
+
+            if (minPrice >= 0) {
+                query += " AND price >= " + minPrice;
+            }
+
+            if (maxPrice >= 0) {
+                query += " AND price <= " + maxPrice;
+            }
+
+        }
+        return query;
+    }
+
+    public static ArrayList<Reservation> searchResList(String query) {
+        ArrayList<Reservation> resList = new ArrayList<>();
+
+        Reservation obj;
+        try {
+            Statement st = DBConnector.getInstance().createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                obj = new Reservation();
+                obj.setId(rs.getInt("id"));
+                obj.setHotelId(rs.getInt("hotel_id"));
+                obj.setHotelName(rs.getString("hotel_name"));
+                obj.setCity(rs.getString("city"));
+                obj.setGuestCount(rs.getInt("guest_count"));
+                obj.setCheckinDate(rs.getDate("checkin_date"));
+                obj.setCheckoutDate(rs.getDate("checkout_date"));
+                obj.setDuration(rs.getInt("duration"));
+                obj.setTotalPrice(rs.getInt("price"));
+
+                resList.add(obj);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return resList;
+    }
+
+    public static String searchGuestQuery(int reservationId, String fullName, String nationalId) {
+        String query = "SELECT * FROM guest";
+
+        if (reservationId > 0 || !fullName.isEmpty() || !nationalId.isEmpty()){
+            query += " WHERE 1 = 1";
+
+            if (reservationId > 0) {
+                query += " AND reservation_id = '" + reservationId + "'";
+            }
+
+            if (!fullName.isEmpty()) {
+                query += " AND guest_fullname = '" + fullName + "'";
+            }
+
+            if (!nationalId.isEmpty()) {
+                query += " AND national_id = '" + nationalId + "'";
+            }
+        }
+        return query;
+    }
+
+    public static ArrayList<Guest> searchGuestList(String query) {
+        ArrayList<Guest> guestList = new ArrayList<>();
+
+        Guest obj;
+        try {
+            Statement st = DBConnector.getInstance().createStatement();
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                obj = new Guest();
+                obj.setId(rs.getInt("id"));
+                obj.setReservationId(rs.getInt("reservation_id"));
+                obj.setFullName(rs.getString("guest_fullname"));
+                obj.setNationalId(rs.getString("national_id"));
+                obj.setPhone(rs.getString("guest_phone"));
+                obj.setEmail(rs.getString("guest_email"));
+
+                guestList.add(obj);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return guestList;
     }
 }
 
