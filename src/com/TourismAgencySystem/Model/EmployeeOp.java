@@ -503,7 +503,6 @@ public class EmployeeOp {
             pr.setInt(6, duration);
             pr.setInt(7, totalPrice);
 
-
             int response = pr.executeUpdate();
             if (response == -1) {
                 Helper.showMessage("error");
@@ -604,6 +603,20 @@ public class EmployeeOp {
         }
         return true;
     }
+    public static boolean updateStock(int id, int stock) {
+        String query = "UPDATE room_sales SET stock=? WHERE id=?";
+
+        try {
+            PreparedStatement ps = DBConnector.getInstance().prepareStatement(query);
+            ps.setInt(1, stock);
+            ps.setInt(2, id);
+
+            return ps.executeUpdate() != -1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
 
     public static boolean updateRoomPrice(int id, int hotel_id, int period_id, int room_type_id, int acco_id, int adult_price, int child_price) {
         String query = "UPDATE room_price SET hotel_id=?,period_id=?,room_type=?,accommodation_id=?,adult_price=?,child_price=? WHERE id=?";
@@ -652,7 +665,6 @@ public class EmployeeOp {
         ArrayList<Hotel> hotelDetailsList = new ArrayList<>();
 
         Hotel obj;
-
 
         try {
             Statement st = DBConnector.getInstance().createStatement();

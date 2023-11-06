@@ -558,7 +558,7 @@
                                       <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                                     </constraints>
                                     <properties>
-                                      <text value="Stock:"/>
+                                      <text value="Season Stock:"/>
                                     </properties>
                                   </component>
                                   <component id="8e7cc" class="javax.swing.JTextField" binding="fieldRoomSeasonStock">
@@ -638,7 +638,7 @@
                                       <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                                     </constraints>
                                     <properties>
-                                      <text value="Off-Season Stock"/>
+                                      <text value="Off-Season Stock:"/>
                                     </properties>
                                   </component>
                                   <component id="f2fab" class="javax.swing.JTextField" binding="fieldRoomOffSeasonStock">
@@ -4477,14 +4477,6 @@
                                       <text value="Minimum Price:"/>
                                     </properties>
                                   </component>
-                                  <component id="8d5ec" class="javax.swing.JButton" binding="buttonLogResSearch">
-                                    <constraints>
-                                      <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                                    </constraints>
-                                    <properties>
-                                      <text value="Search"/>
-                                    </properties>
-                                  </component>
                                   <component id="ac9b8" class="javax.swing.JTextField" binding="fieldLogResCheckinSearch">
                                     <constraints>
                                       <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
@@ -4524,6 +4516,22 @@
                                       </grid>
                                     </constraints>
                                     <properties/>
+                                  </component>
+                                  <component id="8d5ec" class="javax.swing.JButton" binding="buttonLogResSearch">
+                                    <constraints>
+                                      <grid row="0" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                                    </constraints>
+                                    <properties>
+                                      <text value="Search"/>
+                                    </properties>
+                                  </component>
+                                  <component id="6ee0c" class="javax.swing.JButton" binding="buttonLogResDelete">
+                                    <constraints>
+                                      <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                                    </constraints>
+                                    <properties>
+                                      <text value="Delete"/>
+                                    </properties>
                                   </component>
                                 </children>
                               </grid>

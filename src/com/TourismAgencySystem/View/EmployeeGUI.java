@@ -209,6 +209,7 @@ public class EmployeeGUI extends JFrame {
     private JComboBox comboBoxGuestType9;
     private JComboBox comboBoxGuestType10;
     private JTextField fieldRoomOffSeasonStock;
+    private JButton buttonLogResDelete;
     private JPanel panelGuestInfo;
     private DefaultTableModel modelHotelHotelList;
     private Object[] rowHotelHotelList;
@@ -1021,7 +1022,7 @@ public class EmployeeGUI extends JFrame {
                 String guestNat1, guestNat2, guestNat3, guestNat4, guestNat5, guestNat6, guestNat7, guestNat8, guestNat9, guestNat10;
                 String guestType1, guestType2, guestType3, guestType4, guestType5, guestType6, guestType7, guestType8, guestType9, guestType10;
 
-                if(total >= 1){
+                if (total >= 1) {
                     guestName1 = fieldGuestName1.getText();
                     guestId1 = fieldGuestId1.getText();
                     guestPhone1 = fieldGuestPhone1.getText();
@@ -1033,7 +1034,7 @@ public class EmployeeGUI extends JFrame {
                         loadGuestModel();
                     }
 
-                    if(total >= 2){
+                    if (total >= 2) {
                         guestName2 = fieldGuestName2.getText();
                         guestId2 = fieldGuestId2.getText();
                         guestPhone2 = fieldGuestPhone2.getText();
@@ -1149,7 +1150,24 @@ public class EmployeeGUI extends JFrame {
                             }
                         }
                     }
+                } // end of ifs
+                if (false) {
+                    Helper.showMessage("fill");
+                } else {
+                    int id = Integer.parseInt(tableSearchHotelList.getValueAt(tableSearchHotelList.getSelectedRow(), 0).toString());
+                    int stock = Integer.parseInt(tableSearchHotelList.getValueAt(tableSearchHotelList.getSelectedRow(), 10).toString());
+
+                    if (EmployeeOp.updateStock(id, stock-1)) {
+                        loadSalesRoomModel();
+                    }
+                    scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);
                 }
+            }
+        });
+        buttonLogResDelete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }
@@ -1369,6 +1387,7 @@ public class EmployeeGUI extends JFrame {
             modelLogResReservationList.addRow(rowLogResReservationList);
         }
     }
+
     public void loadGuestModel() {
         DefaultTableModel clearModel = (DefaultTableModel) tableLogGuestGuestList.getModel();
         clearModel.setRowCount(0);
