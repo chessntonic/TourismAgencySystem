@@ -1145,7 +1145,7 @@ public class EmployeeGUI extends JFrame {
                             }
                         }
                     }
-                } // end of ifs
+                }
                 if (false) {
                     Helper.showMessage("fill");
                 } else {
@@ -1155,16 +1155,10 @@ public class EmployeeGUI extends JFrame {
                     if (EmployeeOp.updateStock(id, stock - 1)) {
                         loadSalesRoomModel();
                     }
-                    scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);
                 }
             }
         });
-        buttonLogResDelete.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-            }
-        });
         buttonLogResDelete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1173,6 +1167,7 @@ public class EmployeeGUI extends JFrame {
                     if (EmployeeOp.deleteResDetails(id)) {
                         Helper.showMessage("done");
                         loadResModel();
+
                     } else {
                         Helper.showMessage("error");
                     }

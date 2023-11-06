@@ -153,6 +153,8 @@ public class Helper {
     }
 
     public static int resPrice(JTextField adultNumber,JTextField childNumber,int adultPrice , int childPrice,int duration){
+
+
         int a=  Integer.parseInt(adultNumber.getText());
         int b=  Integer.parseInt(childNumber.getText());
         int totalAdultPrice= a*adultPrice;
