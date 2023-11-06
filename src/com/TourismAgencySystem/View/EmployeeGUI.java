@@ -219,6 +219,8 @@ public class EmployeeGUI extends JFrame {
     private Object[] rowSearchHotelList;
     private DefaultTableModel modelLogResReservationList;
     private Object[] rowLogResReservationList;
+    private DefaultTableModel modelLogGuestGuestList;
+    private Object[] rowLogGuestGuestList;
 
     public EmployeeGUI(Employee employee) {
         this.employee = employee;
@@ -244,7 +246,7 @@ public class EmployeeGUI extends JFrame {
         Object[] colHotelHotelList = {"ID", "Name", "City", "District", "Star", "E-Mail", "Phone"};
         modelHotelHotelList.setColumnIdentifiers(colHotelHotelList);
         rowHotelHotelList = new Object[colHotelHotelList.length];
-
+        loadHotelModel();
         tableHotelHotelList.setModel(modelHotelHotelList);
         tableHotelHotelList.getTableHeader().setReorderingAllowed(false);
 
@@ -319,7 +321,28 @@ public class EmployeeGUI extends JFrame {
 
         tableLogResReservationList.setModel(modelLogResReservationList);
         tableLogResReservationList.getTableHeader().setReorderingAllowed(false);
-        loadHotelModel();
+
+        modelLogGuestGuestList = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                if (column == 0 || column == 1 || column == 2 || column == 3
+                        || column == 4 || column == 5) {
+                    return false;
+                }
+                return super.isCellEditable(row, column);
+            }
+        };
+
+        Object[] colLogGuestGuestList = {"ID", "Reservation ID", "Full Name", "Nationality ID", "Phone Number", "Email"};
+        modelLogGuestGuestList.setColumnIdentifiers(colLogGuestGuestList);
+        rowLogGuestGuestList = new Object[colLogGuestGuestList.length];
+
+        loadGuestModel();
+
+        tableLogGuestGuestList.setModel(modelLogGuestGuestList);
+        tableLogGuestGuestList.getTableHeader().setReorderingAllowed(false);
+
+
         radioButtonSeason.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -565,7 +588,7 @@ public class EmployeeGUI extends JFrame {
         buttonRoomTypeNew.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Helper.resetFormFields(fieldRoomTypeName, fieldRoomBedCount, fieldRoomSize, fieldRoomTv, fieldRoomMinibar, fieldRoomSeasonStock);
+                Helper.resetFormFields(fieldRoomTypeName, fieldRoomBedCount, fieldRoomSize, fieldRoomTv, fieldRoomMinibar, fieldRoomSeasonStock, fieldRoomOffSeasonStock);
                 fieldRoomTypeName.setText(comboBoxRoomType.getSelectedItem().toString());
             }
         });
@@ -603,6 +626,7 @@ public class EmployeeGUI extends JFrame {
                     if (EmployeeOp.addRoomDetails(hotel_id, room_type_id, seasonStock, offSeasonStock, bed, size, tv, minibar)) {
                         Helper.showMessage("done");
                     }
+
                     String name = fieldHotelName.getText();
                     String city = fieldHotelCity.getText();
                     String district = fieldHotelDistrict.getText();
@@ -611,12 +635,14 @@ public class EmployeeGUI extends JFrame {
                     String roomName = comboBoxRoomType.getSelectedItem().toString();
                     Date periodStart;
                     Date periodEnd;
+
                     if (radioButtonSeason.isSelected()) {
                         periodName = "Season";
                         periodStart = EmployeeOp.getHotelPeriodDateByHotelId(hotel_id).getSeasonStart();
                         periodEnd = EmployeeOp.getHotelPeriodDateByHotelId(hotel_id).getSeasonEnd();
 
                         if (EmployeeOp.addRoomSalesDetails(hotel_id, name, city, district, star, periodName, periodStart, periodEnd, roomName, seasonStock)) {
+
                         }
                     }
                     if (radioButtonOffSeason.isSelected()) {
@@ -624,9 +650,11 @@ public class EmployeeGUI extends JFrame {
                         periodStart = EmployeeOp.getHotelPeriodDateByHotelId(hotel_id).getOffSeasonStart();
                         periodEnd = EmployeeOp.getHotelPeriodDateByHotelId(hotel_id).getOffSeasonStart();
                         if (EmployeeOp.addRoomSalesDetails(hotel_id, name, city, district, star, periodName, periodStart, periodEnd, roomName, offSeasonStock)) {
+
                         }
                     }
                     loadSalesRoomModel();
+
                     scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);
                 }
             }
@@ -837,10 +865,10 @@ public class EmployeeGUI extends JFrame {
                 String size = String.valueOf(EmployeeOp.getGuestRoomDetailsByHotelId(hotelId, roomTypeId).getRoomSize());
                 String tv = String.valueOf(EmployeeOp.getGuestRoomDetailsByHotelId(hotelId, roomTypeId).getTv());
                 String minibar = String.valueOf(EmployeeOp.getGuestRoomDetailsByHotelId(hotelId, roomTypeId).getMinibar());
-                labelGuestBed.setText("Number of Beds : " + bed);
-                labelGuestMinibar.setText("Number of Minibars : " + minibar);
-                labelGuestTv.setText("Number of TVs : " + tv);
-                labelGuestRoomSize.setText("Room Size : " + size + " m²");
+                labelGuestBed.setText("Number of Beds: " + bed);
+                labelGuestMinibar.setText("Number of Minibars: " + minibar);
+                labelGuestTv.setText("Number of TVs: " + tv);
+                labelGuestRoomSize.setText("Room Size: " + size + " m²");
                 int adultNumber = Integer.parseInt(fieldSearchAdult.getText().toString());
                 int childNumber = Integer.parseInt(fieldSearchChild.getText().toString());
                 int totalGuestNumber = childNumber + adultNumber;
@@ -944,8 +972,6 @@ public class EmployeeGUI extends JFrame {
                         loadResModel();
                     }
                 }
-
-//
             }
         });
         buttonSearchSearch.addActionListener(new ActionListener() {
@@ -982,12 +1008,14 @@ public class EmployeeGUI extends JFrame {
         buttonComplete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int lastRow = tableLogResReservationList.getRowCount() - 1;
+                tableLogResReservationList.setRowSelectionInterval(lastRow, lastRow);
                 int adultNumber = Integer.parseInt(fieldSearchAdult.getText().toString());
                 int childNumber = Integer.parseInt(fieldSearchChild.getText().toString());
                 int total = adultNumber + childNumber;
-
+                int reservationId = Integer.parseInt(tableLogResReservationList.getValueAt(tableLogResReservationList.getSelectedRow(), 0).toString());
                 String guestName1, guestName2, guestName3, guestName4, guestName5, guestName6, guestName7, guestName8, guestName9, guestName10;
-                int guestId1, guestId2, guestId3, guestId4, guestId5, guestId6, guestId7, guestId8, guestId9, guestId10;
+                String guestId1, guestId2, guestId3, guestId4, guestId5, guestId6, guestId7, guestId8, guestId9, guestId10;
                 String guestPhone1, guestPhone2, guestPhone3, guestPhone4, guestPhone5, guestPhone6, guestPhone7, guestPhone8, guestPhone9, guestPhone10;
                 String guestMail1, guestMail2, guestMail3, guestMail4, guestMail5, guestMail6, guestMail7, guestMail8, guestMail9, guestMail10;
                 String guestNat1, guestNat2, guestNat3, guestNat4, guestNat5, guestNat6, guestNat7, guestNat8, guestNat9, guestNat10;
@@ -995,83 +1023,123 @@ public class EmployeeGUI extends JFrame {
 
                 if(total >= 1){
                     guestName1 = fieldGuestName1.getText();
-                    guestId1 = Integer.parseInt(fieldGuestId1.getText());
+                    guestId1 = fieldGuestId1.getText();
                     guestPhone1 = fieldGuestPhone1.getText();
                     guestMail1 = fieldGuestMail1.getText();
                     guestNat1 = comboBoxGuestNat1.getSelectedItem().toString();
                     guestType1 = comboBoxGuestType1.getSelectedItem().toString();
+                    if (EmployeeOp.addGuestDetails(reservationId, guestName1, guestId1, guestPhone1, guestMail1)) {
+                        Helper.showMessage("done");
+                        loadGuestModel();
+                    }
 
                     if(total >= 2){
                         guestName2 = fieldGuestName2.getText();
-                        guestId2 = Integer.parseInt(fieldGuestId2.getText());
+                        guestId2 = fieldGuestId2.getText();
                         guestPhone2 = fieldGuestPhone2.getText();
                         guestMail2 = fieldGuestMail2.getText();
                         guestNat2 = comboBoxGuestNat2.getSelectedItem().toString();
                         guestType2 = comboBoxGuestType2.getSelectedItem().toString();
+                        if (EmployeeOp.addGuestDetails(reservationId, guestName2, guestId2, guestPhone2, guestMail2)) {
+                            Helper.showMessage("done");
+                            loadGuestModel();
+                        }
 
                         if (total >= 3) {
                             guestName3 = fieldGuestName3.getText();
-                            guestId3 = Integer.parseInt(fieldGuestId3.getText());
+                            guestId3 = fieldGuestId3.getText();
                             guestPhone3 = fieldGuestPhone3.getText();
                             guestMail3 = fieldGuestMail3.getText();
                             guestNat3 = comboBoxGuestNat3.getSelectedItem().toString();
                             guestType3 = comboBoxGuestType3.getSelectedItem().toString();
+                            if (EmployeeOp.addGuestDetails(reservationId, guestName3, guestId3, guestPhone3, guestMail3)) {
+                                Helper.showMessage("done");
+                                loadGuestModel();
+                            }
 
                             if (total >= 4) {
                                 guestName4 = fieldGuestName4.getText();
-                                guestId4 = Integer.parseInt(fieldGuestId4.getText());
+                                guestId4 = fieldGuestId4.getText();
                                 guestPhone4 = fieldGuestPhone4.getText();
                                 guestMail4 = fieldGuestMail4.getText();
                                 guestNat4 = comboBoxGuestNat4.getSelectedItem().toString();
                                 guestType4 = comboBoxGuestType4.getSelectedItem().toString();
+                                if (EmployeeOp.addGuestDetails(reservationId, guestName4, guestId4, guestPhone4, guestMail4)) {
+                                    Helper.showMessage("done");
+                                    loadGuestModel();
+                                }
 
                                 if (total >= 5) {
                                     guestName5 = fieldGuestName5.getText();
-                                    guestId5 = Integer.parseInt(fieldGuestId5.getText());
+                                    guestId5 = fieldGuestId5.getText();
                                     guestPhone5 = fieldGuestPhone5.getText();
                                     guestMail5 = fieldGuestMail5.getText();
                                     guestNat5 = comboBoxGuestNat5.getSelectedItem().toString();
                                     guestType5 = comboBoxGuestType5.getSelectedItem().toString();
+                                    if (EmployeeOp.addGuestDetails(reservationId, guestName5, guestId5, guestPhone5, guestMail5)) {
+                                        Helper.showMessage("done");
+                                        loadGuestModel();
+                                    }
 
                                     if (total >= 6) {
                                         guestName6 = fieldGuestName6.getText();
-                                        guestId6 = Integer.parseInt(fieldGuestId6.getText());
+                                        guestId6 = fieldGuestId6.getText();
                                         guestPhone6 = fieldGuestPhone6.getText();
                                         guestMail6 = fieldGuestMail6.getText();
                                         guestNat6 = comboBoxGuestNat6.getSelectedItem().toString();
                                         guestType6 = comboBoxGuestType6.getSelectedItem().toString();
+                                        if (EmployeeOp.addGuestDetails(reservationId, guestName6, guestId6, guestPhone6, guestMail6)) {
+                                            Helper.showMessage("done");
+                                            loadGuestModel();
+                                        }
 
                                         if (total >= 7) {
                                             guestName7 = fieldGuestName7.getText();
-                                            guestId7 = Integer.parseInt(fieldGuestId7.getText());
+                                            guestId7 = fieldGuestId7.getText();
                                             guestPhone7 = fieldGuestPhone7.getText();
                                             guestMail7 = fieldGuestMail7.getText();
                                             guestNat7 = comboBoxGuestNat7.getSelectedItem().toString();
                                             guestType7 = comboBoxGuestType7.getSelectedItem().toString();
+                                            if (EmployeeOp.addGuestDetails(reservationId, guestName7, guestId7, guestPhone7, guestMail7)) {
+                                                Helper.showMessage("done");
+                                                loadGuestModel();
+                                            }
 
                                             if (total >= 8) {
                                                 guestName8 = fieldGuestName8.getText();
-                                                guestId8 = Integer.parseInt(fieldGuestId8.getText());
+                                                guestId8 = fieldGuestId8.getText();
                                                 guestPhone8 = fieldGuestPhone8.getText();
                                                 guestMail8 = fieldGuestMail8.getText();
                                                 guestNat8 = comboBoxGuestNat8.getSelectedItem().toString();
                                                 guestType8 = comboBoxGuestType8.getSelectedItem().toString();
+                                                if (EmployeeOp.addGuestDetails(reservationId, guestName8, guestId8, guestPhone8, guestMail8)) {
+                                                    Helper.showMessage("done");
+                                                    loadGuestModel();
+                                                }
 
                                                 if (total >= 9) {
                                                     guestName9 = fieldGuestName9.getText();
-                                                    guestId9 = Integer.parseInt(fieldGuestId9.getText());
+                                                    guestId9 = fieldGuestId9.getText();
                                                     guestPhone9 = fieldGuestPhone9.getText();
                                                     guestMail9 = fieldGuestMail9.getText();
                                                     guestNat9 = comboBoxGuestNat9.getSelectedItem().toString();
                                                     guestType9 = comboBoxGuestType9.getSelectedItem().toString();
+                                                    if (EmployeeOp.addGuestDetails(reservationId, guestName9, guestId9, guestPhone9, guestMail9)) {
+                                                        Helper.showMessage("done");
+                                                        loadGuestModel();
+                                                    }
 
                                                     if (total >= 10) {
                                                         guestName10 = fieldGuestName10.getText();
-                                                        guestId10 = Integer.parseInt(fieldGuestId10.getText());
+                                                        guestId10 = fieldGuestId10.getText();
                                                         guestPhone10 = fieldGuestPhone10.getText();
                                                         guestMail10 = fieldGuestMail10.getText();
                                                         guestNat10 = comboBoxGuestNat10.getSelectedItem().toString();
                                                         guestType10 = comboBoxGuestType10.getSelectedItem().toString();
+                                                        if (EmployeeOp.addGuestDetails(reservationId, guestName10, guestId10, guestPhone10, guestMail10)) {
+                                                            Helper.showMessage("done");
+                                                            loadGuestModel();
+                                                        }
                                                     }
                                                 }
                                             }
@@ -1082,420 +1150,6 @@ public class EmployeeGUI extends JFrame {
                         }
                     }
                 }
-                if ((Helper.isFieldEmpty(fieldResPrice))) {
-                    Helper.showMessage("fill");
-                } else {
-
-                    String city = fieldResDetailCity.getText();
-                    Date checkinDate = Helper.stringToDate(fieldResCheckin.getText());
-                    Date checkoutDate = Helper.stringToDate(fieldResCheckout.getText());
-                    int duration = Helper.daysBetweenToDates(fieldResCheckin, fieldResCheckout);
-                    int totalPrice = Integer.parseInt(fieldResPrice.getText());
-
-
-                    if (EmployeeOp.addReservationDetails(hotelId, city, totalGuestNumber, checkinDate, checkoutDate, duration, totalPrice)) {
-                        Helper.showMessage("done");
-                        loadResModel();
-                    }
-                }
-
-//                switch (adultNumber + childNumber) {
-//                    case 1:
-//                        guestName1 = fieldGuestName1.getText();
-//                        guestId1 = Integer.parseInt(fieldGuestId1.getText());
-//                        guestPhone1 = fieldGuestPhone1.getText();
-//                        guestMail1 = fieldGuestMail1.getText();
-//                        guestNat1 = comboBoxGuestNat1.getSelectedItem().toString();
-//                        guestType1 = comboBoxGuestType1.getSelectedItem().toString();
-//                        break;
-//                    case 2:
-//                        guestName1 = fieldGuestName1.getText();
-//                        guestId1 = Integer.parseInt(fieldGuestId1.getText());
-//                        guestPhone1 = fieldGuestPhone1.getText();
-//                        guestMail1 = fieldGuestMail1.getText();
-//                        guestNat1 = comboBoxGuestNat1.getSelectedItem().toString();
-//                        guestType1 = comboBoxGuestType1.getSelectedItem().toString();
-//
-//                        guestName2 = fieldGuestName2.getText();
-//                        guestId2 = Integer.parseInt(fieldGuestId2.getText());
-//                        guestPhone2 = fieldGuestPhone2.getText();
-//                        guestMail2 = fieldGuestMail2.getText();
-//                        guestNat2 = comboBoxGuestNat2.getSelectedItem().toString();
-//                        guestType2 = comboBoxGuestType2.getSelectedItem().toString();
-//                        break;
-//                    case 3:
-//                        guestName1 = fieldGuestName1.getText();
-//                        guestId1 = Integer.parseInt(fieldGuestId1.getText());
-//                        guestPhone1 = fieldGuestPhone1.getText();
-//                        guestMail1 = fieldGuestMail1.getText();
-//                        guestNat1 = comboBoxGuestNat1.getSelectedItem().toString();
-//                        guestType1 = comboBoxGuestType1.getSelectedItem().toString();
-//
-//                        guestName2 = fieldGuestName2.getText();
-//                        guestId2 = Integer.parseInt(fieldGuestId2.getText());
-//                        guestPhone2 = fieldGuestPhone2.getText();
-//                        guestMail2 = fieldGuestMail2.getText();
-//                        guestNat2 = comboBoxGuestNat2.getSelectedItem().toString();
-//                        guestType2 = comboBoxGuestType2.getSelectedItem().toString();
-//
-//                        guestName3 = fieldGuestName3.getText();
-//                        guestId3 = Integer.parseInt(fieldGuestId3.getText());
-//                        guestPhone3 = fieldGuestPhone3.getText();
-//                        guestMail3 = fieldGuestMail3.getText();
-//                        guestNat3 = comboBoxGuestNat3.getSelectedItem().toString();
-//                        guestType3 = comboBoxGuestType3.getSelectedItem().toString();
-//                        break;
-//                    case 4:
-//                        guestName1 = fieldGuestName1.getText();
-//                        guestId1 = Integer.parseInt(fieldGuestId1.getText());
-//                        guestPhone1 = fieldGuestPhone1.getText();
-//                        guestMail1 = fieldGuestMail1.getText();
-//                        guestNat1 = comboBoxGuestNat1.getSelectedItem().toString();
-//                        guestType1 = comboBoxGuestType1.getSelectedItem().toString();
-//
-//                        guestName2 = fieldGuestName2.getText();
-//                        guestId2 = Integer.parseInt(fieldGuestId2.getText());
-//                        guestPhone2 = fieldGuestPhone2.getText();
-//                        guestMail2 = fieldGuestMail2.getText();
-//                        guestNat2 = comboBoxGuestNat2.getSelectedItem().toString();
-//                        guestType2 = comboBoxGuestType2.getSelectedItem().toString();
-//
-//                        guestName3 = fieldGuestName3.getText();
-//                        guestId3 = Integer.parseInt(fieldGuestId3.getText());
-//                        guestPhone3 = fieldGuestPhone3.getText();
-//                        guestMail3 = fieldGuestMail3.getText();
-//                        guestNat3 = comboBoxGuestNat3.getSelectedItem().toString();
-//                        guestType3 = comboBoxGuestType3.getSelectedItem().toString();
-//
-//                        guestName4 = fieldGuestName4.getText();
-//                        guestId4 = Integer.parseInt(fieldGuestId4.getText());
-//                        guestPhone4 = fieldGuestPhone4.getText();
-//                        guestMail4 = fieldGuestMail4.getText();
-//                        guestNat4 = comboBoxGuestNat4.getSelectedItem().toString();
-//                        guestType4 = comboBoxGuestType4.getSelectedItem().toString();
-//                        break;
-//                    case 5:
-//                        guestName1 = fieldGuestName1.getText();
-//                        guestId1 = Integer.parseInt(fieldGuestId1.getText());
-//                        guestPhone1 = fieldGuestPhone1.getText();
-//                        guestMail1 = fieldGuestMail1.getText();
-//                        guestNat1 = comboBoxGuestNat1.getSelectedItem().toString();
-//                        guestType1 = comboBoxGuestType1.getSelectedItem().toString();
-//
-//                        guestName2 = fieldGuestName2.getText();
-//                        guestId2 = Integer.parseInt(fieldGuestId2.getText());
-//                        guestPhone2 = fieldGuestPhone2.getText();
-//                        guestMail2 = fieldGuestMail2.getText();
-//                        guestNat2 = comboBoxGuestNat2.getSelectedItem().toString();
-//                        guestType2 = comboBoxGuestType2.getSelectedItem().toString();
-//
-//                        guestName3 = fieldGuestName3.getText();
-//                        guestId3 = Integer.parseInt(fieldGuestId3.getText());
-//                        guestPhone3 = fieldGuestPhone3.getText();
-//                        guestMail3 = fieldGuestMail3.getText();
-//                        guestNat3 = comboBoxGuestNat3.getSelectedItem().toString();
-//                        guestType3 = comboBoxGuestType3.getSelectedItem().toString();
-//
-//                        guestName4 = fieldGuestName4.getText();
-//                        guestId4 = Integer.parseInt(fieldGuestId4.getText());
-//                        guestPhone4 = fieldGuestPhone4.getText();
-//                        guestMail4 = fieldGuestMail4.getText();
-//                        guestNat4 = comboBoxGuestNat4.getSelectedItem().toString();
-//                        guestType4 = comboBoxGuestType4.getSelectedItem().toString();
-//
-//                        guestName5 = fieldGuestName5.getText();
-//                        guestId5 = Integer.parseInt(fieldGuestId5.getText());
-//                        guestPhone5 = fieldGuestPhone5.getText();
-//                        guestMail5 = fieldGuestMail5.getText();
-//                        guestNat5 = comboBoxGuestNat5.getSelectedItem().toString();
-//                        guestType5 = comboBoxGuestType5.getSelectedItem().toString();
-//                        break;
-//                    case 6:
-//                        guestName1 = fieldGuestName1.getText();
-//                        guestId1 = Integer.parseInt(fieldGuestId1.getText());
-//                        guestPhone1 = fieldGuestPhone1.getText();
-//                        guestMail1 = fieldGuestMail1.getText();
-//                        guestNat1 = comboBoxGuestNat1.getSelectedItem().toString();
-//                        guestType1 = comboBoxGuestType1.getSelectedItem().toString();
-//
-//                        guestName2 = fieldGuestName2.getText();
-//                        guestId2 = Integer.parseInt(fieldGuestId2.getText());
-//                        guestPhone2 = fieldGuestPhone2.getText();
-//                        guestMail2 = fieldGuestMail2.getText();
-//                        guestNat2 = comboBoxGuestNat2.getSelectedItem().toString();
-//                        guestType2 = comboBoxGuestType2.getSelectedItem().toString();
-//
-//                        guestName3 = fieldGuestName3.getText();
-//                        guestId3 = Integer.parseInt(fieldGuestId3.getText());
-//                        guestPhone3 = fieldGuestPhone3.getText();
-//                        guestMail3 = fieldGuestMail3.getText();
-//                        guestNat3 = comboBoxGuestNat3.getSelectedItem().toString();
-//                        guestType3 = comboBoxGuestType3.getSelectedItem().toString();
-//
-//                        guestName4 = fieldGuestName4.getText();
-//                        guestId4 = Integer.parseInt(fieldGuestId4.getText());
-//                        guestPhone4 = fieldGuestPhone4.getText();
-//                        guestMail4 = fieldGuestMail4.getText();
-//                        guestNat4 = comboBoxGuestNat4.getSelectedItem().toString();
-//                        guestType4 = comboBoxGuestType4.getSelectedItem().toString();
-//
-//                        guestName5 = fieldGuestName5.getText();
-//                        guestId5 = Integer.parseInt(fieldGuestId5.getText());
-//                        guestPhone5 = fieldGuestPhone5.getText();
-//                        guestMail5 = fieldGuestMail5.getText();
-//                        guestNat5 = comboBoxGuestNat5.getSelectedItem().toString();
-//                        guestType5 = comboBoxGuestType5.getSelectedItem().toString();
-//
-//                        guestName6 = fieldGuestName6.getText();
-//                        guestId6 = Integer.parseInt(fieldGuestId6.getText());
-//                        guestPhone6 = fieldGuestPhone6.getText();
-//                        guestMail6 = fieldGuestMail6.getText();
-//                        guestNat6 = comboBoxGuestNat6.getSelectedItem().toString();
-//                        guestType6 = comboBoxGuestType6.getSelectedItem().toString();
-//                        break;
-//                    case 7:
-//                        guestName1 = fieldGuestName1.getText();
-//                        guestId1 = Integer.parseInt(fieldGuestId1.getText());
-//                        guestPhone1 = fieldGuestPhone1.getText();
-//                        guestMail1 = fieldGuestMail1.getText();
-//                        guestNat1 = comboBoxGuestNat1.getSelectedItem().toString();
-//                        guestType1 = comboBoxGuestType1.getSelectedItem().toString();
-//
-//                        guestName2 = fieldGuestName2.getText();
-//                        guestId2 = Integer.parseInt(fieldGuestId2.getText());
-//                        guestPhone2 = fieldGuestPhone2.getText();
-//                        guestMail2 = fieldGuestMail2.getText();
-//                        guestNat2 = comboBoxGuestNat2.getSelectedItem().toString();
-//                        guestType2 = comboBoxGuestType2.getSelectedItem().toString();
-//
-//                        guestName3 = fieldGuestName3.getText();
-//                        guestId3 = Integer.parseInt(fieldGuestId3.getText());
-//                        guestPhone3 = fieldGuestPhone3.getText();
-//                        guestMail3 = fieldGuestMail3.getText();
-//                        guestNat3 = comboBoxGuestNat3.getSelectedItem().toString();
-//                        guestType3 = comboBoxGuestType3.getSelectedItem().toString();
-//
-//                        guestName4 = fieldGuestName4.getText();
-//                        guestId4 = Integer.parseInt(fieldGuestId4.getText());
-//                        guestPhone4 = fieldGuestPhone4.getText();
-//                        guestMail4 = fieldGuestMail4.getText();
-//                        guestNat4 = comboBoxGuestNat4.getSelectedItem().toString();
-//                        guestType4 = comboBoxGuestType4.getSelectedItem().toString();
-//
-//                        guestName5 = fieldGuestName5.getText();
-//                        guestId5 = Integer.parseInt(fieldGuestId5.getText());
-//                        guestPhone5 = fieldGuestPhone5.getText();
-//                        guestMail5 = fieldGuestMail5.getText();
-//                        guestNat5 = comboBoxGuestNat5.getSelectedItem().toString();
-//                        guestType5 = comboBoxGuestType5.getSelectedItem().toString();
-//
-//                        guestName6 = fieldGuestName6.getText();
-//                        guestId6 = Integer.parseInt(fieldGuestId6.getText());
-//                        guestPhone6 = fieldGuestPhone6.getText();
-//                        guestMail6 = fieldGuestMail6.getText();
-//                        guestNat6 = comboBoxGuestNat6.getSelectedItem().toString();
-//                        guestType6 = comboBoxGuestType6.getSelectedItem().toString();
-//
-//                        guestName7 = fieldGuestName7.getText();
-//                        guestId7 = Integer.parseInt(fieldGuestId7.getText());
-//                        guestPhone7 = fieldGuestPhone7.getText();
-//                        guestMail7 = fieldGuestMail7.getText();
-//                        guestNat7 = comboBoxGuestNat7.getSelectedItem().toString();
-//                        guestType7 = comboBoxGuestType7.getSelectedItem().toString();
-//                        break;
-//                    case 8:
-//                        guestName1 = fieldGuestName1.getText();
-//                        guestId1 = Integer.parseInt(fieldGuestId1.getText());
-//                        guestPhone1 = fieldGuestPhone1.getText();
-//                        guestMail1 = fieldGuestMail1.getText();
-//                        guestNat1 = comboBoxGuestNat1.getSelectedItem().toString();
-//                        guestType1 = comboBoxGuestType1.getSelectedItem().toString();
-//
-//                        guestName2 = fieldGuestName2.getText();
-//                        guestId2 = Integer.parseInt(fieldGuestId2.getText());
-//                        guestPhone2 = fieldGuestPhone2.getText();
-//                        guestMail2 = fieldGuestMail2.getText();
-//                        guestNat2 = comboBoxGuestNat2.getSelectedItem().toString();
-//                        guestType2 = comboBoxGuestType2.getSelectedItem().toString();
-//
-//                        guestName3 = fieldGuestName3.getText();
-//                        guestId3 = Integer.parseInt(fieldGuestId3.getText());
-//                        guestPhone3 = fieldGuestPhone3.getText();
-//                        guestMail3 = fieldGuestMail3.getText();
-//                        guestNat3 = comboBoxGuestNat3.getSelectedItem().toString();
-//                        guestType3 = comboBoxGuestType3.getSelectedItem().toString();
-//
-//                        guestName4 = fieldGuestName4.getText();
-//                        guestId4 = Integer.parseInt(fieldGuestId4.getText());
-//                        guestPhone4 = fieldGuestPhone4.getText();
-//                        guestMail4 = fieldGuestMail4.getText();
-//                        guestNat4 = comboBoxGuestNat4.getSelectedItem().toString();
-//                        guestType4 = comboBoxGuestType4.getSelectedItem().toString();
-//
-//                        guestName5 = fieldGuestName5.getText();
-//                        guestId5 = Integer.parseInt(fieldGuestId5.getText());
-//                        guestPhone5 = fieldGuestPhone5.getText();
-//                        guestMail5 = fieldGuestMail5.getText();
-//                        guestNat5 = comboBoxGuestNat5.getSelectedItem().toString();
-//                        guestType5 = comboBoxGuestType5.getSelectedItem().toString();
-//
-//                        guestName6 = fieldGuestName6.getText();
-//                        guestId6 = Integer.parseInt(fieldGuestId6.getText());
-//                        guestPhone6 = fieldGuestPhone6.getText();
-//                        guestMail6 = fieldGuestMail6.getText();
-//                        guestNat6 = comboBoxGuestNat6.getSelectedItem().toString();
-//                        guestType6 = comboBoxGuestType6.getSelectedItem().toString();
-//
-//                        guestName7 = fieldGuestName7.getText();
-//                        guestId7 = Integer.parseInt(fieldGuestId7.getText());
-//                        guestPhone7 = fieldGuestPhone7.getText();
-//                        guestMail7 = fieldGuestMail7.getText();
-//                        guestNat7 = comboBoxGuestNat7.getSelectedItem().toString();
-//                        guestType7 = comboBoxGuestType7.getSelectedItem().toString();
-//
-//                        guestName8 = fieldGuestName8.getText();
-//                        guestId8 = Integer.parseInt(fieldGuestId8.getText());
-//                        guestPhone8 = fieldGuestPhone8.getText();
-//                        guestMail8 = fieldGuestMail8.getText();
-//                        guestNat8 = comboBoxGuestNat8.getSelectedItem().toString();
-//                        guestType8 = comboBoxGuestType8.getSelectedItem().toString();
-//                        break;
-//                    case 9:
-//                        guestName1 = fieldGuestName1.getText();
-//                        guestId1 = Integer.parseInt(fieldGuestId1.getText());
-//                        guestPhone1 = fieldGuestPhone1.getText();
-//                        guestMail1 = fieldGuestMail1.getText();
-//                        guestNat1 = comboBoxGuestNat1.getSelectedItem().toString();
-//                        guestType1 = comboBoxGuestType1.getSelectedItem().toString();
-//
-//                        guestName2 = fieldGuestName2.getText();
-//                        guestId2 = Integer.parseInt(fieldGuestId2.getText());
-//                        guestPhone2 = fieldGuestPhone2.getText();
-//                        guestMail2 = fieldGuestMail2.getText();
-//                        guestNat2 = comboBoxGuestNat2.getSelectedItem().toString();
-//                        guestType2 = comboBoxGuestType2.getSelectedItem().toString();
-//
-//                        guestName3 = fieldGuestName3.getText();
-//                        guestId3 = Integer.parseInt(fieldGuestId3.getText());
-//                        guestPhone3 = fieldGuestPhone3.getText();
-//                        guestMail3 = fieldGuestMail3.getText();
-//                        guestNat3 = comboBoxGuestNat3.getSelectedItem().toString();
-//                        guestType3 = comboBoxGuestType3.getSelectedItem().toString();
-//
-//                        guestName4 = fieldGuestName4.getText();
-//                        guestId4 = Integer.parseInt(fieldGuestId4.getText());
-//                        guestPhone4 = fieldGuestPhone4.getText();
-//                        guestMail4 = fieldGuestMail4.getText();
-//                        guestNat4 = comboBoxGuestNat4.getSelectedItem().toString();
-//                        guestType4 = comboBoxGuestType4.getSelectedItem().toString();
-//
-//                        guestName5 = fieldGuestName5.getText();
-//                        guestId5 = Integer.parseInt(fieldGuestId5.getText());
-//                        guestPhone5 = fieldGuestPhone5.getText();
-//                        guestMail5 = fieldGuestMail5.getText();
-//                        guestNat5 = comboBoxGuestNat5.getSelectedItem().toString();
-//                        guestType5 = comboBoxGuestType5.getSelectedItem().toString();
-//
-//                        guestName6 = fieldGuestName6.getText();
-//                        guestId6 = Integer.parseInt(fieldGuestId6.getText());
-//                        guestPhone6 = fieldGuestPhone6.getText();
-//                        guestMail6 = fieldGuestMail6.getText();
-//                        guestNat6 = comboBoxGuestNat6.getSelectedItem().toString();
-//                        guestType6 = comboBoxGuestType6.getSelectedItem().toString();
-//
-//                        guestName7 = fieldGuestName7.getText();
-//                        guestId7 = Integer.parseInt(fieldGuestId7.getText());
-//                        guestPhone7 = fieldGuestPhone7.getText();
-//                        guestMail7 = fieldGuestMail7.getText();
-//                        guestNat7 = comboBoxGuestNat7.getSelectedItem().toString();
-//                        guestType7 = comboBoxGuestType7.getSelectedItem().toString();
-//
-//                        guestName8 = fieldGuestName8.getText();
-//                        guestId8 = Integer.parseInt(fieldGuestId8.getText());
-//                        guestPhone8 = fieldGuestPhone8.getText();
-//                        guestMail8 = fieldGuestMail8.getText();
-//                        guestNat8 = comboBoxGuestNat8.getSelectedItem().toString();
-//                        guestType8 = comboBoxGuestType8.getSelectedItem().toString();
-//
-//                        guestName9 = fieldGuestName9.getText();
-//                        guestId9 = Integer.parseInt(fieldGuestId9.getText());
-//                        guestPhone9 = fieldGuestPhone9.getText();
-//                        guestMail9 = fieldGuestMail9.getText();
-//                        guestNat9 = comboBoxGuestNat9.getSelectedItem().toString();
-//                        guestType9 = comboBoxGuestType9.getSelectedItem().toString();
-//                        break;
-//                    case 10:
-//                        guestName1 = fieldGuestName1.getText();
-//                        guestId1 = Integer.parseInt(fieldGuestId1.getText());
-//                        guestPhone1 = fieldGuestPhone1.getText();
-//                        guestMail1 = fieldGuestMail1.getText();
-//                        guestNat1 = comboBoxGuestNat1.getSelectedItem().toString();
-//                        guestType1 = comboBoxGuestType1.getSelectedItem().toString();
-//
-//                        guestName2 = fieldGuestName2.getText();
-//                        guestId2 = Integer.parseInt(fieldGuestId2.getText());
-//                        guestPhone2 = fieldGuestPhone2.getText();
-//                        guestMail2 = fieldGuestMail2.getText();
-//                        guestNat2 = comboBoxGuestNat2.getSelectedItem().toString();
-//                        guestType2 = comboBoxGuestType2.getSelectedItem().toString();
-//
-//                        guestName3 = fieldGuestName3.getText();
-//                        guestId3 = Integer.parseInt(fieldGuestId3.getText());
-//                        guestPhone3 = fieldGuestPhone3.getText();
-//                        guestMail3 = fieldGuestMail3.getText();
-//                        guestNat3 = comboBoxGuestNat3.getSelectedItem().toString();
-//                        guestType3 = comboBoxGuestType3.getSelectedItem().toString();
-//
-//                        guestName4 = fieldGuestName4.getText();
-//                        guestId4 = Integer.parseInt(fieldGuestId4.getText());
-//                        guestPhone4 = fieldGuestPhone4.getText();
-//                        guestMail4 = fieldGuestMail4.getText();
-//                        guestNat4 = comboBoxGuestNat4.getSelectedItem().toString();
-//                        guestType4 = comboBoxGuestType4.getSelectedItem().toString();
-//
-//                        guestName5 = fieldGuestName5.getText();
-//                        guestId5 = Integer.parseInt(fieldGuestId5.getText());
-//                        guestPhone5 = fieldGuestPhone5.getText();
-//                        guestMail5 = fieldGuestMail5.getText();
-//                        guestNat5 = comboBoxGuestNat5.getSelectedItem().toString();
-//                        guestType5 = comboBoxGuestType5.getSelectedItem().toString();
-//
-//                        guestName6 = fieldGuestName6.getText();
-//                        guestId6 = Integer.parseInt(fieldGuestId6.getText());
-//                        guestPhone6 = fieldGuestPhone6.getText();
-//                        guestMail6 = fieldGuestMail6.getText();
-//                        guestNat6 = comboBoxGuestNat6.getSelectedItem().toString();
-//                        guestType6 = comboBoxGuestType6.getSelectedItem().toString();
-//
-//                        guestName7 = fieldGuestName7.getText();
-//                        guestId7 = Integer.parseInt(fieldGuestId7.getText());
-//                        guestPhone7 = fieldGuestPhone7.getText();
-//                        guestMail7 = fieldGuestMail7.getText();
-//                        guestNat7 = comboBoxGuestNat7.getSelectedItem().toString();
-//                        guestType7 = comboBoxGuestType7.getSelectedItem().toString();
-//
-//                        guestName8 = fieldGuestName8.getText();
-//                        guestId8 = Integer.parseInt(fieldGuestId8.getText());
-//                        guestPhone8 = fieldGuestPhone8.getText();
-//                        guestMail8 = fieldGuestMail8.getText();
-//                        guestNat8 = comboBoxGuestNat8.getSelectedItem().toString();
-//                        guestType8 = comboBoxGuestType8.getSelectedItem().toString();
-//
-//                        guestName9 = fieldGuestName9.getText();
-//                        guestId9 = Integer.parseInt(fieldGuestId9.getText());
-//                        guestPhone9 = fieldGuestPhone9.getText();
-//                        guestMail9 = fieldGuestMail9.getText();
-//                        guestNat9 = comboBoxGuestNat9.getSelectedItem().toString();
-//                        guestType9 = comboBoxGuestType9.getSelectedItem().toString();
-//
-//                        guestName10 = fieldGuestName10.getText();
-//                        guestId10 = Integer.parseInt(fieldGuestId10.getText());
-//                        guestPhone10 = fieldGuestPhone10.getText();
-//                        guestMail10 = fieldGuestMail10.getText();
-//                        guestNat10 = comboBoxGuestNat10.getSelectedItem().toString();
-//                        guestType10 = comboBoxGuestType10.getSelectedItem().toString();
-//                        break;
-//                }
             }
         });
     }
@@ -1697,7 +1351,7 @@ public class EmployeeGUI extends JFrame {
     }
 
     public void loadResModel() {
-        DefaultTableModel clearModel = (DefaultTableModel) tableHotelHotelList.getModel();
+        DefaultTableModel clearModel = (DefaultTableModel) tableLogResReservationList.getModel();
         clearModel.setRowCount(0);
         int i;
 
@@ -1713,6 +1367,24 @@ public class EmployeeGUI extends JFrame {
             rowLogResReservationList[i++] = obj.getDuration();
             rowLogResReservationList[i++] = obj.getTotalPrice();
             modelLogResReservationList.addRow(rowLogResReservationList);
+        }
+    }
+    public void loadGuestModel() {
+        DefaultTableModel clearModel = (DefaultTableModel) tableLogGuestGuestList.getModel();
+        clearModel.setRowCount(0);
+        int i;
+
+        for (Guest obj : EmployeeOp.getGuestList()) {
+            i = 0;
+
+            rowLogGuestGuestList[i++] = obj.getId();
+            rowLogGuestGuestList[i++] = obj.getReservationId();
+            rowLogGuestGuestList[i++] = obj.getFullName();
+            rowLogGuestGuestList[i++] = obj.getNationalId();
+            rowLogGuestGuestList[i++] = obj.getPhone();
+            rowLogGuestGuestList[i++] = obj.getEmail();
+
+            modelLogGuestGuestList.addRow(rowLogGuestGuestList);
         }
     }
 

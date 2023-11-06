@@ -4246,7 +4246,7 @@
                               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
-                              <text value="Label"/>
+                              <text value="Guest Type:"/>
                             </properties>
                           </component>
                           <component id="32171" class="javax.swing.JComboBox" binding="comboBoxGuestType1">
@@ -4377,6 +4377,14 @@
                                 <item value="Child"/>
                               </model>
                               <visible value="false"/>
+                            </properties>
+                          </component>
+                          <component id="2ad70" class="javax.swing.JLabel">
+                            <constraints>
+                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <text value="No:"/>
                             </properties>
                           </component>
                         </children>
