@@ -1170,6 +1170,20 @@ public class EmployeeGUI extends JFrame {
 
             }
         });
+        buttonLogResDelete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (Helper.confirm("sure")) {
+                    int id = Integer.parseInt(tableLogResReservationList.getValueAt(tableLogResReservationList.getSelectedRow(), 0).toString());
+                    if (EmployeeOp.deleteResDetails(id)) {
+                        Helper.showMessage("done");
+                        loadResModel();
+                    } else {
+                        Helper.showMessage("error");
+                    }
+                }
+            }
+        });
     }
 
     public void loadAccoCombo() {
