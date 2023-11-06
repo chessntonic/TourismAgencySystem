@@ -127,6 +127,7 @@ public class EmployeeOp {
                 obj = new Reservation();
                 obj.setId(rs.getInt("id"));
                 obj.setHotelId(rs.getInt("hotel_id"));
+                obj.setHotelName(rs.getString("hotel_name"));
                 obj.setCity(rs.getString("city"));
                 obj.setGuestCount(rs.getInt("guest_count"));
                 obj.setCheckinDate(rs.getDate("checkin_date"));
@@ -490,18 +491,19 @@ public class EmployeeOp {
         }
         return true;
     }
-    public static boolean addReservationDetails(int hotelId, String city, int guestCount, Date checkinDate, Date checkoutDate, int duration, int totalPrice) {
-        String query = "INSERT INTO reservation (hotel_id,city,guest_count,checkin_date,checkout_date,duration,price) VALUES (?,?,?,?,?,?,?)";
+    public static boolean addReservationDetails(int hotelId, String hotelName, String city, int guestCount, Date checkinDate, Date checkoutDate, int duration, int totalPrice) {
+        String query = "INSERT INTO reservation (hotel_id,hotel_name,city,guest_count,checkin_date,checkout_date,duration,price) VALUES (?,?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement pr = DBConnector.getInstance().prepareStatement(query);
             pr.setInt(1, hotelId);
-            pr.setString(2, city);
-            pr.setInt(3, guestCount);
-            pr.setDate(4, (java.sql.Date) checkinDate);
-            pr.setDate(5, (java.sql.Date) checkoutDate);
-            pr.setInt(6, duration);
-            pr.setInt(7, totalPrice);
+            pr.setString(2, hotelName);
+            pr.setString(3, city);
+            pr.setInt(4, guestCount);
+            pr.setDate(5, (java.sql.Date) checkinDate);
+            pr.setDate(6, (java.sql.Date) checkoutDate);
+            pr.setInt(7, duration);
+            pr.setInt(8, totalPrice);
 
             int response = pr.executeUpdate();
             if (response == -1) {
