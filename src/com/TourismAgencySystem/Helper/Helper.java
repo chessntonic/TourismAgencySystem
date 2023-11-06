@@ -144,12 +144,14 @@ public class Helper {
             return null;
         }
     }
+
     public static int daysBetweenToDates (JTextField d1,JTextField d2){
         LocalDate date1 = LocalDate.parse(d1.getText());
         LocalDate date2 = LocalDate.parse(d2.getText());
         int daysBetween = (int) ChronoUnit.DAYS.between(date1, date2);
         return daysBetween;
     }
+
     public static int resPrice(JTextField adultNumber,JTextField childNumber,int adultPrice , int childPrice,int duration){
         int a=  Integer.parseInt(adultNumber.getText());
         int b=  Integer.parseInt(childNumber.getText());
@@ -158,5 +160,22 @@ public class Helper {
         int totalPrice=totalChildPrice+totalAdultPrice;
 
         return  totalPrice*duration ;
+    }
+
+    public static void visibleTextFields(JTextField... dateFields) {
+        for (JTextField field : dateFields) {
+            field.setVisible(true);
+        }
+    }
+
+    public static void visibleComboBoxes(JComboBox... comboBoxes) {
+        for (JComboBox box : comboBoxes) {
+            box.setVisible(true);
+        }
+    }
+    public static void visibleJLabel(JLabel... JLabels) {
+        for (JLabel lbl : JLabels) {
+            lbl.setVisible(true);
+        }
     }
 }
