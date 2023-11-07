@@ -1065,7 +1065,7 @@ public class EmployeeOp {
     public static String searchRoomSalesQuery(String input, String star, Date checkIn, Date checkOut) {
         String query = "SELECT * FROM room_sales";
 
-        if (!input.isEmpty() || !star.isEmpty() || checkIn != null || checkOut != null) {
+        if (!input.isEmpty() || !star.isEmpty() || checkIn != null || checkOut != null){
             query += " WHERE 1=1";
 
             if (!input.isEmpty()) {
@@ -1077,11 +1077,11 @@ public class EmployeeOp {
             }
 
             if (checkIn != null) {
-                query += " AND start_date = '" + checkIn + "'";
+                query += " AND start_date <= '" + checkIn + "'";
             }
 
             if (checkOut != null) {
-                query += " AND end_date = '" + checkOut + "'";
+                query += " AND end_date >= '" + checkOut + "'";
             }
         }
         return query;
