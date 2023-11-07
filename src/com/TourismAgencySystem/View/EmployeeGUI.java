@@ -467,16 +467,19 @@ public class EmployeeGUI extends JFrame {
                     Date seasonEnd = Helper.stringToDate(fieldSeasonEndDate.getText());
                     Date offSeasonStart = Helper.stringToDate(fieldOffSeasonStartDate.getText());
                     Date offSeasonEnd = Helper.stringToDate(fieldOffSeasonEndDate.getText());
+                    EmployeeOp.checkHotelList(name, city, district);
 
-                    if (EmployeeOp.addHotelDetails(name, city, district, star, address, mail, phone, parking, wifi, pool, gym, concierge, spa, roomService)
+                    if (EmployeeOp.checkHotelList(name, city, district) != null) {
+                        Helper.showMessage("This hotel exists. Please change the hotel name or the city or the district.");
+                    } else if (EmployeeOp.addHotelDetails(name, city, district, star, address, mail, phone, parking, wifi, pool, gym, concierge, spa, roomService)
                             && EmployeeOp.addHotelPeriodDetails(seasonStart, seasonEnd, offSeasonStart, offSeasonEnd)) {
                         Helper.showMessage("done");
                         loadHotelModel();
+
                         Helper.resetFormFields(fieldHotelName, fieldHotelCity, fieldHotelAddress, fieldHotelDistrict, fieldHotelMail, fieldHotelPhone, fieldHotelStar);
                         Helper.resetCheckBoxes(checkBoxPool, checkBoxWifi, checkBoxParking, checkBoxGym, checkBoxConcierge, checkBoxSpa, checkBoxRoomService);
                         Helper.resetTextFields(fieldSeasonStartDate, fieldSeasonEndDate, fieldOffSeasonStartDate, fieldOffSeasonEndDate);
                         Helper.resetRadioButtons(radioButtonSeason, radioButtonOffSeason);
-
                     }
 
                     scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);
@@ -611,8 +614,8 @@ public class EmployeeGUI extends JFrame {
         buttonRoomTypeAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if ((Helper.isFieldEmpty(fieldRoomSeasonStock) || (Helper.isFieldEmpty(fieldRoomOffSeasonStock) || Helper.isFieldEmpty(fieldRoomBedCount) || Helper.isFieldEmpty(fieldRoomSize) || Helper.isFieldEmpty(fieldRoomTv)
-                        || Helper.isFieldEmpty(fieldRoomMinibar)))) {
+                if ((Helper.isFieldEmpty(fieldRoomSeasonStock) || Helper.isFieldEmpty(fieldRoomOffSeasonStock) || Helper.isFieldEmpty(fieldRoomBedCount) || Helper.isFieldEmpty(fieldRoomSize) || Helper.isFieldEmpty(fieldRoomTv)
+                        || Helper.isFieldEmpty(fieldRoomMinibar))) {
                     Helper.showMessage("fill");
                 } else {
                     int hotel_id = Integer.parseInt(tableHotelHotelList.getValueAt(tableHotelHotelList.getSelectedRow(), 0).toString());
@@ -624,10 +627,6 @@ public class EmployeeGUI extends JFrame {
                     int tv = Integer.parseInt(fieldRoomTv.getText());
                     int minibar = Integer.parseInt(fieldRoomMinibar.getText());
 
-                    if (EmployeeOp.addRoomDetails(hotel_id, room_type_id, seasonStock, offSeasonStock, bed, size, tv, minibar)) {
-                        Helper.showMessage("done");
-                    }
-
                     String name = fieldHotelName.getText();
                     String city = fieldHotelCity.getText();
                     String district = fieldHotelDistrict.getText();
@@ -637,51 +636,81 @@ public class EmployeeGUI extends JFrame {
                     Date periodStart;
                     Date periodEnd;
 
+                    String roomType = comboBoxRoomType.getSelectedItem().toString();
+
+                    boolean showDoneMsg = true;
+                    boolean showExistsAlert = true;
+
+
                     if (radioButtonSeason.isSelected()) {
                         periodName = "Season";
                         periodStart = EmployeeOp.getHotelPeriodDateByHotelId(hotel_id).getSeasonStart();
                         periodEnd = EmployeeOp.getHotelPeriodDateByHotelId(hotel_id).getSeasonEnd();
+                        if (EmployeeOp.checkRoomTypeList(hotel_id, roomType, periodName) != null) {
+                            if (showExistsAlert) {
+                                Helper.showMessage("This room exists. Either add a new room or continue with the update button");
+                                showExistsAlert = false;
+                            }
 
-                        if (EmployeeOp.addRoomSalesDetails(hotel_id, name, city, district, star, periodName, periodStart, periodEnd, roomName, seasonStock)) {
+                        } else if (EmployeeOp.addRoomSalesDetails(hotel_id, name, city, district, star, periodName, periodStart, periodEnd, roomName, seasonStock)) {
 
+                            if (EmployeeOp.addRoomDetails(hotel_id, room_type_id, seasonStock, offSeasonStock, bed, size, tv, minibar)) {
+                                if (showDoneMsg) {
+                                    Helper.showMessage("done");
+                                    showDoneMsg = false;
+                                }
+                            }
                         }
                     }
                     if (radioButtonOffSeason.isSelected()) {
                         periodName = "Off Season";
                         periodStart = EmployeeOp.getHotelPeriodDateByHotelId(hotel_id).getOffSeasonStart();
                         periodEnd = EmployeeOp.getHotelPeriodDateByHotelId(hotel_id).getOffSeasonStart();
-                        if (EmployeeOp.addRoomSalesDetails(hotel_id, name, city, district, star, periodName, periodStart, periodEnd, roomName, offSeasonStock)) {
+                        if (EmployeeOp.checkRoomTypeList(hotel_id, roomType, periodName) != null) {
+                            if (showExistsAlert) {
+                                Helper.showMessage("This room exists. Either add a new room or continue with the update button");
+                            }
+                        } else if (EmployeeOp.addRoomSalesDetails(hotel_id, name, city, district, star, periodName, periodStart, periodEnd, roomName, offSeasonStock)) {
+                            if (EmployeeOp.addRoomDetails(hotel_id, room_type_id, seasonStock, offSeasonStock, bed, size, tv, minibar)) {
+                                if (showDoneMsg) {
+                                    Helper.showMessage("done");
 
+                                }
+                            }
                         }
                     }
                     loadSalesRoomModel();
-
                     scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);
                 }
             }
         });
+
         buttonRoomTypeUpdate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if ((Helper.isFieldEmpty(fieldRoomSeasonStock) || (Helper.isFieldEmpty(fieldRoomOffSeasonStock) || Helper.isFieldEmpty(fieldRoomBedCount) || Helper.isFieldEmpty(fieldRoomSize) || Helper.isFieldEmpty(fieldRoomTv)
-                        || Helper.isFieldEmpty(fieldRoomMinibar)))) {
+                if ((Helper.isFieldEmpty(fieldRoomSeasonStock) || Helper.isFieldEmpty(fieldRoomBedCount) || Helper.isFieldEmpty(fieldRoomOffSeasonStock) || Helper.isFieldEmpty(fieldRoomSize) || Helper.isFieldEmpty(fieldRoomTv)
+                        || Helper.isFieldEmpty(fieldRoomMinibar))) {
                     Helper.showMessage("fill");
                 } else {
                     int hotel_id = Integer.parseInt(tableHotelHotelList.getValueAt(tableHotelHotelList.getSelectedRow(), 0).toString());
                     int room_type_id = EmployeeOp.getFetchRoomType(comboBoxRoomType.getSelectedItem().toString()).getId();
-                    int season_stock = Integer.parseInt(fieldRoomSeasonStock.getText());
-                    int offseason_stock = Integer.parseInt(fieldRoomOffSeasonStock.getText());
+                    int seasonStock = Integer.parseInt(fieldRoomSeasonStock.getText());
+                    int offSeasonStock = Integer.parseInt(fieldRoomOffSeasonStock.getText());
                     int bed = Integer.parseInt(fieldRoomBedCount.getText());
                     int size = Integer.parseInt(fieldRoomSize.getText());
                     int tv = Integer.parseInt(fieldRoomTv.getText());
                     int minibar = Integer.parseInt(fieldRoomMinibar.getText());
+                    String roomTypeName = comboBoxRoomType.getSelectedItem().toString();
 
-                    if (EmployeeOp.updateRoomDetails(hotel_id, room_type_id, season_stock, offseason_stock, bed, size, tv, minibar)) {
+
+                    EmployeeOp.updateRoomSales(hotel_id, "Season", seasonStock, roomTypeName);
+                    EmployeeOp.updateRoomSales(hotel_id, "Off Season", offSeasonStock, roomTypeName);
+                    ;
+                    if (EmployeeOp.updateRoomDetails(hotel_id, room_type_id, seasonStock, offSeasonStock, bed, size, tv, minibar)) {
                         Helper.showMessage("done");
-
+                        loadSalesRoomModel();
                     }
                     scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);
-                    ;
                 }
             }
         });
@@ -698,18 +727,20 @@ public class EmployeeGUI extends JFrame {
                     int adult_price = Integer.parseInt(fieldAdultPriceSingle.getText());
                     int child_price = Integer.parseInt(fieldChildPriceSingle.getText());
 
-                    if (EmployeeOp.addPriceDetails(hotel_id, period_id, room_type_id, acco_id, adult_price, child_price)) {
-                        Helper.showMessage("done");
-                        loadPriceRoomModel();
-
+                    if (EmployeeOp.checkRoomPrice(hotel_id, room_type_id, acco_id, period_id) != null) {
+                        Helper.showMessage("This room has been added before. Please choose another season or accommodation type.");
                     } else {
-                        Helper.showMessage("error");
+                        if (EmployeeOp.addPriceDetails(hotel_id, period_id, room_type_id, acco_id, adult_price, child_price)) {
+                            Helper.showMessage("done");
+                            loadPriceRoomModel();
+                            radioButtonSingle.setSelected(false);
+                            Helper.resetComboBoxes(comboBoxPeriodSingle, comboBoxHostelTypeSingle);
+                            Helper.resetTextFields(fieldAdultPriceSingle, fieldChildPriceSingle);
+                            buttonAddSingle.setEnabled(false);
+                        } else {
+                            Helper.showMessage("error");
+                        }
                     }
-
-                    radioButtonSingle.setSelected(false);
-                    Helper.resetComboBoxes(comboBoxPeriodSingle, comboBoxHostelTypeSingle);
-                    Helper.resetTextFields(fieldAdultPriceSingle, fieldChildPriceSingle);
-                    buttonAddSingle.setEnabled(false);
                 }
             }
         });
@@ -726,15 +757,19 @@ public class EmployeeGUI extends JFrame {
                     int adult_price = Integer.parseInt(fieldAdultPriceDouble.getText());
                     int child_price = Integer.parseInt(fieldChildPriceDouble.getText());
 
-                    if (EmployeeOp.addPriceDetails(hotel_id, period_id, room_type_id, acco_id, adult_price, child_price)) {
-                        Helper.showMessage("done");
-                        loadPriceRoomModel();
-                        radioButtonDouble.setSelected(false);
-                        Helper.resetComboBoxes(comboBoxPeriodDouble, comboBoxHostelTypeDouble);
-                        Helper.resetTextFields(fieldAdultPriceDouble, fieldChildPriceDouble);
-                        buttonAddDouble.setEnabled(false);
+                    if (EmployeeOp.checkRoomPrice(hotel_id, room_type_id, acco_id, period_id) != null) {
+                        Helper.showMessage("This room has been added before. Please choose another season or accommodation type.");
                     } else {
-                        Helper.showMessage("error");
+                        if (EmployeeOp.addPriceDetails(hotel_id, period_id, room_type_id, acco_id, adult_price, child_price)) {
+                            Helper.showMessage("done");
+                            loadPriceRoomModel();
+                            radioButtonDouble.setSelected(false);
+                            Helper.resetComboBoxes(comboBoxPeriodDouble, comboBoxHostelTypeDouble);
+                            Helper.resetTextFields(fieldAdultPriceDouble, fieldChildPriceDouble);
+                            buttonAddDouble.setEnabled(false);
+                        } else {
+                            Helper.showMessage("error");
+                        }
                     }
                 }
             }
@@ -752,15 +787,19 @@ public class EmployeeGUI extends JFrame {
                     int adult_price = Integer.parseInt(fieldAdultPriceKingSuite.getText());
                     int child_price = Integer.parseInt(fieldChildPriceKingSuite.getText());
 
-                    if (EmployeeOp.addPriceDetails(hotel_id, period_id, room_type_id, acco_id, adult_price, child_price)) {
-                        Helper.showMessage("done");
-                        loadPriceRoomModel();
-                        radioButtonKingSuite.setSelected(false);
-                        Helper.resetComboBoxes(comboBoxPeriodKingSuite, comboBoxHostelTypeKingSuite);
-                        Helper.resetTextFields(fieldAdultPriceKingSuite, fieldChildPriceKingSuite);
-                        buttonAddKingSuite.setEnabled(false);
+                    if (EmployeeOp.checkRoomPrice(hotel_id, room_type_id, acco_id, period_id) != null) {
+                        Helper.showMessage("This room has been added before. Please choose another season or accommodation type.");
                     } else {
-                        Helper.showMessage("error");
+                        if (EmployeeOp.addPriceDetails(hotel_id, period_id, room_type_id, acco_id, adult_price, child_price)) {
+                            Helper.showMessage("done");
+                            loadPriceRoomModel();
+                            radioButtonKingSuite.setSelected(false);
+                            Helper.resetComboBoxes(comboBoxPeriodKingSuite, comboBoxHostelTypeKingSuite);
+                            Helper.resetTextFields(fieldAdultPriceKingSuite, fieldChildPriceKingSuite);
+                            buttonAddKingSuite.setEnabled(false);
+                        } else {
+                            Helper.showMessage("error");
+                        }
                     }
                 }
             }
@@ -1156,7 +1195,7 @@ public class EmployeeGUI extends JFrame {
                     int hotelId = Integer.parseInt(tableLogResReservationList.getValueAt(tableLogResReservationList.getSelectedRow(), 1).toString());
                     String periodName = tableLogResReservationList.getValueAt(tableLogResReservationList.getSelectedRow(), 4).toString();
                     String roomType = tableLogResReservationList.getValueAt(tableLogResReservationList.getSelectedRow(), 3).toString();
-                    int stock = EmployeeOp.getRoomSalesDetailsByHotelId(hotelId, roomType,periodName).getStock();
+                    int stock = EmployeeOp.getRoomSalesDetailsByHotelId(hotelId, roomType, periodName).getStock();
 
                     if (EmployeeOp.increaseStock(hotelId, periodName, roomType, stock - 1)) {
                         loadSalesRoomModel();
@@ -1371,6 +1410,7 @@ public class EmployeeGUI extends JFrame {
             fieldRoomTv.setText(String.valueOf(obj.getTv()));
             fieldRoomMinibar.setText(String.valueOf(obj.getMinibar()));
             fieldRoomSeasonStock.setText(String.valueOf(obj.getSeasonStock()));
+            fieldRoomOffSeasonStock.setText(String.valueOf(obj.getOffSeasonStock()));
         }
     }
 

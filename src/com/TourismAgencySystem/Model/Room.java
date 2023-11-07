@@ -22,6 +22,7 @@ public class Room {
         this.seasonStock = seasonStock;
         this.offSeasonStock = offSeasonStock;
     }
+    public Room (){}
 
     public int getId() {
         return id;
