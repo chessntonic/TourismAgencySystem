@@ -6,6 +6,8 @@ public class Reservation {
     private int id;
     private int hotelId;
     private String hotelName;
+    private String periodName;
+    private String roomType;
     private String city;
     private int guestCount;
     private Date checkinDate;
@@ -13,11 +15,13 @@ public class Reservation {
     private int totalPrice;
     private int duration;
 
-    public Reservation(int id, int hotelId, String hotelName, String city, int guestCount, Date checkinDate, Date checkoutDate, int duration, int totalPrice) {
+    public Reservation(int id, int hotelId, String hotelName, String periodName, String roomType, String city, int guestCount, Date checkinDate, Date checkoutDate, int duration, int totalPrice) {
         this.id = id;
         this.hotelId = hotelId;
         this.city = city;
         this.hotelName = hotelName;
+        this.periodName = periodName;
+        this.roomType = roomType;
         this.guestCount = guestCount;
         this.checkinDate = checkinDate;
         this.checkoutDate = checkoutDate;
@@ -98,5 +102,21 @@ public class Reservation {
 
     public void setHotelName(String hotelName) {
         this.hotelName = hotelName;
+    }
+
+    public String getPeriodName() {
+        return periodName;
+    }
+
+    public void setPeriodName(String periodName) {
+        this.periodName = periodName;
+    }
+
+    public String getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
     }
 }
