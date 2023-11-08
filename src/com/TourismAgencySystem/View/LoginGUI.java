@@ -1,7 +1,6 @@
 package com.TourismAgencySystem.View;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
 import com.TourismAgencySystem.Helper.*;
 import com.TourismAgencySystem.Model.Admin;
@@ -19,8 +18,9 @@ public class LoginGUI extends JFrame {
     private JPanel wbottom;
     private JPanel wrapper;
     private JTextField fieldUsername;
-    private JTextField fieldPassword;
+    private JPasswordField fieldPassword;
     private JButton buttonLogin;
+    private JCheckBox checkBoxShowPass;
 
     public LoginGUI() {
         add(wrapper);
@@ -102,6 +102,16 @@ public class LoginGUI extends JFrame {
                             dispose();
                         }
                     }
+                }
+            }
+        });
+        checkBoxShowPass.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (checkBoxShowPass.isSelected()) {
+                    fieldPassword.setEchoChar((char) 0);
+                } else {
+                    fieldPassword.setEchoChar('*');
                 }
             }
         });
