@@ -1034,13 +1034,18 @@ public class EmployeeGUI extends JFrame {
                     guestMail1 = fieldGuestMail1.getText();
                     guestNat1 = comboBoxGuestNat1.getSelectedItem().toString();
                     guestType1 = comboBoxGuestType1.getSelectedItem().toString();
-                    if (EmployeeOp.addGuestDetails(reservationId, guestName1, guestId1, guestPhone1, guestMail1)) {
-                        Helper.showMessage("done");
-                        tabbedPane3.setSelectedIndex(3);
-                        loadGuestModel();
-                        Helper.resetHideComboBoxes(comboBoxGuestNat1, comboBoxGuestType1);
-                        Helper.resetHideTextFields(fieldGuestPhone1, fieldGuestId1, fieldGuestMail1, fieldGuestName1);
-                        Helper.hiddenJLabel(labelGuest1);
+
+                    if (Helper.areFieldsEmpty(fieldGuestName1, fieldGuestId1, fieldGuestPhone1, fieldGuestMail1)) {
+                        Helper.showMessage("fill");
+                    } else {
+                        if (EmployeeOp.addGuestDetails(reservationId, guestName1, guestId1, guestPhone1, guestMail1)) {
+                            Helper.showMessage("done");
+                            tabbedPane3.setSelectedIndex(3);
+                            loadGuestModel();
+                            Helper.resetHideComboBoxes(comboBoxGuestNat1, comboBoxGuestType1);
+                            Helper.resetHideTextFields(fieldGuestPhone1, fieldGuestId1, fieldGuestMail1, fieldGuestName1);
+                            Helper.hiddenJLabel(labelGuest1);
+                        }
                     }
 
                     if (total >= 2) {
@@ -1050,11 +1055,15 @@ public class EmployeeGUI extends JFrame {
                         guestMail2 = fieldGuestMail2.getText();
                         guestNat2 = comboBoxGuestNat2.getSelectedItem().toString();
                         guestType2 = comboBoxGuestType2.getSelectedItem().toString();
-                        if (EmployeeOp.addGuestDetails(reservationId, guestName2, guestId2, guestPhone2, guestMail2)) {
-                            loadGuestModel();
-                            Helper.resetHideComboBoxes(comboBoxGuestNat2, comboBoxGuestType2);
-                            Helper.resetHideTextFields(fieldGuestPhone2, fieldGuestId2, fieldGuestMail2, fieldGuestName2);
-                            Helper.hiddenJLabel(labelGuest2);
+                        if (Helper.areFieldsEmpty(fieldGuestName2, fieldGuestId2, fieldGuestPhone2, fieldGuestMail2)) {
+                            Helper.showMessage("fill");
+                        } else {
+                            if (EmployeeOp.addGuestDetails(reservationId, guestName2, guestId2, guestPhone2, guestMail2)) {
+                                loadGuestModel();
+                                Helper.resetHideComboBoxes(comboBoxGuestNat2, comboBoxGuestType2);
+                                Helper.resetHideTextFields(fieldGuestPhone2, fieldGuestId2, fieldGuestMail2, fieldGuestName2);
+                                Helper.hiddenJLabel(labelGuest2);
+                            }
                         }
 
                         if (total >= 3) {
@@ -1064,11 +1073,15 @@ public class EmployeeGUI extends JFrame {
                             guestMail3 = fieldGuestMail3.getText();
                             guestNat3 = comboBoxGuestNat3.getSelectedItem().toString();
                             guestType3 = comboBoxGuestType3.getSelectedItem().toString();
-                            if (EmployeeOp.addGuestDetails(reservationId, guestName3, guestId3, guestPhone3, guestMail3)) {
-                                loadGuestModel();
-                                Helper.resetHideComboBoxes(comboBoxGuestNat3, comboBoxGuestType3);
-                                Helper.resetHideTextFields(fieldGuestPhone3, fieldGuestId3, fieldGuestMail3, fieldGuestName3);
-                                Helper.hiddenJLabel(labelGuest3);
+                            if (Helper.areFieldsEmpty(fieldGuestName3, fieldGuestId3, fieldGuestPhone3, fieldGuestMail3)) {
+                                Helper.showMessage("fill");
+                            } else {
+                                if (EmployeeOp.addGuestDetails(reservationId, guestName3, guestId3, guestPhone3, guestMail3)) {
+                                    loadGuestModel();
+                                    Helper.resetHideComboBoxes(comboBoxGuestNat3, comboBoxGuestType3);
+                                    Helper.resetHideTextFields(fieldGuestPhone3, fieldGuestId3, fieldGuestMail3, fieldGuestName3);
+                                    Helper.hiddenJLabel(labelGuest3);
+                                }
                             }
 
                             if (total >= 4) {
@@ -1078,11 +1091,15 @@ public class EmployeeGUI extends JFrame {
                                 guestMail4 = fieldGuestMail4.getText();
                                 guestNat4 = comboBoxGuestNat4.getSelectedItem().toString();
                                 guestType4 = comboBoxGuestType4.getSelectedItem().toString();
-                                if (EmployeeOp.addGuestDetails(reservationId, guestName4, guestId4, guestPhone4, guestMail4)) {
-                                    loadGuestModel();
-                                    Helper.resetHideComboBoxes(comboBoxGuestNat4, comboBoxGuestType4);
-                                    Helper.resetHideTextFields(fieldGuestPhone4, fieldGuestId4, fieldGuestMail4, fieldGuestName4);
-                                    Helper.hiddenJLabel(labelGuest4);
+                                if (Helper.areFieldsEmpty(fieldGuestName4, fieldGuestId4, fieldGuestPhone4, fieldGuestMail4)) {
+                                    Helper.showMessage("fill");
+                                } else {
+                                    if (EmployeeOp.addGuestDetails(reservationId, guestName4, guestId4, guestPhone4, guestMail4)) {
+                                        loadGuestModel();
+                                        Helper.resetHideComboBoxes(comboBoxGuestNat4, comboBoxGuestType4);
+                                        Helper.resetHideTextFields(fieldGuestPhone4, fieldGuestId4, fieldGuestMail4, fieldGuestName4);
+                                        Helper.hiddenJLabel(labelGuest4);
+                                    }
                                 }
 
                                 if (total >= 5) {
@@ -1092,11 +1109,15 @@ public class EmployeeGUI extends JFrame {
                                     guestMail5 = fieldGuestMail5.getText();
                                     guestNat5 = comboBoxGuestNat5.getSelectedItem().toString();
                                     guestType5 = comboBoxGuestType5.getSelectedItem().toString();
-                                    if (EmployeeOp.addGuestDetails(reservationId, guestName5, guestId5, guestPhone5, guestMail5)) {
-                                        loadGuestModel();
-                                        Helper.resetHideComboBoxes(comboBoxGuestNat5, comboBoxGuestType5);
-                                        Helper.resetHideTextFields(fieldGuestPhone5, fieldGuestId5, fieldGuestMail5, fieldGuestName5);
-                                        Helper.hiddenJLabel(labelGuest5);
+                                    if (Helper.areFieldsEmpty(fieldGuestName5, fieldGuestId5, fieldGuestPhone5, fieldGuestMail5)) {
+                                        Helper.showMessage("fill");
+                                    } else {
+                                        if (EmployeeOp.addGuestDetails(reservationId, guestName5, guestId5, guestPhone5, guestMail5)) {
+                                            loadGuestModel();
+                                            Helper.resetHideComboBoxes(comboBoxGuestNat5, comboBoxGuestType5);
+                                            Helper.resetHideTextFields(fieldGuestPhone5, fieldGuestId5, fieldGuestMail5, fieldGuestName5);
+                                            Helper.hiddenJLabel(labelGuest5);
+                                        }
                                     }
 
                                     if (total >= 6) {
@@ -1106,11 +1127,15 @@ public class EmployeeGUI extends JFrame {
                                         guestMail6 = fieldGuestMail6.getText();
                                         guestNat6 = comboBoxGuestNat6.getSelectedItem().toString();
                                         guestType6 = comboBoxGuestType6.getSelectedItem().toString();
-                                        if (EmployeeOp.addGuestDetails(reservationId, guestName6, guestId6, guestPhone6, guestMail6)) {
-                                            loadGuestModel();
-                                            Helper.resetHideComboBoxes(comboBoxGuestNat6, comboBoxGuestType6);
-                                            Helper.resetHideTextFields(fieldGuestPhone6, fieldGuestId6, fieldGuestMail6, fieldGuestName6);
-                                            Helper.hiddenJLabel(labelGuest6);
+                                        if (Helper.areFieldsEmpty(fieldGuestName6, fieldGuestId6, fieldGuestPhone6, fieldGuestMail6)) {
+                                            Helper.showMessage("fill");
+                                        } else {
+                                            if (EmployeeOp.addGuestDetails(reservationId, guestName6, guestId6, guestPhone6, guestMail6)) {
+                                                loadGuestModel();
+                                                Helper.resetHideComboBoxes(comboBoxGuestNat6, comboBoxGuestType6);
+                                                Helper.resetHideTextFields(fieldGuestPhone6, fieldGuestId6, fieldGuestMail6, fieldGuestName6);
+                                                Helper.hiddenJLabel(labelGuest6);
+                                            }
                                         }
 
                                         if (total >= 7) {
@@ -1120,11 +1145,15 @@ public class EmployeeGUI extends JFrame {
                                             guestMail7 = fieldGuestMail7.getText();
                                             guestNat7 = comboBoxGuestNat7.getSelectedItem().toString();
                                             guestType7 = comboBoxGuestType7.getSelectedItem().toString();
-                                            if (EmployeeOp.addGuestDetails(reservationId, guestName7, guestId7, guestPhone7, guestMail7)) {
-                                                loadGuestModel();
-                                                Helper.resetHideComboBoxes(comboBoxGuestNat7, comboBoxGuestType7);
-                                                Helper.resetHideTextFields(fieldGuestPhone7, fieldGuestId7, fieldGuestMail7, fieldGuestName7);
-                                                Helper.hiddenJLabel(labelGuest7);
+                                            if (Helper.areFieldsEmpty(fieldGuestName7, fieldGuestId7, fieldGuestPhone7, fieldGuestMail7)) {
+                                                Helper.showMessage("fill");
+                                            } else {
+                                                if (EmployeeOp.addGuestDetails(reservationId, guestName7, guestId7, guestPhone7, guestMail7)) {
+                                                    loadGuestModel();
+                                                    Helper.resetHideComboBoxes(comboBoxGuestNat7, comboBoxGuestType7);
+                                                    Helper.resetHideTextFields(fieldGuestPhone7, fieldGuestId7, fieldGuestMail7, fieldGuestName7);
+                                                    Helper.hiddenJLabel(labelGuest7);
+                                                }
                                             }
 
                                             if (total >= 8) {
@@ -1134,11 +1163,15 @@ public class EmployeeGUI extends JFrame {
                                                 guestMail8 = fieldGuestMail8.getText();
                                                 guestNat8 = comboBoxGuestNat8.getSelectedItem().toString();
                                                 guestType8 = comboBoxGuestType8.getSelectedItem().toString();
-                                                if (EmployeeOp.addGuestDetails(reservationId, guestName8, guestId8, guestPhone8, guestMail8)) {
-                                                    loadGuestModel();
-                                                    Helper.resetHideComboBoxes(comboBoxGuestNat8, comboBoxGuestType8);
-                                                    Helper.resetHideTextFields(fieldGuestPhone8, fieldGuestId8, fieldGuestMail8, fieldGuestName8);
-                                                    Helper.hiddenJLabel(labelGuest8);
+                                                if (Helper.areFieldsEmpty(fieldGuestName8, fieldGuestId8, fieldGuestPhone8, fieldGuestMail8)) {
+                                                    Helper.showMessage("fill");
+                                                } else {
+                                                    if (EmployeeOp.addGuestDetails(reservationId, guestName8, guestId8, guestPhone8, guestMail8)) {
+                                                        loadGuestModel();
+                                                        Helper.resetHideComboBoxes(comboBoxGuestNat8, comboBoxGuestType8);
+                                                        Helper.resetHideTextFields(fieldGuestPhone8, fieldGuestId8, fieldGuestMail8, fieldGuestName8);
+                                                        Helper.hiddenJLabel(labelGuest8);
+                                                    }
                                                 }
 
                                                 if (total >= 9) {
@@ -1148,11 +1181,15 @@ public class EmployeeGUI extends JFrame {
                                                     guestMail9 = fieldGuestMail9.getText();
                                                     guestNat9 = comboBoxGuestNat9.getSelectedItem().toString();
                                                     guestType9 = comboBoxGuestType9.getSelectedItem().toString();
-                                                    if (EmployeeOp.addGuestDetails(reservationId, guestName9, guestId9, guestPhone9, guestMail9)) {
-                                                        loadGuestModel();
-                                                        Helper.resetHideComboBoxes(comboBoxGuestNat9, comboBoxGuestType9);
-                                                        Helper.resetHideTextFields(fieldGuestPhone9, fieldGuestId9, fieldGuestMail9, fieldGuestName9);
-                                                        Helper.hiddenJLabel(labelGuest9);
+                                                    if (Helper.areFieldsEmpty(fieldGuestName9, fieldGuestId9, fieldGuestPhone9, fieldGuestMail9)) {
+                                                        Helper.showMessage("fill");
+                                                    } else {
+                                                        if (EmployeeOp.addGuestDetails(reservationId, guestName9, guestId9, guestPhone9, guestMail9)) {
+                                                            loadGuestModel();
+                                                            Helper.resetHideComboBoxes(comboBoxGuestNat9, comboBoxGuestType9);
+                                                            Helper.resetHideTextFields(fieldGuestPhone9, fieldGuestId9, fieldGuestMail9, fieldGuestName9);
+                                                            Helper.hiddenJLabel(labelGuest9);
+                                                        }
                                                     }
 
                                                     if (total >= 10) {
@@ -1162,11 +1199,15 @@ public class EmployeeGUI extends JFrame {
                                                         guestMail10 = fieldGuestMail10.getText();
                                                         guestNat10 = comboBoxGuestNat10.getSelectedItem().toString();
                                                         guestType10 = comboBoxGuestType10.getSelectedItem().toString();
-                                                        if (EmployeeOp.addGuestDetails(reservationId, guestName10, guestId10, guestPhone10, guestMail10)) {
-                                                            loadGuestModel();
-                                                            Helper.resetHideComboBoxes(comboBoxGuestNat10, comboBoxGuestType10);
-                                                            Helper.resetHideTextFields(fieldGuestPhone10, fieldGuestId10, fieldGuestMail10, fieldGuestName10);
-                                                            Helper.hiddenJLabel(labelGuest10);
+                                                        if (Helper.areFieldsEmpty(fieldGuestName10, fieldGuestId10, fieldGuestPhone10, fieldGuestMail10)) {
+                                                            Helper.showMessage("fill");
+                                                        } else {
+                                                            if (EmployeeOp.addGuestDetails(reservationId, guestName10, guestId10, guestPhone10, guestMail10)) {
+                                                                loadGuestModel();
+                                                                Helper.resetHideComboBoxes(comboBoxGuestNat10, comboBoxGuestType10);
+                                                                Helper.resetHideTextFields(fieldGuestPhone10, fieldGuestId10, fieldGuestMail10, fieldGuestName10);
+                                                                Helper.hiddenJLabel(labelGuest10);
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -1178,21 +1219,17 @@ public class EmployeeGUI extends JFrame {
                         }
                     }
                 }
-                if (false) {
-                    Helper.showMessage("fill");
-                } else {
-                    int hotelId = Integer.parseInt(tableLogResReservationList.getValueAt(tableLogResReservationList.getSelectedRow(), 1).toString());
-                    String periodName = tableLogResReservationList.getValueAt(tableLogResReservationList.getSelectedRow(), 4).toString();
-                    String roomType = tableLogResReservationList.getValueAt(tableLogResReservationList.getSelectedRow(), 3).toString();
-                    int stock = EmployeeOp.getRoomSalesDetailsByHotelId(hotelId, roomType, periodName).getStock();
 
-                    if (EmployeeOp.increaseStock(hotelId, periodName, roomType, stock - 1)) {
-                        loadSalesRoomModel();
-                    }
+                int hotelId = Integer.parseInt(tableLogResReservationList.getValueAt(tableLogResReservationList.getSelectedRow(), 1).toString());
+                String periodName = tableLogResReservationList.getValueAt(tableLogResReservationList.getSelectedRow(), 4).toString();
+                String roomType = tableLogResReservationList.getValueAt(tableLogResReservationList.getSelectedRow(), 3).toString();
+                int stock = EmployeeOp.getRoomSalesDetailsByHotelId(hotelId, roomType, periodName).getStock();
+
+                if (EmployeeOp.increaseStock(hotelId, periodName, roomType, stock - 1)) {
+                    loadSalesRoomModel();
                 }
             }
         });
-
         buttonLogResDelete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1231,8 +1268,6 @@ public class EmployeeGUI extends JFrame {
                 }
 
                 Date checkOut = null;
-//                Helper.stringToDate("1000-01-01")
-
 
                 if (!fieldLogResCheckoutSearch.getText().isEmpty()) {
                     checkOut = Helper.stringToDate(fieldLogResCheckoutSearch.getText());

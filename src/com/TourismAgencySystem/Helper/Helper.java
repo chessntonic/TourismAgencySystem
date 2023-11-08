@@ -45,6 +45,14 @@ public class Helper {
     public static boolean isFieldEmpty(JTextArea area) {
         return area.getText().trim().isEmpty();
     }
+    public static boolean areFieldsEmpty(JTextField... field) {
+        for (JTextField fields : field) {
+
+            return fields.getText().trim().isEmpty();
+
+        }
+        return false;
+    }
 
     public static void showMessage(String str) {
         optionPage();
