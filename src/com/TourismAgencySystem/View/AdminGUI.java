@@ -100,8 +100,10 @@ public class AdminGUI extends JFrame {
         buttonExit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose();
-                LoginGUI loginGUI = new LoginGUI();
+                if (Helper.confirm("sure")) {
+                    dispose();
+                    LoginGUI loginGUI = new LoginGUI();
+                }
             }
         });
         buttonAddUser.addActionListener(new ActionListener() {

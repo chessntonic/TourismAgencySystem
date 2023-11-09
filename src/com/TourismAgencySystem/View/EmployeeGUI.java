@@ -210,6 +210,7 @@ public class EmployeeGUI extends JFrame {
     private JTextField fieldRoomOffSeasonStock;
     private JButton buttonLogResDelete;
     private JLabel labelResPeriod;
+    private JButton buttonExit;
     private JPanel panelGuestInfo;
     private DefaultTableModel modelHotelHotelList;
     private Object[] rowHotelHotelList;
@@ -640,6 +641,7 @@ public class EmployeeGUI extends JFrame {
 
                     boolean showDoneMsg = true;
                     boolean showExistsAlert = true;
+                    boolean isRadioButtonSeasonSelected = false;
 
 
                     if (radioButtonSeason.isSelected()) {
@@ -652,8 +654,8 @@ public class EmployeeGUI extends JFrame {
                                 showExistsAlert = false;
                             }
 
-                        } else if (EmployeeOp.addRoomSalesDetails(hotel_id, name, city, district, star, periodName, periodStart, periodEnd, roomName, seasonStock)) {
-
+                        } else if (EmployeeOp.addRoomSalesDetails(hotel_id, name, city, district, star, periodName, periodStart, periodEnd, roomName, seasonStock) && !isRadioButtonSeasonSelected) {
+                            isRadioButtonSeasonSelected = true;
                             if (EmployeeOp.addRoomDetails(hotel_id, room_type_id, seasonStock, offSeasonStock, bed, size, tv, minibar)) {
                                 if (showDoneMsg) {
                                     Helper.showMessage("done");
@@ -670,7 +672,7 @@ public class EmployeeGUI extends JFrame {
                             if (showExistsAlert) {
                                 Helper.showMessage("This room exists. Either add a new room or continue with the update button");
                             }
-                        } else if (EmployeeOp.addRoomSalesDetails(hotel_id, name, city, district, star, periodName, periodStart, periodEnd, roomName, offSeasonStock)) {
+                        } else if (EmployeeOp.addRoomSalesDetails(hotel_id, name, city, district, star, periodName, periodStart, periodEnd, roomName, offSeasonStock) && !isRadioButtonSeasonSelected) {
                             if (EmployeeOp.addRoomDetails(hotel_id, room_type_id, seasonStock, offSeasonStock, bed, size, tv, minibar)) {
                                 if (showDoneMsg) {
                                     Helper.showMessage("done");
@@ -1305,6 +1307,15 @@ public class EmployeeGUI extends JFrame {
                 loadGuestModel(searchGuest);
             }
         });
+        buttonExit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (Helper.confirm("sure")) {
+                    dispose();
+                    LoginGUI loginGUI = new LoginGUI();
+                }
+            }
+        });
     }
 
     public void loadAccoCombo() {
@@ -1361,6 +1372,7 @@ public class EmployeeGUI extends JFrame {
             fieldHotelAddress.setText(obj.getAddress());
             fieldHotelMail.setText(obj.getEmail());
             fieldHotelPhone.setText(obj.getPhoneNumber());
+
             checkBoxParking.setSelected(false);
             checkBoxWifi.setSelected(false);
             checkBoxPool.setSelected(false);
@@ -1372,7 +1384,6 @@ public class EmployeeGUI extends JFrame {
             if (obj.getParking().equals("Yes")) {
                 checkBoxParking.setSelected(true);
             }
-
             if (obj.getWifi().equals("Yes")) {
                 checkBoxWifi.setSelected(true);
             }
@@ -1395,16 +1406,24 @@ public class EmployeeGUI extends JFrame {
         for (HotelPeriod obj : EmployeeOp.getHotelPeriodByHotelId(hotelId)) {
             if (obj.getSeasonStart() != null) {
                 radioButtonSeason.setSelected(true);
+                Helper.enableTextFields(fieldSeasonStartDate, fieldSeasonEndDate);
                 fieldSeasonStartDate.setText(obj.getSeasonStart().toString());
                 fieldSeasonEndDate.setText(obj.getSeasonEnd().toString());
+            } else {
+                radioButtonSeason.setSelected(false);
+                Helper.resetTextFields(fieldSeasonStartDate, fieldSeasonEndDate);
             }
+
             if (obj.getOffSeasonStart() != null) {
                 radioButtonOffSeason.setSelected(true);
+                Helper.enableTextFields(fieldOffSeasonStartDate, fieldOffSeasonEndDate);
                 fieldOffSeasonStartDate.setText(obj.getOffSeasonStart().toString());
                 fieldOffSeasonEndDate.setText(obj.getOffSeasonEnd().toString());
+            } else {
+                radioButtonOffSeason.setSelected(false);
+                Helper.resetTextFields(fieldOffSeasonStartDate, fieldOffSeasonEndDate);
             }
         }
-        Helper.enableTextFields(fieldSeasonStartDate, fieldSeasonEndDate, fieldOffSeasonStartDate, fieldOffSeasonEndDate);
     }
 
     private void loadRoomDetailsModel() {
