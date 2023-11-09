@@ -17,7 +17,7 @@
 ## Admin Panel:
 - The admin can create new admin and employee profiles.
 
-  ![img_1.png](static/admin.png)
+  ![img.png](static/admin.png)
 
 ## Employee Panel:
 
