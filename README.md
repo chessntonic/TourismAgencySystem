@@ -12,12 +12,12 @@
 ## Login Panel:
 - The user can login to the system with her/his username and password.
 
-![img.png](static/login.png)
+  ![img.png](static/login.png)
 
 ## Admin Panel:
 - The admin can create new admin and employee profiles.
 
-![img_1.png](static/admin.png)
+  ![img_1.png](static/admin.png)
 
 ## Employee Panel:
 
