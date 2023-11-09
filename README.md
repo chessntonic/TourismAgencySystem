@@ -30,7 +30,7 @@
   - rooms for each hotel,
   
     ![img_1.png](static/room.png)
-  - and prices for each room with a different accommodation type.
+  - and prices for each room with different accommodation types.
   
     ![img_1.png](static/price.png)
 
