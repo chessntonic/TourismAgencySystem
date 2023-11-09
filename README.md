@@ -11,7 +11,7 @@
 ## Login Panel:
 - The user can login to the system with her/his username and password.
 
-![img.png](login.png)
+![img.png](login.png) ![img.png](login.png)
 
 ## Admin Panel:
 - The admin can create new admin and employee profiles.
@@ -52,5 +52,5 @@
     
         ![img.png](logres.png)
       - and all current and previous guests.
-
-        ![img_1.png](logguest.png)
+                                                      
+        ![img_1.png](logguest.png) ![img_1.png](logguest.png)
