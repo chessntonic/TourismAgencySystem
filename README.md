@@ -20,3 +20,37 @@
 
 ## Employee Panel:
 
+### Management:
+ 
+- Here, the employee can create:
+  - hotels,
+  
+  ![img_1.png](employee.png)
+  - rooms for each hotel,
+  
+  ![img.png](room.png)
+  - and prices for each room with a different accommodation type.
+  
+  ![img.png](price.png)
+
+### Sales:
+ 
+- Here, the employee can create a new reservation for a customer by:
+  - searching for an available room using the search panel,
+  
+  ![img.png](search.png)
+  - selecting the accommodation type and calculating the price,
+  
+  ![img.png](reservation.png)
+  - and providing the customer's information.
+  
+  ![img.png](guest.png)
+  
+  - #### Log:
+    - Here, the employee can see:
+      - all the reservations created,
+    
+        ![img.png](logres.png)
+      - and all current and previous guests.
+
+        ![img_1.png](logguest.png)
