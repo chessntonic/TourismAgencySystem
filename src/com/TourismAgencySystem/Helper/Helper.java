@@ -226,4 +226,9 @@ public class Helper {
             lbl.setVisible(false);
         }
     }
+    public static void resetLabels(JLabel... labels) {
+        for (JLabel label : labels) {
+            label.setText(null);
+        }
+    }
 }

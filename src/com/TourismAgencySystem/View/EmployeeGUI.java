@@ -357,7 +357,7 @@ public class EmployeeGUI extends JFrame {
         tableLogGuestGuestList.getTableHeader().setReorderingAllowed(false);
         tableLogGuestGuestList.getColumnModel().getColumn(0).setMaxWidth(30);
         tableLogGuestGuestList.getColumnModel().getColumn(1).setMaxWidth(60);
-        tableLogGuestGuestList.getColumnModel().getColumn(4).setMaxWidth(180);
+        tableLogGuestGuestList.getColumnModel().getColumn(4).setMinWidth(150);
 
 
         radioButtonSeason.addActionListener(new ActionListener() {
@@ -552,17 +552,22 @@ public class EmployeeGUI extends JFrame {
                     Date offSeasonStart = Helper.stringToDate(fieldOffSeasonStartDate.getText());
                     Date offSeasonEnd = Helper.stringToDate(fieldOffSeasonEndDate.getText());
 
-                    if (EmployeeOp.updateHotelDetails(id, name, city, district, star, address, mail, phone, parking, wifi, pool, gym, concierge, spa, roomService) &&
-                            EmployeeOp.updateHotelPeriodDetails(id, seasonStart, seasonEnd, offSeasonStart, offSeasonEnd)) {
+                    if (EmployeeOp.updateHotelDetails(id, name, city, district, star, address, mail, phone, parking, wifi, pool, gym, concierge, spa, roomService)
+                            && EmployeeOp.updateHotelPeriodDetails(id, seasonStart, seasonEnd, offSeasonStart, offSeasonEnd)
+                            && EmployeeOp.updateRoomSalesDate(seasonStart, seasonEnd, id, "Season")
+                            && EmployeeOp.updateRoomSalesDate(offSeasonStart, offSeasonEnd, id, "Off Season")) {
                         Helper.showMessage("done");
                         loadHotelModel();
+                        loadSalesRoomModel();
 
                         Helper.resetFormFields(fieldHotelName, fieldHotelCity, fieldHotelAddress, fieldHotelDistrict, fieldHotelMail, fieldHotelPhone, fieldHotelStar);
                         Helper.resetCheckBoxes(checkBoxPool, checkBoxWifi, checkBoxParking, checkBoxGym, checkBoxConcierge, checkBoxSpa, checkBoxRoomService);
                         Helper.resetTextFields(fieldSeasonStartDate, fieldSeasonEndDate, fieldOffSeasonStartDate, fieldOffSeasonEndDate);
                         Helper.resetRadioButtons(radioButtonSeason, radioButtonOffSeason);
                     }
+
                     scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);
+
                 }
             }
         });
@@ -691,7 +696,6 @@ public class EmployeeGUI extends JFrame {
                             if (EmployeeOp.addRoomDetails(hotel_id, room_type_id, seasonStock, offSeasonStock, bed, size, tv, minibar)) {
                                 if (showDoneMsg) {
                                     Helper.showMessage("done");
-
                                 }
                             }
                         }
@@ -726,6 +730,8 @@ public class EmployeeGUI extends JFrame {
                     if (EmployeeOp.updateRoomDetails(hotel_id, room_type_id, seasonStock, offSeasonStock, bed, size, tv, minibar)) {
                         Helper.showMessage("done");
                         loadSalesRoomModel();
+                    } else {
+                        Helper.showMessage("error");
                     }
                     scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);
                 }
@@ -1242,7 +1248,14 @@ public class EmployeeGUI extends JFrame {
                 String roomType = tableLogResReservationList.getValueAt(tableLogResReservationList.getSelectedRow(), 3).toString();
                 int stock = EmployeeOp.getRoomSalesDetailsByHotelId(hotelId, roomType, periodName).getStock();
 
-                if (EmployeeOp.increaseStock(hotelId, periodName, roomType, stock - 1)) {
+                Helper.resetFormFields(fieldSearchCheckin, fieldSearchCheckout, fieldResDetailCity, fieldResDetailDistrict, fieldResDetailAddress, fieldResDetailPhone,
+                        fieldResDetailStar, fieldResCheckin, fieldResCheckout, fieldResBed, fieldResRoomSize, fieldResTv, fieldResMinibar, fieldResPrice);
+                Helper.resetLabels(labelHotelName, labelResPeriod, labelResRoomType, labelResDuration, labelResAdult, labelResChild,
+                        labelGuestTv,labelGuestRoomSize, labelGuestMinibar, labelGuestBed, labelGuestRoomType);
+                Helper.resetCheckBoxes(freeParkingCheckBox, wiFiCheckBox, swimmingPoolCheckBox, fitnessCenterCheckBox, conciergeCheckBox, spaCheckBox, roomServiceCheckBox);
+                comboBoxResHostelType.removeAllItems();
+
+                if (EmployeeOp.updateStock(hotelId, periodName, roomType, stock - 1)) {
                     loadSalesRoomModel();
                 }
             }
@@ -1253,12 +1266,15 @@ public class EmployeeGUI extends JFrame {
                 if (false) {
                     Helper.showMessage("fill");
                 } else {
-                    int id = Integer.parseInt(tableSearchHotelList.getValueAt(tableSearchHotelList.getSelectedRow(), 0).toString());
-                    int stock = Integer.parseInt(tableSearchHotelList.getValueAt(tableSearchHotelList.getSelectedRow(), 10).toString());
+                    int hotelId = Integer.parseInt(tableLogResReservationList.getValueAt(tableLogResReservationList.getSelectedRow(), 1).toString());
+                    String periodName = tableLogResReservationList.getValueAt(tableLogResReservationList.getSelectedRow(), 4).toString();
+                    String roomType = tableLogResReservationList.getValueAt(tableLogResReservationList.getSelectedRow(), 3).toString();
 
-                    if (EmployeeOp.decreaseStock(id, stock + 1)) {
+                    int stock = EmployeeOp.getRoomSalesDetailsByHotelId(hotelId, roomType, periodName).getStock();
+                    if (EmployeeOp.updateStock(hotelId, periodName, roomType, stock + 1)) {
                         loadSalesRoomModel();
                     }
+
                 }
                 if (Helper.confirm("sure")) {
                     int id = Integer.parseInt(tableLogResReservationList.getValueAt(tableLogResReservationList.getSelectedRow(), 0).toString());
