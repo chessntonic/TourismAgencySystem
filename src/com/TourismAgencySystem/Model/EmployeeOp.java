@@ -1085,7 +1085,7 @@ public class EmployeeOp {
             query += " WHERE 1=1";
 
             if (!input.isEmpty()) {
-                query += " AND (hotel_name LIKE '%" + input + "%' OR city = '" + input + "')";
+                query += " AND (hotel_name LIKE '%" + input + "%' OR city = '" + input + "' OR district = '" + input + "')";
             }
 
             if (!star.isEmpty()) {
