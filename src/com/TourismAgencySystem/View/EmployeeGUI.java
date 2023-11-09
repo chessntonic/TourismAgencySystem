@@ -251,6 +251,9 @@ public class EmployeeGUI extends JFrame {
         loadHotelModel();
         tableHotelHotelList.setModel(modelHotelHotelList);
         tableHotelHotelList.getTableHeader().setReorderingAllowed(false);
+        tableHotelHotelList.getColumnModel().getColumn(0).setMaxWidth(30);
+        tableHotelHotelList.getColumnModel().getColumn(4).setMaxWidth(35);
+
 
         modelPriceRoomList = new DefaultTableModel() {
             @Override
@@ -265,9 +268,9 @@ public class EmployeeGUI extends JFrame {
         Object[] colPriceRoomList = {"ID", "Period", "Room Type", "Hostel Type", "Adult Price", "Child Price"};
         modelPriceRoomList.setColumnIdentifiers(colPriceRoomList);
         rowPriceRoomList = new Object[colPriceRoomList.length];
-
         tablePriceRoomList.setModel(modelPriceRoomList);
         tablePriceRoomList.getTableHeader().setReorderingAllowed(false);
+        tablePriceRoomList.getColumnModel().getColumn(0).setMaxWidth(30);
         tablePriceRoomList.getModel().addTableModelListener(new TableModelListener() {
             @Override
             public void tableChanged(TableModelEvent e) {
@@ -304,6 +307,10 @@ public class EmployeeGUI extends JFrame {
         loadSalesRoomModel();
         tableSearchHotelList.setModel(modelSearchHotelList);
         tableSearchHotelList.getTableHeader().setReorderingAllowed(false);
+        tableSearchHotelList.getColumnModel().getColumn(0).setMaxWidth(30);
+        tableSearchHotelList.getColumnModel().getColumn(1).setMaxWidth(60);
+        tableSearchHotelList.getColumnModel().getColumn(5).setMaxWidth(35);
+
         modelLogResReservationList = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -323,6 +330,11 @@ public class EmployeeGUI extends JFrame {
 
         tableLogResReservationList.setModel(modelLogResReservationList);
         tableLogResReservationList.getTableHeader().setReorderingAllowed(false);
+        tableLogResReservationList.getColumnModel().getColumn(0).setMaxWidth(30);
+        tableLogResReservationList.getColumnModel().getColumn(1).setMaxWidth(60);
+        tableLogResReservationList.getColumnModel().getColumn(6).setMinWidth(100);
+        tableLogResReservationList.getColumnModel().getColumn(9).setMaxWidth(60);
+
 
         modelLogGuestGuestList = new DefaultTableModel() {
             @Override
@@ -335,7 +347,7 @@ public class EmployeeGUI extends JFrame {
             }
         };
 
-        Object[] colLogGuestGuestList = {"ID", "Reservation ID", "Full Name", "Nationality ID", "Phone Number", "Email"};
+        Object[] colLogGuestGuestList = {"ID", "Res. ID", "Full Name", "Nationality ID", "Phone #", "Email"};
         modelLogGuestGuestList.setColumnIdentifiers(colLogGuestGuestList);
         rowLogGuestGuestList = new Object[colLogGuestGuestList.length];
 
@@ -343,6 +355,9 @@ public class EmployeeGUI extends JFrame {
 
         tableLogGuestGuestList.setModel(modelLogGuestGuestList);
         tableLogGuestGuestList.getTableHeader().setReorderingAllowed(false);
+        tableLogGuestGuestList.getColumnModel().getColumn(0).setMaxWidth(30);
+        tableLogGuestGuestList.getColumnModel().getColumn(1).setMaxWidth(60);
+        tableLogGuestGuestList.getColumnModel().getColumn(4).setMaxWidth(180);
 
 
         radioButtonSeason.addActionListener(new ActionListener() {
