@@ -3,7 +3,7 @@
 ## Project Description:
 - This is a project for our Patika+ Bootcamp, in which we have to develop a system for a tourism agency.
 - The system must be able to manage the agency's customers, employees, and reservations.
-- Short video description can be found at: https://youtu.be/5X6Z3Z3Z3Z4
+- Short video description in Turkish can be found at: https://youtu.be/5X6Z3Z3Z3Z4
 
 ## Project Structure:
 - There are two main user types, admin and agency employee.
@@ -26,32 +26,32 @@
 - Here, the employee can create:
   - hotels,
   
-  ![img_1.png](employee.png)
+    ![img_1.png](log_res.png)
   - rooms for each hotel,
   
-  ![img.png](room.png)
+    ![img_1.png](room.png)
   - and prices for each room with a different accommodation type.
   
-  ![img.png](price.png)
+    ![img_1.png](price.png)
 
 ### Sales:
  
 - Here, the employee can create a new reservation for a customer by:
   - searching for an available room using the search panel,
   
-  ![img.png](search.png)
+    ![img.png](search.png)
   - selecting the accommodation type and calculating the price,
   
-  ![img.png](reservation.png)
+    ![img.png](reservation.png)
   - and providing the customer's information.
   
-  ![img.png](guest.png)
+    ![img.png](guest.png)
   
   - #### Log:
-    - Here, the employee can see:
-      - all the reservations created,
-    
-        ![img.png](logres.png)
-      - and all current and previous guests.
+  - Here, the employee can see:
+    - all the reservations created,
+ 
+      ![img_1.png](log_res.png) 
+    - and all current and previous guests.
                                                       
-        ![img_1.png](logguest.png)
+      ![img_1.png](log_guest.png)
