@@ -12,12 +12,12 @@
 ## Login Panel:
 - The user can login to the system with her/his username and password.
 
-![img.png](login.png)
+![img.png](static/login.png)
 
 ## Admin Panel:
 - The admin can create new admin and employee profiles.
 
-![img_1.png](admin.png)
+![img_1.png](static/admin.png)
 
 ## Employee Panel:
 
@@ -26,32 +26,32 @@
 - Here, the employee can create:
   - hotels,
   
-    ![img_1.png](log_res.png)
+    ![img_1.png](static/log_res.png)
   - rooms for each hotel,
   
-    ![img_1.png](room.png)
+    ![img_1.png](static/room.png)
   - and prices for each room with a different accommodation type.
   
-    ![img_1.png](price.png)
+    ![img_1.png](static/price.png)
 
 ### Sales:
  
 - Here, the employee can create a new reservation for a customer by:
   - searching for an available room using the search panel,
   
-    ![img.png](search.png)
+    ![img.png](static/search.png)
   - selecting the accommodation type and calculating the price,
   
-    ![img.png](reservation.png)
+    ![img.png](static/reservation.png)
   - and providing the customer's information.
   
-    ![img.png](guest.png)
+    ![img.png](static/guest.png)
   
   - #### Log:
   - Here, the employee can see:
     - all the reservations created,
  
-      ![img_1.png](log_res.png) 
+      ![img_1.png](static/log_res.png) 
     - and all current and previous guests.
                                                       
-      ![img_1.png](log_guest.png)
+      ![img_1.png](static/log_guest.png)
