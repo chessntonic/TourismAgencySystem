@@ -186,9 +186,4 @@ public class AdminGUI extends JFrame {
             modelUserList.addRow(rowUserList);
         }
     }
-
-    public static void main(String[] args) {
-        AdminGUI adminGUI = new AdminGUI(new Admin());
-        adminGUI.setName("admin");
-    }
 }

@@ -124,29 +124,6 @@ public class EmployeeOp {
         return roomPriceList;
     }
 
-    public static ArrayList<HotelPeriod> getHotelPeriodList() {
-        ArrayList<HotelPeriod> hotelPeriodList = new ArrayList<>();
-        String query = "SELECT * FROM hotel_period";
-        HotelPeriod obj;
-        try {
-            Statement st = DBConnector.getInstance().createStatement();
-            ResultSet rs = st.executeQuery(query);
-            while (rs.next()) {
-                obj = new HotelPeriod();
-                obj.setId(rs.getInt("id"));
-                obj.setSeasonStart(rs.getDate("season_start"));
-                obj.setSeasonEnd(rs.getDate("season_end"));
-                obj.setOffSeasonStart(rs.getDate("offseason_start"));
-                obj.setOffSeasonEnd(rs.getDate("offseason_end"));
-
-                hotelPeriodList.add(obj);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return hotelPeriodList;
-    }
-
     public static ArrayList<RoomSales> getRoomSalesList() {
         ArrayList<RoomSales> hotelRoomSalesList = new ArrayList<>();
         String query = "SELECT * FROM room_sales";
@@ -443,27 +420,6 @@ public class EmployeeOp {
             e.printStackTrace();
         }
         return obj;
-    }
-
-    public static ArrayList<AccommodationType> getAccoNameByAccoIdList(ArrayList<RoomPrice> roomPrice, int roomTypeId) {
-        ArrayList<AccommodationType> accoIdList = new ArrayList<>();
-
-        AccommodationType obj;
-
-        try {
-            Statement st = DBConnector.getInstance().createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM accommodation_type WHERE id = " + roomPrice.get(roomTypeId).getAccommodationId());
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String accoName = rs.getString("accommodation_name");
-                obj = new AccommodationType(id, accoName);
-                accoIdList.add(obj);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return accoIdList;
     }
 
     public static AccommodationType getFetchAccoNameById(int accoId) {
