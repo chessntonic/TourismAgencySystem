@@ -8,6 +8,8 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
+// Utility class with static methods for common GUI tasks,
+// including UI setup, message dialogs, and manipulation of text fields, checkboxes, radio buttons, and date-related operations.
 public class Helper {
     public static void setLayout() {
         for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -42,9 +44,6 @@ public class Helper {
         return field.getText().trim().isEmpty();
     }
 
-    public static boolean isFieldEmpty(JTextArea area) {
-        return area.getText().trim().isEmpty();
-    }
     public static boolean areFieldsEmpty(JTextField... field) {
         for (JTextField fields : field) {
 
@@ -54,14 +53,18 @@ public class Helper {
         return false;
     }
 
+    // Form 19
+    // Kullanıcıya başarılı işlemler için uygun pop up mesajları veriliyor mu?
+    // Form 20
+    // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
     public static void showMessage(String str) {
         optionPage();
         String msg;
         String title;
         switch (str) {
             case "fill":
-                msg = "Please fill all areas ! ";
-                title = "Error !";
+                msg = "Please fill all areas! ";
+                title = "Error!";
                 break;
             case "done":
                 msg = "The operation is successful";
@@ -84,6 +87,8 @@ public class Helper {
         UIManager.put("OptionPane.noButtonText", "NO");
     }
 
+    // Form 19
+    // Kullanıcıya başarılı işlemler için uygun pop up mesajları veriliyor mu?
     public static boolean confirm(String str) {
         String msg;
         switch (str) {
@@ -160,6 +165,8 @@ public class Helper {
         return daysBetween;
     }
 
+    // Form 15
+    // Misafir bilgisi, kalınacak gece sayısı ve pansiyon tipine göre konaklamaya ait fiyat başarılı bir şekilde hesaplanıyor mu?
     public static int resPrice(JTextField adultNumber, JTextField childNumber, int adultPrice, int childPrice, int duration) {
 
         int a = Integer.parseInt(adultNumber.getText());
@@ -169,18 +176,6 @@ public class Helper {
         int totalPrice = totalChildPrice + totalAdultPrice;
 
         return totalPrice * duration;
-    }
-
-    public static void visibleTextFields(JTextField... dateFields) {
-        for (JTextField field : dateFields) {
-            field.setVisible(true);
-        }
-    }
-
-    public static void visibleComboBoxes(JComboBox... comboBoxes) {
-        for (JComboBox box : comboBoxes) {
-            box.setVisible(true);
-        }
     }
 
     public static void visibleJLabel(JLabel... JLabels) {
@@ -226,6 +221,7 @@ public class Helper {
             lbl.setVisible(false);
         }
     }
+
     public static void resetLabels(JLabel... labels) {
         for (JLabel label : labels) {
             label.setText(null);

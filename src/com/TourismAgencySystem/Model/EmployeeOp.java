@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class EmployeeOp {
-    public static ArrayList<Hotel> getList() {
+    // Retrieves a list of hotels from the database.
+        public static ArrayList<Hotel> getList() {
         ArrayList<Hotel> hotelList = new ArrayList<>();
         String query = "SELECT * FROM hotel";
         Hotel obj;
@@ -42,6 +43,9 @@ public class EmployeeOp {
         }
         return hotelList;
     }
+
+
+    // Retrieves a hotel based on the provided query.
     public static Hotel checkHotelList(String name,String city,String district) {
 
         String query = "SELECT * FROM hotel WHERE hotel_name= '"+name+"' AND city = '"+city+"' AND district= '"+district+"'";
@@ -73,6 +77,7 @@ public class EmployeeOp {
         }
         return obj;
     }
+    // Checks if a room sales entry with the given hotel ID, room type, and period exists in the database.
     public static RoomSales checkRoomTypeList(int hotelId,String type,String period) {
 
         String query = "SELECT * FROM room_sales WHERE hotel_id="+hotelId+" AND room_type = '"+type+"' AND period= '"+period+"'";
@@ -100,6 +105,7 @@ public class EmployeeOp {
         return obj;
     }
 
+    // Retrieves a list of room prices for a specific hotel from the database.
     public static ArrayList<RoomPrice> getRoomPriceListByHotelId(int hotelId) {
         ArrayList<RoomPrice> roomPriceList = new ArrayList<>();
         String query = "SELECT * FROM room_price WHERE hotel_id = " + hotelId;
@@ -633,21 +639,6 @@ public class EmployeeOp {
         }
         return true;
     }
-
-//    public static boolean decreaseStock(int id, int stock) {
-//        String query = "UPDATE room_sales SET stock=? WHERE id=?";
-//
-//        try {
-//            PreparedStatement ps = DBConnector.getInstance().prepareStatement(query);
-//            ps.setInt(1, stock);
-//            ps.setInt(2, id);
-//
-//            return ps.executeUpdate() != -1;
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return true;
-//    }
 
     public static boolean updateStock(int hotelId, String period, String roomType, int stock) {
         String query = "UPDATE room_sales SET stock=? WHERE hotel_id=? AND period=? AND room_type=?";

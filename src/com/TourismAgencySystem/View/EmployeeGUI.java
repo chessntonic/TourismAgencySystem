@@ -283,6 +283,8 @@ public class EmployeeGUI extends JFrame {
                     int adult_price = Integer.parseInt(tablePriceRoomList.getValueAt(tablePriceRoomList.getSelectedRow(), 4).toString());
                     int child_price = Integer.parseInt(tablePriceRoomList.getValueAt(tablePriceRoomList.getSelectedRow(), 5).toString());
 
+                    // Form 19
+                    // Kullanıcıya başarılı işlemler için uygun pop up mesajları veriliyor mu?
                     if (EmployeeOp.updateRoomPrice(id, hotel_id, period_id, room_type_id, acco_id, adult_price, child_price)) {
                         Helper.showMessage("done");
                     }
@@ -435,9 +437,13 @@ public class EmployeeGUI extends JFrame {
                 }
             }
         });
+        // Form 9
+        // Acente çalışanı anlaşmalı olduğu otelleri sisteme hotel adı, adres, E-posta, telefon, yıldız, tesis özellikleri, pansiyon tipleri bilgilerini girerek kaydedebiliyor mu?
         buttonHotelAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Form 20
+                // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                 if ((Helper.isFieldEmpty(fieldHotelName) || Helper.isFieldEmpty(fieldHotelCity) || Helper.isFieldEmpty(fieldHotelAddress) || Helper.isFieldEmpty(fieldHotelDistrict)
                         || Helper.isFieldEmpty(fieldHotelMail) || Helper.isFieldEmpty(fieldHotelPhone) || Helper.isFieldEmpty(fieldHotelStar)) || ((!radioButtonSeason.isSelected()) && (!radioButtonOffSeason.isSelected()))) {
                     Helper.showMessage("fill");
@@ -479,16 +485,35 @@ public class EmployeeGUI extends JFrame {
                     if (checkBoxRoomService.isSelected()) {
                         roomService = "Yes";
                     }
-                    Date seasonStart = Helper.stringToDate(fieldSeasonStartDate.getText());
-                    Date seasonEnd = Helper.stringToDate(fieldSeasonEndDate.getText());
-                    Date offSeasonStart = Helper.stringToDate(fieldOffSeasonStartDate.getText());
-                    Date offSeasonEnd = Helper.stringToDate(fieldOffSeasonEndDate.getText());
-                    EmployeeOp.checkHotelList(name, city, district);
+                    // Form 10
+                    // Otellerin sisteme eklenmesinde dönem yönetimi yapılmış mı?
+                    Date seasonStart = null;
+                    if (!fieldSeasonStartDate.getText().isEmpty()) {
+                        seasonStart = Helper.stringToDate(fieldSeasonStartDate.getText());
+                    }
 
+                    Date seasonEnd = null;
+                    if (!fieldSeasonEndDate.getText().isEmpty()) {
+                        seasonEnd = Helper.stringToDate(fieldSeasonEndDate.getText());
+                    }
+
+                    Date offSeasonStart = null;
+                    if (!fieldOffSeasonStartDate.getText().isEmpty()) {
+                        offSeasonStart = Helper.stringToDate(fieldOffSeasonStartDate.getText());
+                    }
+
+                    Date offSeasonEnd = null;
+                    if (!fieldOffSeasonEndDate.getText().isEmpty()) {
+                        offSeasonEnd = Helper.stringToDate(fieldOffSeasonEndDate.getText());
+                    }
+
+                    EmployeeOp.checkHotelList(name, city, district);
                     if (EmployeeOp.checkHotelList(name, city, district) != null) {
                         Helper.showMessage("This hotel exists. Please change the hotel name or the city or the district.");
                     } else if (EmployeeOp.addHotelDetails(name, city, district, star, address, mail, phone, parking, wifi, pool, gym, concierge, spa, roomService)
                             && EmployeeOp.addHotelPeriodDetails(seasonStart, seasonEnd, offSeasonStart, offSeasonEnd)) {
+                        // Form 19
+                        // Kullanıcıya başarılı işlemler için uygun pop up mesajları veriliyor mu?
                         Helper.showMessage("done");
                         loadHotelModel();
 
@@ -498,13 +523,17 @@ public class EmployeeGUI extends JFrame {
                         Helper.resetRadioButtons(radioButtonSeason, radioButtonOffSeason);
                     }
 
+
                     scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);
+
                 }
             }
         });
         buttonHotelUpdate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Form 20
+                // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                 if ((Helper.isFieldEmpty(fieldHotelName) || Helper.isFieldEmpty(fieldHotelCity) || Helper.isFieldEmpty(fieldHotelAddress) || Helper.isFieldEmpty(fieldHotelDistrict)
                         || Helper.isFieldEmpty(fieldHotelMail) || Helper.isFieldEmpty(fieldHotelPhone) || Helper.isFieldEmpty(fieldHotelStar)) || ((!radioButtonSeason.isSelected()) && (!radioButtonOffSeason.isSelected()))) {
                     Helper.showMessage("fill");
@@ -556,6 +585,8 @@ public class EmployeeGUI extends JFrame {
                             && EmployeeOp.updateHotelPeriodDetails(id, seasonStart, seasonEnd, offSeasonStart, offSeasonEnd)
                             && EmployeeOp.updateRoomSalesDate(seasonStart, seasonEnd, id, "Season")
                             && EmployeeOp.updateRoomSalesDate(offSeasonStart, offSeasonEnd, id, "Off Season")) {
+                        // Form 19
+                        // Kullanıcıya başarılı işlemler için uygun pop up mesajları veriliyor mu?
                         Helper.showMessage("done");
                         loadHotelModel();
                         loadSalesRoomModel();
@@ -587,6 +618,8 @@ public class EmployeeGUI extends JFrame {
                 if (Helper.confirm("sure")) {
                     int id = Integer.parseInt(tableHotelHotelList.getValueAt(tableHotelHotelList.getSelectedRow(), 0).toString());
                     if (EmployeeOp.deleteHotelDetails(id) && EmployeeOp.deleteHotelPeriodDetails(id)) {
+                        // Form 19
+                        // Kullanıcıya başarılı işlemler için uygun pop up mesajları veriliyor mu?
                         Helper.showMessage("done");
                         loadHotelModel();
                         Helper.resetFormFields(fieldHotelName, fieldHotelCity, fieldHotelAddress, fieldHotelDistrict, fieldHotelMail, fieldHotelPhone, fieldHotelStar);
@@ -594,6 +627,8 @@ public class EmployeeGUI extends JFrame {
                         Helper.resetTextFields(fieldSeasonStartDate, fieldSeasonEndDate, fieldOffSeasonStartDate, fieldOffSeasonEndDate);
                         Helper.resetRadioButtons(radioButtonSeason, radioButtonOffSeason);
                     } else {
+                        // Form 20
+                        // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                         Helper.showMessage("error");
                     }
                 }
@@ -632,9 +667,15 @@ public class EmployeeGUI extends JFrame {
                 Helper.resetRadioButtons(radioButtonSeason, radioButtonOffSeason);
             }
         });
+        // Form 11
+        // Acenta çalışanı sisteme kayıtlı otellere oda ekleyebiliyor mu?
+        // Oda eklerken oda tipi, oda özellikleri ve stok miktarı girişi dikkate alınmış mı?
+
         buttonRoomTypeAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Form 20
+                // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                 if ((Helper.isFieldEmpty(fieldRoomSeasonStock) || Helper.isFieldEmpty(fieldRoomOffSeasonStock) || Helper.isFieldEmpty(fieldRoomBedCount) || Helper.isFieldEmpty(fieldRoomSize) || Helper.isFieldEmpty(fieldRoomTv)
                         || Helper.isFieldEmpty(fieldRoomMinibar))) {
                     Helper.showMessage("fill");
@@ -678,6 +719,8 @@ public class EmployeeGUI extends JFrame {
                             isRadioButtonSeasonSelected = true;
                             if (EmployeeOp.addRoomDetails(hotel_id, room_type_id, seasonStock, offSeasonStock, bed, size, tv, minibar)) {
                                 if (showDoneMsg) {
+                                    // Form 19
+                                    // Kullanıcıya başarılı işlemler için uygun pop up mesajları veriliyor mu?
                                     Helper.showMessage("done");
                                     showDoneMsg = false;
                                 }
@@ -695,6 +738,8 @@ public class EmployeeGUI extends JFrame {
                         } else if (EmployeeOp.addRoomSalesDetails(hotel_id, name, city, district, star, periodName, periodStart, periodEnd, roomName, offSeasonStock) && !isRadioButtonSeasonSelected) {
                             if (EmployeeOp.addRoomDetails(hotel_id, room_type_id, seasonStock, offSeasonStock, bed, size, tv, minibar)) {
                                 if (showDoneMsg) {
+                                    // Form 19
+                                    // Kullanıcıya başarılı işlemler için uygun pop up mesajları veriliyor mu?
                                     Helper.showMessage("done");
                                 }
                             }
@@ -709,6 +754,8 @@ public class EmployeeGUI extends JFrame {
         buttonRoomTypeUpdate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Form 20
+                // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                 if ((Helper.isFieldEmpty(fieldRoomSeasonStock) || Helper.isFieldEmpty(fieldRoomBedCount) || Helper.isFieldEmpty(fieldRoomOffSeasonStock) || Helper.isFieldEmpty(fieldRoomSize) || Helper.isFieldEmpty(fieldRoomTv)
                         || Helper.isFieldEmpty(fieldRoomMinibar))) {
                     Helper.showMessage("fill");
@@ -728,18 +775,27 @@ public class EmployeeGUI extends JFrame {
                     EmployeeOp.updateRoomSales(hotel_id, "Off Season", offSeasonStock, roomTypeName);
                     ;
                     if (EmployeeOp.updateRoomDetails(hotel_id, room_type_id, seasonStock, offSeasonStock, bed, size, tv, minibar)) {
+                        // Form 19
+                        // Kullanıcıya başarılı işlemler için uygun pop up mesajları veriliyor mu?
                         Helper.showMessage("done");
                         loadSalesRoomModel();
                     } else {
+                        // Form 20
+                        // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                         Helper.showMessage("error");
                     }
                     scrollPaneHotelDetails.getVerticalScrollBar().setValue(0);
                 }
             }
         });
+
+        // Form 12
+        // Sisteme yeni eklenen odaların fiyatları, sezon, pansiyon tipi ve konaklayanların yetişkin/çocuk olma durumuna göre belirleniyor mu?
         buttonAddSingle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Form 20
+                // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                 if (Helper.isFieldEmpty(fieldAdultPriceSingle) || Helper.isFieldEmpty(fieldChildPriceSingle)) {
                     Helper.showMessage("fill");
                 } else {
@@ -754,6 +810,8 @@ public class EmployeeGUI extends JFrame {
                         Helper.showMessage("This room has been added before. Please choose another season or accommodation type.");
                     } else {
                         if (EmployeeOp.addPriceDetails(hotel_id, period_id, room_type_id, acco_id, adult_price, child_price)) {
+                            // Form 19
+                            // Kullanıcıya başarılı işlemler için uygun pop up mesajları veriliyor mu?
                             Helper.showMessage("done");
                             loadPriceRoomModel();
                             radioButtonSingle.setSelected(false);
@@ -761,15 +819,22 @@ public class EmployeeGUI extends JFrame {
                             Helper.resetTextFields(fieldAdultPriceSingle, fieldChildPriceSingle);
                             buttonAddSingle.setEnabled(false);
                         } else {
+                            // Form 20
+                            // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                             Helper.showMessage("error");
                         }
                     }
                 }
             }
         });
+
+        // Form 12
+        // Sisteme yeni eklenen odaların fiyatları, sezon, pansiyon tipi ve konaklayanların yetişkin/çocuk olma durumuna göre belirleniyor mu?
         buttonAddDouble.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Form 20
+                // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                 if (Helper.isFieldEmpty(fieldAdultPriceDouble) || Helper.isFieldEmpty(fieldChildPriceDouble)) {
                     Helper.showMessage("fill");
                 } else {
@@ -784,6 +849,8 @@ public class EmployeeGUI extends JFrame {
                         Helper.showMessage("This room has been added before. Please choose another season or accommodation type.");
                     } else {
                         if (EmployeeOp.addPriceDetails(hotel_id, period_id, room_type_id, acco_id, adult_price, child_price)) {
+                            // Form 19
+                            // Kullanıcıya başarılı işlemler için uygun pop up mesajları veriliyor mu?
                             Helper.showMessage("done");
                             loadPriceRoomModel();
                             radioButtonDouble.setSelected(false);
@@ -791,15 +858,22 @@ public class EmployeeGUI extends JFrame {
                             Helper.resetTextFields(fieldAdultPriceDouble, fieldChildPriceDouble);
                             buttonAddDouble.setEnabled(false);
                         } else {
+                            // Form 20
+                            // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                             Helper.showMessage("error");
                         }
                     }
                 }
             }
         });
+
+        // Form 12
+        // Sisteme yeni eklenen odaların fiyatları, sezon, pansiyon tipi ve konaklayanların yetişkin/çocuk olma durumuna göre belirleniyor mu?
         buttonAddKingSuite.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Form 20
+                // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                 if (Helper.isFieldEmpty(fieldAdultPriceKingSuite) || Helper.isFieldEmpty(fieldChildPriceKingSuite)) {
                     Helper.showMessage("fill");
                 } else {
@@ -814,6 +888,8 @@ public class EmployeeGUI extends JFrame {
                         Helper.showMessage("This room has been added before. Please choose another season or accommodation type.");
                     } else {
                         if (EmployeeOp.addPriceDetails(hotel_id, period_id, room_type_id, acco_id, adult_price, child_price)) {
+                            // Form 19
+                            // Kullanıcıya başarılı işlemler için uygun pop up mesajları veriliyor mu?
                             Helper.showMessage("done");
                             loadPriceRoomModel();
                             radioButtonKingSuite.setSelected(false);
@@ -821,6 +897,8 @@ public class EmployeeGUI extends JFrame {
                             Helper.resetTextFields(fieldAdultPriceKingSuite, fieldChildPriceKingSuite);
                             buttonAddKingSuite.setEnabled(false);
                         } else {
+                            // Form 20
+                            // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                             Helper.showMessage("error");
                         }
                     }
@@ -833,14 +911,20 @@ public class EmployeeGUI extends JFrame {
                 if (Helper.confirm("sure")) {
                     int id = Integer.parseInt(tablePriceRoomList.getValueAt(tablePriceRoomList.getSelectedRow(), 0).toString());
                     if (EmployeeOp.deleteRoomPriceDetails(id)) {
+                        // Form 19
+                        // Kullanıcıya başarılı işlemler için uygun pop up mesajları veriliyor mu?
                         Helper.showMessage("done");
                         loadPriceRoomModel();
                     } else {
+                        // Form 20
+                        // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                         Helper.showMessage("error");
                     }
                 }
             }
         });
+        // Form 14
+        // Arama sonucuna uygun otellerin bilgileri ve odaların bilgileri kullanıcıya gösteriliyor mu?
         buttonSearchSelect.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -916,6 +1000,10 @@ public class EmployeeGUI extends JFrame {
                 }
             }
         });
+
+        // Form 16
+        // Acenta çalışanı müşterinin talebine uygun odayı müşteri bilgilerini girerek başarılı şekilde rezervasyon yapabiliyor mu?
+
         buttonResReserve.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -985,7 +1073,8 @@ public class EmployeeGUI extends JFrame {
                         }
                     }
                 }
-
+                // Form 20
+                // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                 if ((Helper.isFieldEmpty(fieldResPrice))) {
                     Helper.showMessage("fill");
                 } else {
@@ -1001,12 +1090,17 @@ public class EmployeeGUI extends JFrame {
 
 
                     if (EmployeeOp.addReservationDetails(hotelId, hotelName, roomType, periodName, city, totalGuestNumber, checkinDate, checkoutDate, duration, totalPrice)) {
+                        // Form 19
+                        // Kullanıcıya başarılı işlemler için uygun pop up mesajları veriliyor mu?
                         Helper.showMessage("done");
                         loadResModel();
                     }
                 }
             }
         });
+
+        // Form 13
+        // Acente çalışanı, tarih aralığına, bölgeye veya otellere ve misafir bilgisine göre odaları başarılı bir şekilde arayabiliyor mu?
         buttonSearchSearch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1034,6 +1128,12 @@ public class EmployeeGUI extends JFrame {
                 fieldResPrice.setText(String.valueOf(getPrice()));
             }
         });
+
+        // Form 16
+        //Acenta çalışanı müşterinin talebine uygun odayı müşteri bilgilerini girerek başarılı şekilde rezervasyon yapabiliyor mu?
+
+        // Form 17
+        // Rezervasyon yapılan odanın stoğu azalıyor mu?
         buttonComplete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1058,10 +1158,14 @@ public class EmployeeGUI extends JFrame {
                     guestNat1 = comboBoxGuestNat1.getSelectedItem().toString();
                     guestType1 = comboBoxGuestType1.getSelectedItem().toString();
 
+                    // Form 20
+                    // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                     if (Helper.areFieldsEmpty(fieldGuestName1, fieldGuestId1, fieldGuestPhone1, fieldGuestMail1)) {
                         Helper.showMessage("fill");
                     } else {
                         if (EmployeeOp.addGuestDetails(reservationId, guestName1, guestId1, guestPhone1, guestMail1)) {
+                            // Form 19
+                            // Kullanıcıya başarılı işlemler için uygun pop up mesajları veriliyor mu?
                             Helper.showMessage("done");
                             tabbedPane3.setSelectedIndex(3);
                             loadGuestModel();
@@ -1078,6 +1182,9 @@ public class EmployeeGUI extends JFrame {
                         guestMail2 = fieldGuestMail2.getText();
                         guestNat2 = comboBoxGuestNat2.getSelectedItem().toString();
                         guestType2 = comboBoxGuestType2.getSelectedItem().toString();
+
+                        // Form 20
+                        // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                         if (Helper.areFieldsEmpty(fieldGuestName2, fieldGuestId2, fieldGuestPhone2, fieldGuestMail2)) {
                             Helper.showMessage("fill");
                         } else {
@@ -1096,6 +1203,9 @@ public class EmployeeGUI extends JFrame {
                             guestMail3 = fieldGuestMail3.getText();
                             guestNat3 = comboBoxGuestNat3.getSelectedItem().toString();
                             guestType3 = comboBoxGuestType3.getSelectedItem().toString();
+
+                            // Form 20
+                            // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                             if (Helper.areFieldsEmpty(fieldGuestName3, fieldGuestId3, fieldGuestPhone3, fieldGuestMail3)) {
                                 Helper.showMessage("fill");
                             } else {
@@ -1114,6 +1224,9 @@ public class EmployeeGUI extends JFrame {
                                 guestMail4 = fieldGuestMail4.getText();
                                 guestNat4 = comboBoxGuestNat4.getSelectedItem().toString();
                                 guestType4 = comboBoxGuestType4.getSelectedItem().toString();
+
+                                // Form 20
+                                // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                                 if (Helper.areFieldsEmpty(fieldGuestName4, fieldGuestId4, fieldGuestPhone4, fieldGuestMail4)) {
                                     Helper.showMessage("fill");
                                 } else {
@@ -1132,6 +1245,9 @@ public class EmployeeGUI extends JFrame {
                                     guestMail5 = fieldGuestMail5.getText();
                                     guestNat5 = comboBoxGuestNat5.getSelectedItem().toString();
                                     guestType5 = comboBoxGuestType5.getSelectedItem().toString();
+
+                                    // Form 20
+                                    // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                                     if (Helper.areFieldsEmpty(fieldGuestName5, fieldGuestId5, fieldGuestPhone5, fieldGuestMail5)) {
                                         Helper.showMessage("fill");
                                     } else {
@@ -1150,6 +1266,9 @@ public class EmployeeGUI extends JFrame {
                                         guestMail6 = fieldGuestMail6.getText();
                                         guestNat6 = comboBoxGuestNat6.getSelectedItem().toString();
                                         guestType6 = comboBoxGuestType6.getSelectedItem().toString();
+
+                                        // Form 20
+                                        // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                                         if (Helper.areFieldsEmpty(fieldGuestName6, fieldGuestId6, fieldGuestPhone6, fieldGuestMail6)) {
                                             Helper.showMessage("fill");
                                         } else {
@@ -1168,6 +1287,9 @@ public class EmployeeGUI extends JFrame {
                                             guestMail7 = fieldGuestMail7.getText();
                                             guestNat7 = comboBoxGuestNat7.getSelectedItem().toString();
                                             guestType7 = comboBoxGuestType7.getSelectedItem().toString();
+
+                                            // Form 20
+                                            // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                                             if (Helper.areFieldsEmpty(fieldGuestName7, fieldGuestId7, fieldGuestPhone7, fieldGuestMail7)) {
                                                 Helper.showMessage("fill");
                                             } else {
@@ -1186,6 +1308,9 @@ public class EmployeeGUI extends JFrame {
                                                 guestMail8 = fieldGuestMail8.getText();
                                                 guestNat8 = comboBoxGuestNat8.getSelectedItem().toString();
                                                 guestType8 = comboBoxGuestType8.getSelectedItem().toString();
+
+                                                // Form 20
+                                                // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                                                 if (Helper.areFieldsEmpty(fieldGuestName8, fieldGuestId8, fieldGuestPhone8, fieldGuestMail8)) {
                                                     Helper.showMessage("fill");
                                                 } else {
@@ -1204,6 +1329,9 @@ public class EmployeeGUI extends JFrame {
                                                     guestMail9 = fieldGuestMail9.getText();
                                                     guestNat9 = comboBoxGuestNat9.getSelectedItem().toString();
                                                     guestType9 = comboBoxGuestType9.getSelectedItem().toString();
+
+                                                    // Form 20
+                                                    // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                                                     if (Helper.areFieldsEmpty(fieldGuestName9, fieldGuestId9, fieldGuestPhone9, fieldGuestMail9)) {
                                                         Helper.showMessage("fill");
                                                     } else {
@@ -1222,6 +1350,9 @@ public class EmployeeGUI extends JFrame {
                                                         guestMail10 = fieldGuestMail10.getText();
                                                         guestNat10 = comboBoxGuestNat10.getSelectedItem().toString();
                                                         guestType10 = comboBoxGuestType10.getSelectedItem().toString();
+
+                                                        // Form 20
+                                                        // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                                                         if (Helper.areFieldsEmpty(fieldGuestName10, fieldGuestId10, fieldGuestPhone10, fieldGuestMail10)) {
                                                             Helper.showMessage("fill");
                                                         } else {
@@ -1251,18 +1382,24 @@ public class EmployeeGUI extends JFrame {
                 Helper.resetFormFields(fieldSearchCheckin, fieldSearchCheckout, fieldResDetailCity, fieldResDetailDistrict, fieldResDetailAddress, fieldResDetailPhone,
                         fieldResDetailStar, fieldResCheckin, fieldResCheckout, fieldResBed, fieldResRoomSize, fieldResTv, fieldResMinibar, fieldResPrice);
                 Helper.resetLabels(labelHotelName, labelResPeriod, labelResRoomType, labelResDuration, labelResAdult, labelResChild,
-                        labelGuestTv,labelGuestRoomSize, labelGuestMinibar, labelGuestBed, labelGuestRoomType);
+                        labelGuestTv, labelGuestRoomSize, labelGuestMinibar, labelGuestBed, labelGuestRoomType);
                 Helper.resetCheckBoxes(freeParkingCheckBox, wiFiCheckBox, swimmingPoolCheckBox, fitnessCenterCheckBox, conciergeCheckBox, spaCheckBox, roomServiceCheckBox);
                 comboBoxResHostelType.removeAllItems();
-
+                // Form 17
+                // Rezervasyon yapılan odanın stoğu azalıyor mu?
                 if (EmployeeOp.updateStock(hotelId, periodName, roomType, stock - 1)) {
                     loadSalesRoomModel();
                 }
             }
         });
+
+        // Form 18
+        // Acente çalışanları, sistem üzerinden yapılan rezervasyonları başarılı bir şekilde listeleye biliyor mu ve silme işlemi yapabiliyor mu?
         buttonLogResDelete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Form 20
+                // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                 if (false) {
                     Helper.showMessage("fill");
                 } else {
@@ -1279,15 +1416,22 @@ public class EmployeeGUI extends JFrame {
                 if (Helper.confirm("sure")) {
                     int id = Integer.parseInt(tableLogResReservationList.getValueAt(tableLogResReservationList.getSelectedRow(), 0).toString());
                     if (EmployeeOp.deleteResDetails(id)) {
+                        // Form 19
+                        // Kullanıcıya başarılı işlemler için uygun pop up mesajları veriliyor mu?
                         Helper.showMessage("done");
                         loadResModel();
 
                     } else {
+                        // Form 20
+                        // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                         Helper.showMessage("error");
                     }
                 }
             }
         });
+
+        // Form 18
+        // Acente çalışanları, sistem üzerinden yapılan rezervasyonları başarılı bir şekilde listeleye biliyor mu ve silme işlemi yapabiliyor mu?
         buttonLogResSearch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1473,8 +1617,9 @@ public class EmployeeGUI extends JFrame {
                 roomTypeId = 3;
                 break;
             default: {
+                // Form 20
+                // Kullanıcıya hatalı işlemler için uygun hata mesajları veriliyor mu?
                 Helper.showMessage("error");
-                ;
             }
         }
         for (Room obj : EmployeeOp.getRoomDetailsByHotelId(hotelId, roomTypeId)) {
@@ -1631,6 +1776,8 @@ public class EmployeeGUI extends JFrame {
         }
     }
 
+    // Form 15
+    // Misafir bilgisi, kalınacak gece sayısı ve pansiyon tipine göre konaklamaya ait fiyat başarılı bir şekilde hesaplanıyor mu?
     public int getPrice() {
         int hotelId = Integer.parseInt(tableSearchHotelList.getValueAt(tableSearchHotelList.getSelectedRow(), 1).toString());
         int roomTypeId = EmployeeOp.getFetchRoomIdByName(tableSearchHotelList.getValueAt(tableSearchHotelList.getSelectedRow(), 9).toString()).getId();

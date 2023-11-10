@@ -15,7 +15,9 @@ public class UserOp {
             pr.setString(1, username);
             pr.setString(2, password);
             ResultSet rs = pr.executeQuery();
+            // Check if result set has any rows
             if (rs.next()) {
+                // Determine user type and create corresponding User object
                 switch (rs.getString("type")) {
                     case "admin":
                         obj = new Admin();
