@@ -349,7 +349,7 @@ public class EmployeeGUI extends JFrame {
             }
         };
 
-        Object[] colLogGuestGuestList = {"ID", "Res. ID", "Full Name", "Nationality ID", "Phone #", "Email"};
+        Object[] colLogGuestGuestList = {"ID", "Res. ID", "Full Name", "Nationality ID", "Phone Number", "Email"};
         modelLogGuestGuestList.setColumnIdentifiers(colLogGuestGuestList);
         rowLogGuestGuestList = new Object[colLogGuestGuestList.length];
 
