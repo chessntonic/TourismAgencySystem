@@ -12,7 +12,7 @@
 ## Login Panel:
 - The user can login to the system with her/his username and password.
 
-  ![img.png](static/login.png)
+  ![img.png](static/login.png) ![img.png](static/userpass_validate.png)
 
 ## Admin Panel:
 - The admin can create new admin and employee profiles.
@@ -26,7 +26,7 @@
 - Here, the employee can create:
   - hotels,
   
-    ![img_1.png](static/log_res.png)
+    ![img.png](static/hotel_search.png)
   - rooms for each hotel,
   
     ![img_1.png](static/room.png)
